@@ -28,8 +28,8 @@ dependencies:
   - contextlib2==0.5.4
   - cryptography==1.5.3
   - easydict==1.6
-  - elasticsearch==2.4.0
-  - elasticsearch-dsl==2.1.0
+  - elasticsearch>=6.0.0,<7.0.0
+  - elasticsearch-dsl>=6.0.0,<7.0.0
   - grequests==0.2.0
   - idna==2.1
   - ndg-httpsclient==0.4.2
