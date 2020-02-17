@@ -40,4 +40,4 @@ dependencies:
   - raven==5.27.1
   - requests-cache==0.4.12
   - urllib3==1.18
-
+  - wrapt==1.12.0
