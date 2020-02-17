@@ -1,4 +1,4 @@
-name: glados-es
+name: chembl_ws_2_es
 dependencies:
 - anaconda-client=1.5.1=py35_0
 - clyent=1.2.2=py35_0
