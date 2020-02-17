@@ -1,0 +1,43 @@
+name: glados-es
+dependencies:
+- anaconda-client=1.5.1=py35_0
+- clyent=1.2.2=py35_0
+- gevent=1.1.2=py35_0
+- greenlet=0.4.10=py35_0
+- openssl=1.0.2j=0
+- pip=9.0.1=py35_0
+- python=3.5.2=0
+- python-dateutil=2.5.3=py35_0
+- pytz=2016.7=py35_0
+- pyyaml=3.12=py35_0
+- readline=6.2=2
+- requests=2.11.1=py35_0
+- setuptools=27.2.0=py35_0
+- six=1.10.0=py35_0
+- sqlite=3.13.0=0
+- tk=8.5.18=0
+- wheel=0.29.0=py35_0
+- xz=5.2.2=0
+- yaml=0.1.6=0
+- zlib=1.2.8=3
+- pip:
+  - coffeescript
+  - blessings==1.6
+  - cffi==1.8.3
+  - chembl-webresource-client==0.8.51
+  - contextlib2==0.5.4
+  - cryptography==1.5.3
+  - easydict==1.6
+  - elasticsearch==2.4.0
+  - elasticsearch-dsl==2.1.0
+  - grequests==0.2.0
+  - idna==2.1
+  - ndg-httpsclient==0.4.2
+  - progressbar2==3.10.1
+  - pyasn1==0.1.9
+  - pycparser==2.14
+  - python-utils==2.0.0
+  - raven==5.27.1
+  - requests-cache==0.4.12
+  - urllib3==1.18
+
