@@ -25,11 +25,6 @@ mappings = \
                 # EXAMPLES:
                 # 'Eudicotyledons' , 'Acinetobacter' , 'Saccharomycetales' , 'Leishmania' , 'Trypanosoma' , 'Primates' ,
                 #  'Cryptosporidium' , 'Thysanoptera' , 'Arachnida' , 'Eimeria'
-                'l4_synonyms': DefaultMappings.LOWER_CASE_KEYWORD,
-                # EXAMPLES:
-                # 'Staphylococcus aureus VRS3' , 'Micrococcus caseolyticus' , 'Clostridium sp.' , 'Gloeosporium' , 'Plas
-                # modium falciparum HB3W' , 'Plasmodium falciparum D10' , 'NIPH 519' , 'Enterovirus C' , 'Bradyrhizobium
-                #  sp. mas48' , 'Ruminococcus flavefaciens'
                 'oc_id': DefaultMappings.ID,
                 # EXAMPLES:
                 # '3318' , '3' , '4' , '5' , '6' , '7' , '8' , '3324' , '3325' , '14'
