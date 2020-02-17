@@ -162,7 +162,7 @@ def generate_mappings_for_resources(resources=None):
             continue
         index_alias = get_alias_name(res_i)
         index_name = get_index_name(res_i)
-        module_name = es_mappings_skeleton_generator.MODULE_PATTERN.format(index_alias)
+        module_name = es_mappings_skeleton_generator.MODULE_PATTERN.format(index_alias).replace('.py', '')
         es_mappings_skeleton_generator.generate_mapping_skeleton(index_name)
         imports += 'import glados.es.ws2es.mappings.{0} as {0}\n'.format(module_name)
         descriptions += '        \'{0}\': {1},\n'.format(res_i, module_name)
