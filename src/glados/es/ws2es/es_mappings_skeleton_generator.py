@@ -180,7 +180,6 @@ def compare_mappings(resources=None):
     import glados.es.ws2es.mappings_skeletons.es_chembl_source_mapping as es_chembl_source_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_target_mapping as es_chembl_target_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_target_component_mapping as es_chembl_target_component_mapping
-    import glados.es.ws2es.mappings_skeletons.es_chembl_target_prediction_mapping as es_chembl_target_prediction_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_target_relation_mapping as es_chembl_target_relation_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_tissue_mapping as es_chembl_tissue_mapping
 
@@ -210,7 +209,6 @@ def compare_mappings(resources=None):
         'source': es_chembl_source_mapping,
         'target': es_chembl_target_mapping,
         'target_component': es_chembl_target_component_mapping,
-        'target_prediction': es_chembl_target_prediction_mapping,
         'target_relation': es_chembl_target_relation_mapping,
         'tissue': es_chembl_tissue_mapping,
     }
@@ -267,6 +265,7 @@ def compare_mappings(resources=None):
         if new_mapping is None:
             print('NO MAPPING FOUND FOR! {0}'.format(resource))
             continue
+
         mismatches = compare_old_and_new_mappings_recursive(old_mapping, new_mapping)
         if mismatches:
             print(resource)
