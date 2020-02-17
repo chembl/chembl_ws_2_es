@@ -214,6 +214,10 @@ molecule_structures = {
         # , 'XJIREEHRSUICRY-DEOSSOPVSA-N' , 'IBTISPLPBBHVSU-UVOOVGFISA-N' , 'DVKIICSQTRTPIE-BOPFTXTBSA-N
         # ' , 'ISIPQAHMLLFSFR-XNTDXEJSSA-N' , 'BHYLGMFIZXXPJS-UHFFFAOYSA-N' , 'JEROPZADNPCENF-UHFFFAOYSA
         # -N' , 'KDNMVHRYHFFDMT-UHFFFAOYSA-N'
+
+        'molfile': DefaultMappings.NO_INDEX_TEXT_NO_OFFSETS,
+        # EXAMPLES:
+        # .mol and .sdf files with \n embedded
     }
 }
 
