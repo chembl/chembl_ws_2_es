@@ -54,6 +54,10 @@ mappings = \
                         # 'Neoplasms' , 'Fractional Excretion Methods' , 'General Hypothermia' , 'General Androgen Activ
                         # ity' , 'Experimental Melanoma' , 'Experimental Melanoma' , 'Experimental Melanoma' , 'Experime
                         # ntal Melanoma' , 'Experimental Melanoma' , 'Experimental Melanoma'
+                        'source': DefaultMappings.LOWER_CASE_KEYWORD,
+                        # EXAMPLES:
+                        # 'phenotype' , 'phenotype' , 'phenotype' , 'phenotype' , 'phenotype' , 'Hock_2016' , 'phenotype
+                        # ' , 'phenotype' , 'phenotype' , 'phenotype'
                     }
                 },
                 'assay_cell_type': DefaultMappings.KEYWORD,
