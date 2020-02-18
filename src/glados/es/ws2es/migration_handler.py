@@ -89,6 +89,8 @@ def main():
                         action="store_true",)
     args = parser.parse_args()
 
+    es_util.bulk_submitter.start()
+
     if args.create_alias:
         resources_description.ResourceDescription.create_all_aliases(args.es_host, args.es_port)
         sys.exit(0)
