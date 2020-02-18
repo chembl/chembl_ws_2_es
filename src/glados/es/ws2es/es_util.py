@@ -326,6 +326,7 @@ class ESBulkSubmitter(Thread):
 
 
 bulk_submitter = ESBulkSubmitter()
+# START ONLY WHEN REQUIRED
 # bulk_submitter.start()
 
 
