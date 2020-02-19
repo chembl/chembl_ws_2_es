@@ -88,8 +88,7 @@ def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=
             'settings': {
                 'index.mapping.total_fields.limit': 3000,
                 'number_of_shards': shards,
-                'number_of_replicas': replicas,
-                'similarity': DefaultMappings.NAMES_SIMILARITY
+                'number_of_replicas': replicas
             }
         }
     if analysis:
@@ -384,14 +383,15 @@ def run_coffee_query(coffee_query_file, index, doc_type, replacements_dict=None)
         results.append(hit_i['_source'])
     return results
 
+
 shards_guide = {
         0: 1,
         10**5: 2,
-        10**6: 3,
-        10**7: 5,
-        10**8: 8,
-        10**9: 13,
-        10**10: 21
+        10**6: 4,
+        10**7: 8,
+        10**8: 16,
+        10**9: 32,
+        10**10: 64
     }
 
 
@@ -470,37 +470,6 @@ def simplify_es_properties(res_name, mappings_dict: dict):
 
 
 class DefaultMappings(object):
-    # Similarity
-    NAMES_SIMILARITY = {
-        'ngram_names_similarity': {
-            'type': 'LMJelinekMercer',
-            'lambda': 0.1
-        }
-    }
-
-    # common custom analysis
-    COMMON_TOKENIZERS = SummableDict(
-        name_ngram_tokenizer=
-        {
-            'type': 'ngram',
-            'min_gram': 3,
-            'max_gram': 8,
-            'token_chars': [
-              'letter',
-              'digit'
-            ]
-        },
-        b_seq_ngram_tokenizer=
-        {
-            'type': 'ngram',
-            'min_gram': 1,
-            'max_gram': 3,
-            'token_chars': [
-              'letter',
-              'digit'
-            ]
-        }
-    )
 
     COMMON_CHAR_FILTERS = SummableDict(
         alphanumeric_and_space_char_filter=
@@ -568,11 +537,6 @@ class DefaultMappings(object):
                         'tokenizer': 'keyword',
                         'filter': 'lowercase',
                         'char_filter': 'alphanumeric_and_space_char_filter'
-                    }, lowercase_ngrams={
-                        'type': 'custom',
-                        'tokenizer': 'name_ngram_tokenizer',
-                        'filter': 'lowercase',
-                        'char_filter': 'alphanumeric_and_space_char_filter'
                     },
                     whitespace_alphanumeric_lowercase_std_analyzer={
                         'type': 'custom',
@@ -583,7 +547,6 @@ class DefaultMappings(object):
 
     COMMON_ANALYSIS = SummableDict(
         char_filter=COMMON_CHAR_FILTERS,
-        tokenizer=COMMON_TOKENIZERS,
         analyzer=COMMON_ANALYZERS,
         filter=COMMON_FILTERS
     )
@@ -648,10 +611,7 @@ class DefaultMappings(object):
         'ws_analyzed': __TEXT_TYPE + __DO_INDEX + {'analyzer': 'whitespace_alphanumeric_lowercase_std_analyzer'}
         })
     __ALT_NAME_ANALYZED_FIELD = SummableDict(fields={
-        'alt_name_analyzed': __TEXT_TYPE + __DO_INDEX + {
-            'analyzer': 'lowercase_ngrams',
-            'similarity': 'ngram_names_similarity'
-        }
+        'alt_name_analyzed': __TEXT_TYPE + __DO_INDEX + {'analyzer': 'greek_syn_eng_analyzer'}
         })
     __PREF_NAME_ANALYZED_FIELD = SummableDict(fields={
         'pref_name_analyzed': __ALT_NAME_ANALYZED_FIELD['fields']['alt_name_analyzed']
