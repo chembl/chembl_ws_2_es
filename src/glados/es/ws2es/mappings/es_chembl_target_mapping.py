@@ -3,7 +3,7 @@ from glados.es.ws2es.es_util import DefaultMappings
 
 # Shards size - can be overridden from the default calculated value here
 # Target relations with compounds make them have big documents
-# shards = 5
+shards = 2
 replicas = 0
 
 analysis = DefaultMappings.COMMON_ANALYSIS
