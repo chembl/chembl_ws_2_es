@@ -107,7 +107,6 @@ class CompoundFamilyNode:
         is_usan_src = self.compound_data['is_usan_src']
         is_db_drug = self.compound_data['is_db_drug']
         max_phase = self.compound_data['max_phase']
-        target_predictions = self.compound_data['target_predictions']
 
         shared_family_data = [{
             'chembl_id': self.chembl_id,
@@ -121,11 +120,9 @@ class CompoundFamilyNode:
             is_drug_src |= node.compound_data['is_drug_src']
             is_usan_src |= node.compound_data['is_usan_src']
             max_phase = max(max_phase, node.compound_data['max_phase'])
-            target_predictions_i = node.compound_data['target_predictions'] + target_predictions
             dn_data_i, sf_data_i, nd_i = node.get_denormalization_dict()
             children_data.append(nd_i)
             put_js_path_in_dict(dn_data_i, node.chembl_id+'._metadata.hierarchy.parent', node_data)
-            put_js_path_in_dict(dn_data_i, node.chembl_id+'._metadata.target_predictions', target_predictions_i)
             dn_dict += dn_data_i
             shared_family_data += sf_data_i
         # Warning checks!
@@ -193,7 +190,6 @@ class CompoundFamilyNode:
             'src_data': src_data,
             'inchi_key': get_js_path_from_dict(doc, 'molecule_structures.standard_inchi_key'),
             'synonyms': get_js_path_from_dict(doc, 'molecule_synonyms'),
-            'target_predictions': get_js_path_from_dict(doc, '_metadata.target_predictions', default=[]),
             'max_phase': max_phase
         }
 

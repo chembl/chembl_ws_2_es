@@ -19,7 +19,6 @@ from glados.es.ws2es.denormalization.organism_handler import OrganismDenormaliza
 from glados.es.ws2es.denormalization.protein_class_handler import ProteinClassDenormalizationHandler
 from glados.es.ws2es.denormalization.source_handler import SourceDenormalizationHandler
 from glados.es.ws2es.denormalization.target_component_handler import TargetComponentDenormalizationHandler
-from glados.es.ws2es.denormalization.target_prediction_handler import TargetPredictionDenormalizationHandler
 from glados.es.ws2es.denormalization.target_handler import TargetDenormalizationHandler
 from glados.es.ws2es.denormalization.tissue_handler import TissueDenormalizationHandler
 
@@ -47,12 +46,6 @@ def denormalize_all_but_activity():
 
     target_pre_dh = TargetDenormalizationHandler()
     target_pre_dh.scan_data_from_es()
-
-    target_prediction_dh = TargetPredictionDenormalizationHandler(target_dh=target_pre_dh)
-    target_prediction_dh.scan_data_from_es()
-    target_prediction_dh.save_denormalization()
-    # Scan again to load the target pref name for other denormalizers
-    target_prediction_dh.scan_data_from_es()
 
     protein_class_dh = ProteinClassDenormalizationHandler()
     protein_class_dh.scan_data_from_es()
@@ -85,7 +78,7 @@ def denormalize_all_but_activity():
     # assay_dh.save_denormalization()
 
     compound_dh = CompoundDenormalizationHandler(
-        complete_x_refs=True, atc_dh=atc_class_dh, tp_dh=target_prediction_dh
+        complete_x_refs=True, atc_dh=atc_class_dh
     )
     compound_dh.scan_data_from_es()
     compound_dh.save_denormalization()
@@ -102,7 +95,7 @@ def denormalize_all_but_activity():
     metabolism_dh.scan_data_from_es()
     metabolism_dh.save_denormalization()
 
-    target_dh = TargetDenormalizationHandler(complete_x_refs=True, organism_dh=organism_dh, tp_dh=target_prediction_dh)
+    target_dh = TargetDenormalizationHandler(complete_x_refs=True, organism_dh=organism_dh)
     target_dh.scan_data_from_es()
     target_dh.save_denormalization()
 
