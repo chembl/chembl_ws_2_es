@@ -45,7 +45,7 @@ def create_res_idx(res_name, num_docs):
     idx_desc = es_resources_desc.resources_2_es_mapping.get(res_name, None)
     idx_name = get_index_name(res_name)
     n_shards = getattr(idx_desc, 'shards', es_util.num_shards_by_num_rows(num_docs))
-    n_replicas = getattr(idx_desc, 'replicas', 1)
+    n_replicas = getattr(idx_desc, 'replicas', 0)
     res_analysis = getattr(idx_desc, 'analysis', None)
     res_mappings = getattr(idx_desc, 'mappings', None)
     es_util.create_idx(
