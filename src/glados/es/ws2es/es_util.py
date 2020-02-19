@@ -178,7 +178,7 @@ class ESBulkSubmitter(Thread):
         super().__init__()
         self.index_actions_queue = {}
         self.index_actions_queue_stats = {}
-        self.submission_pool = SharedThreadPool(max_workers=16, label='ES Bulk Submitter')
+        self.submission_pool = SharedThreadPool(max_workers=32, label='ES Bulk Submitter')
         self.error_id_counter = 0
         self.submission_pb = None
         self.submission_count = 0
