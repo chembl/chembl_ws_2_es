@@ -230,6 +230,7 @@ def main():
     args = parser.parse_args()
 
     es_util.setup_connection(args.es_host, args.es_port)
+    es_util.bulk_submitter.start()
 
     signal_handler.add_termination_handler(es_util.stop_scan)
 
