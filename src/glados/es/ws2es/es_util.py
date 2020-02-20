@@ -138,7 +138,7 @@ def scan_index(es_index, on_doc=None, query=None):
     scan_query = SummableDict()
     if query:
         scan_query += query
-    scanner = helpers.scan(es_conn, index=es_index, scroll='15m', query=query, size=1000)
+    scanner = helpers.scan(es_conn, index=es_index, scroll='20m', query=query, size=500)
     count = 0
     p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
     for doc_n in scanner:
@@ -178,7 +178,7 @@ class ESBulkSubmitter(Thread):
         super().__init__()
         self.index_actions_queue = {}
         self.index_actions_queue_stats = {}
-        self.submission_pool = SharedThreadPool(max_workers=32, label='ES Bulk Submitter')
+        self.submission_pool = SharedThreadPool(max_workers=8, label='ES Bulk Submitter')
         self.error_id_counter = 0
         self.submission_pb = None
         self.submission_count = 0
