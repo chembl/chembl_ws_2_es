@@ -36,7 +36,6 @@ def denormalize_all_but_activity():
     organism_dh = OrganismDenormalizationHandler()
     organism_dh.scan_data_from_es()
     organism_dh.save_denormalization()
-    organism_dh.complete_data_from_assay_and_target()
 
     atc_class_dh = ATCClassDenormalizationHandler()
     atc_class_dh.scan_data_from_es()
