@@ -185,7 +185,7 @@ class ESBulkSubmitter(Thread):
         self.submission_completed_count = 0
         self.stop_submission = False
         self.submission_pb = None
-        self.max_docs_per_request = 1000
+        self.max_docs_per_request = 500
         self.complete_futures = False
 
     def stop_submitter(self, signal, frame):
