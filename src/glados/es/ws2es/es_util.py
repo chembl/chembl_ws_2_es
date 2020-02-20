@@ -138,7 +138,7 @@ def scan_index(es_index, on_doc=None, query=None):
     scan_query = SummableDict()
     if query:
         scan_query += query
-    scanner = helpers.scan(es_conn, index=es_index, scroll='20m', query=query, size=500)
+    scanner = helpers.scan(es_conn, index=es_index, scroll='10m', query=query, size=500)
     count = 0
     p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
     for doc_n in scanner:
