@@ -5,7 +5,6 @@ from glados.es.ws2es.denormalization.atc_class_handler import ATCClassDenormaliz
 import glados.es.ws2es.denormalization.unichem_helper as unichem_helper
 import glados.es.ws2es.denormalization.xrefs_helper as xrefs_helper
 from glados.es.ws2es.denormalization.compound_family_helper import CompoundFamiliesDir, CompoundFamilyNode
-from glados.es.ws2es.denormalization.mol_file_helper import get_sdf_by_chembl_id
 import re
 import sys
 
@@ -158,8 +157,7 @@ class CompoundDenormalizationHandler(DenormalizationHandler):
                             'properties': {
                                 'availability_type_label': DefaultMappings.KEYWORD,
                                 'chirality_label': DefaultMappings.KEYWORD,
-                                'image_file': DefaultMappings.KEYWORD,
-                                'sdf_data': DefaultMappings.NO_INDEX_TEXT_NO_OFFSETS
+                                'image_file': DefaultMappings.KEYWORD
                             }
                         }
                     }
@@ -216,9 +214,6 @@ class CompoundDenormalizationHandler(DenormalizationHandler):
         non_structure_image = self.get_non_structure_image_type(doc)
         if non_structure_image:
             compound_generated['image_file'] = non_structure_image
-
-        sdf_data = get_sdf_by_chembl_id(doc['molecule_chembl_id'])
-        compound_generated['sdf_data'] = sdf_data
 
         update_doc_md['compound_generated'] = compound_generated
 

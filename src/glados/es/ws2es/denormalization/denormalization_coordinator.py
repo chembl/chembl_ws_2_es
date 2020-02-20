@@ -1,7 +1,6 @@
 import argparse
 import glados.es.ws2es.es_util as es_util
 import glados.es.ws2es.signal_handler as signal_handler
-import glados.es.ws2es.denormalization.mol_file_helper as mol_file_helper
 from glados.es.ws2es.denormalization.activity_handler import ActivityDenormalizationHandler
 from glados.es.ws2es.denormalization.atc_class_handler import ATCClassDenormalizationHandler
 from glados.es.ws2es.denormalization.assay_handler import AssayDenormalizationHandler
@@ -30,7 +29,6 @@ __author__ = 'jfmosquera@ebi.ac.uk'
 # ----------------------------------------------------------------------------------------------------------------------
 
 def denormalize_all_but_activity():
-    mol_file_helper.pre_cache_sdf_files()
     source_dh = SourceDenormalizationHandler()
     source_dh.scan_data_from_es()
     source_dh.save_denormalization()
