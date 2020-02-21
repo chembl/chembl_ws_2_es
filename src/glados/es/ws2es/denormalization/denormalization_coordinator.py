@@ -224,16 +224,24 @@ def main():
 
     signal_handler.add_termination_handler(es_util.stop_scan)
 
+    dn_type = None
     if args.denormalize_compound_hierarchy:
         denormalize_compound_hierarchy()
+        dn_type = 'COMPOUND-HIERARCHY'
     elif args.denormalize_activity:
         denormalize_activity()
+        dn_type = 'ACTIVITY'
     elif args.denormalize_unichem:
         denormalize_unichem()
+        dn_type = 'UNICHEM'
     elif args.denormalize_mechanism_and_drug_indication:
         denormalize_mechanism_and_drug_indication()
+        dn_type = 'MECHANISMS-AND-DRUG-INDICATION'
     else:
         denormalize_all_but_activity()
+        dn_type = 'ALL-NO-ACTIVITY'
+    end_msg = 'DENORMALIZATION FOR "{}" FINISHED'.format(dn_type)
+    print(end_msg)
 
 
 if __name__ == "__main__":
