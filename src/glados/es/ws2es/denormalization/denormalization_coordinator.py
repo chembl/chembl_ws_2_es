@@ -1,4 +1,5 @@
 import argparse
+import sys
 import glados.es.ws2es.es_util as es_util
 import glados.es.ws2es.signal_handler as signal_handler
 from glados.es.ws2es.denormalization.activity_handler import ActivityDenormalizationHandler
@@ -241,7 +242,7 @@ def main():
         denormalize_all_but_activity()
         dn_type = 'ALL-NO-ACTIVITY'
     end_msg = 'DENORMALIZATION FOR "{}" FINISHED'.format(dn_type)
-    print(end_msg)
+    print(end_msg, file=sys.stderr)
 
 
 if __name__ == "__main__":
