@@ -1,7 +1,7 @@
 import os
 import re
-from glados.ws2es.resources_description import RESOURCES_BY_RES_NAME
-import glados.ws2es.es_util as es_util
+from glados.es.ws2es.resources_description import RESOURCES_BY_RES_NAME, RESOURCES_BY_IDX_NAME
+import glados.es.ws2es.es_util as es_util
 
 
 PROPERTY_REGEX = re.compile('[0-9A-Za-z_]*')
@@ -97,8 +97,8 @@ def abbreviate_label(std_label):
     return ' '.join(abbreviated_words)
 
 
-def get_label_from_property_name(es_doc_type, prop_name, idx_alias):
-    entity_name = idx_alias.replace('chembl_', '')
+def get_label_from_property_name(es_doc_type, prop_name, idx_name):
+    entity_name = RESOURCES_BY_IDX_NAME[idx_name].res_name
     prop_parts = prop_name.split('.')
     label = ''
     prop_label_id = 'glados_es_gs__' + entity_name + '__'
@@ -117,7 +117,7 @@ def get_label_from_property_name(es_doc_type, prop_name, idx_alias):
     return prop_label_id, label, label_mini
 
 
-def get_js_mapping(prop_name, es_util_mapping, level, es_doc_type, idx_alias):
+def get_js_mapping(prop_name, es_util_mapping, level, es_doc_type, idx_name):
     global PROPERTY_NAME_IDS
     mapping_type = es_util_mapping.get('type', None)
     es_aggregatable = 'true' if mapping_type in es_util.DefaultMappings.AGGREGATABLE_TYPES else 'false'
@@ -132,7 +132,7 @@ def get_js_mapping(prop_name, es_util_mapping, level, es_doc_type, idx_alias):
         js_type = "String"
 
     property_name = re.sub(r'\.[0-9]+$', '', prop_name)
-    prop_label_id, label, label_mini = get_label_from_property_name(es_doc_type, property_name, idx_alias)
+    prop_label_id, label, label_mini = get_label_from_property_name(es_doc_type, property_name, idx_name)
     PROPERTY_NAME_IDS[prop_label_id + '__label'] = label
     PROPERTY_NAME_IDS[prop_label_id + '__label__mini'] = label_mini
 
@@ -149,7 +149,7 @@ def get_js_mapping(prop_name, es_util_mapping, level, es_doc_type, idx_alias):
     return js_mapping
 
 
-def summarize_mapping_definition(es_doc_type, mapping, parent_property=None, level=0, idx_alias=''):
+def summarize_mapping_definition(es_doc_type, mapping, parent_property=None, level=0, idx_name=''):
     properties_summary = []
     for es_property in sorted(mapping.keys()):
         next_parent = get_complete_property(es_property, parent_property)
@@ -165,7 +165,7 @@ def summarize_mapping_definition(es_doc_type, mapping, parent_property=None, lev
                 es_property_mapping['properties'],
                 next_parent,
                 level=level,
-                idx_alias=idx_alias
+                idx_name=idx_name
             )
         property_name = next_parent
         formatted_prop_name = next_parent
@@ -174,16 +174,16 @@ def summarize_mapping_definition(es_doc_type, mapping, parent_property=None, lev
         properties_summary.append(
             '{0} : {1}'.format(
                 formatted_prop_name,
-                get_js_mapping(property_name, es_property_mapping, level + 2, es_doc_type, idx_alias)
+                get_js_mapping(property_name, es_property_mapping, level + 2, es_doc_type, idx_name)
             )
         )
     return properties_summary
 
 
-def summarize_mappings_types(mappings, glados_schema_file, level=0, idx_alias=''):
+def summarize_mappings_types(mappings, glados_schema_file, level=0, idx_name=''):
     for es_doc_type in sorted(mappings.keys()):
         props_summary = summarize_mapping_definition(es_doc_type, mappings[es_doc_type]['properties'], level=level,
-                                                     idx_alias=idx_alias)
+                                                     idx_name=idx_name)
         for prop in props_summary:
             print(" "*level+prop, file=glados_schema_file)
 
@@ -215,12 +215,12 @@ def generate_glados_schema_and_po_files():
         print(' '*2+'GLaDOS_es_GeneratedSchema:', file=glados_schema_file)
         for resource in sorted(resources_to_export):
             # noinspection PyTypeChecker
-            print(' '*4+RESOURCES_BY_RES_NAME[resource].idx_alias+':', file=glados_schema_file)
+            print(' '*4+RESOURCES_BY_RES_NAME[resource].idx_name+':', file=glados_schema_file)
             summarize_mappings_types(
-                es_util.get_index_mapping(RESOURCES_BY_RES_NAME[resource].idx_alias),
+                es_util.get_index_mapping(RESOURCES_BY_RES_NAME[resource].idx_name),
                 glados_schema_file,
                 level=6,
-                idx_alias=RESOURCES_BY_RES_NAME[resource].idx_alias
+                idx_name=RESOURCES_BY_RES_NAME[resource].idx_name
             )
         print(' . . . DONE!')
     print('GENERATING PO FILE . . . ')
@@ -230,3 +230,8 @@ def generate_glados_schema_and_po_files():
             # noinspection PyTypeChecker
             print('msgid "{0}"\nmsgstr "{1}"\n\n'.format(label_id, PROPERTY_NAME_IDS[label_id]), file=glados_po_file)
         print(' . . . DONE!')
+
+
+if __name__ == '__main__':
+    es_util.setup_connection('wp-p2m-50.ebi.ac.uk', 9200)
+    generate_glados_schema_and_po_files()
