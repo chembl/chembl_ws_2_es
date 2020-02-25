@@ -5,6 +5,15 @@ import glados.es.ws2es.mappings.es_chembl_molecule_n_drug_shared_mapping as mole
 from glados.es.ws2es.progress_bar_handler import get_new_progressbar
 
 
+def get_inchi_connectivity_layer(inchi_key_str):
+    if isinstance(inchi_key_str, str) and len(inchi_key_str.strip()) > 0:
+        if inchi_key_str.find('-') == -1:
+            print('WARNING: {0} is not a valid inchi key.'.format(inchi_key_str), file=sys.stderr)
+            return None
+        return inchi_key_str.split('-')[0]
+    return None
+
+
 class CompoundFamilyNode:
 
     DRUG_SOURCES = {9, 12, 36, 41, 42}
@@ -35,6 +44,14 @@ class CompoundFamilyNode:
         )
         put_js_path_in_dict(
             mappings_dict, '._metadata.hierarchy.is_usan', DefaultMappings.BOOLEAN, es_properties_style=True
+        )
+        put_js_path_in_dict(
+            mappings_dict, '._metadata.hierarchy.all_family.inchi', DefaultMappings.KEYWORD,
+            es_properties_style=True
+        )
+        put_js_path_in_dict(
+            mappings_dict, '._metadata.hierarchy.all_family.inchi_connectivity_layer', DefaultMappings.KEYWORD,
+            es_properties_style=True
         )
         put_js_path_in_dict(
             mappings_dict, '._metadata.hierarchy.all_family.inchi_key', DefaultMappings.KEYWORD,
@@ -110,6 +127,8 @@ class CompoundFamilyNode:
 
         shared_family_data = [{
             'chembl_id': self.chembl_id,
+            'inchi': self.compound_data['inchi'],
+            'inchi_connectivity_layer': get_inchi_connectivity_layer(self.compound_data['inchi_key']),
             'inchi_key': self.compound_data['inchi_key']
         }]
 
@@ -188,9 +207,10 @@ class CompoundFamilyNode:
             'is_usan_src': is_usan_src,
             'is_db_drug': is_db_drug,
             'src_data': src_data,
+            'inchi': get_js_path_from_dict(doc, 'molecule_structures.standard_inchi'),
             'inchi_key': get_js_path_from_dict(doc, 'molecule_structures.standard_inchi_key'),
             'synonyms': get_js_path_from_dict(doc, 'molecule_synonyms'),
-            'max_phase': max_phase
+            'max_phase': max_phase,
         }
 
     def get_family_parent_id(self):
