@@ -1,5 +1,7 @@
 import argparse
 import sys
+import time
+from datetime import datetime, timedelta
 import glados.es.ws2es.es_util as es_util
 import glados.es.ws2es.signal_handler as signal_handler
 from glados.es.ws2es.denormalization.activity_handler import ActivityDenormalizationHandler
@@ -193,6 +195,7 @@ def denormalize_mechanism_and_drug_indication():
 
 
 def main():
+    t_ini = time.time()
     parser = argparse.ArgumentParser(description="Denormalize ChEMBL data existing in Elastic Search")
     parser.add_argument("--host",
                         dest="es_host",
@@ -242,7 +245,17 @@ def main():
         denormalize_all_but_activity()
         dn_type = 'ALL-NO-ACTIVITY'
     end_msg = 'DENORMALIZATION FOR "{}" FINISHED'.format(dn_type)
+
+    total_time = time.time() - t_ini
+    sec = timedelta(seconds=total_time)
+    d = datetime(1, 1, 1) + sec
+
     print(end_msg, file=sys.stderr)
+    print(
+        "Finished in: {0} Day(s), {1} Hour(s), {2} Minute(s) and {3} Second(s)"
+        .format(d.day-1, d.hour, d.minute, d.second),
+        file=sys.stderr
+    )
 
 
 if __name__ == "__main__":
