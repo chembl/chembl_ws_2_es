@@ -40,6 +40,10 @@ class CompoundFamilyNode:
             'src_short_name': DefaultMappings.KEYWORD
         }
         put_js_path_in_dict(
+            mappings_dict, '._metadata.hierarchy.family_inchi_connectivity_layer',
+            DefaultMappings.KEYWORD, es_properties_style=True
+        )
+        put_js_path_in_dict(
             mappings_dict, '._metadata.hierarchy.is_approved_drug', DefaultMappings.BOOLEAN, es_properties_style=True
         )
         put_js_path_in_dict(
@@ -168,8 +172,11 @@ class CompoundFamilyNode:
 
         # If root collect the shared family data
         if self.is_family_parent():
+            family_inchi_connectivity_layer = get_inchi_connectivity_layer(self.compound_data['inchi_key'])
             for dn_data in dn_dict.values():
                 put_js_path_in_dict(dn_data, '_metadata.hierarchy.all_family', shared_family_data)
+                put_js_path_in_dict(dn_data, '_metadata.hierarchy.family_inchi_connectivity_layer',
+                                    family_inchi_connectivity_layer)
         return dn_dict, shared_family_data, node_data
 
     def collect_str_sub_tree(self, cur_depth=0):
