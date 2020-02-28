@@ -43,9 +43,9 @@ class DocumentDenormalizationHandler(DenormalizationHandler):
     def get_doc_for_complete_data(self, doc: dict):
         update_doc_md = {}
 
-        src_ids = self.assay_dh.document_2_src_id.get(doc['document_chembl_id'], [])
+        src_ids = self.assay_dh.document_2_src_id.get(doc['document_chembl_id'], set())
         if 'src_id' in doc:
-            src_ids.append(doc['src_id'])
+            src_ids.add(doc['src_id'])
         sources = []
         for src_id_i in src_ids:
             if self.source_dh and src_id_i in self.source_dh.sources_by_id:
