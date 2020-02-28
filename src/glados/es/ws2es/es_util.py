@@ -329,7 +329,7 @@ bulk_submitter = ESBulkSubmitter()
 # bulk_submitter.start()
 
 
-def index_doc_bulk(idx_name, doc_id, dict_doc, logger=None):
+def index_doc_bulk(idx_name, doc_id, dict_doc):
     action = {
         '_index': idx_name,
         '_id': doc_id,
