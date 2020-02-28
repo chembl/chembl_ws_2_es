@@ -339,7 +339,7 @@ def index_doc_bulk(idx_name, doc_id, dict_doc):
     bulk_submitter.add_to_queue(idx_name, action)
 
 
-def update_doc_bulk(idx_name, doc_id, script=None, doc=None):
+def update_doc_bulk(idx_name, doc_id, script=None, doc=None, upsert=False):
     action = {
         '_op_type': 'update',
         '_index': idx_name,
@@ -348,8 +348,13 @@ def update_doc_bulk(idx_name, doc_id, script=None, doc=None):
     }
     if script is not None:
         action['script'] = script
+        if upsert:
+            action['upsert'] = {}
     if doc is not None:
         action['doc'] = doc
+        if upsert:
+            action['doc_as_upsert'] = True
+
     bulk_submitter.add_to_queue(idx_name, action)
 
 
