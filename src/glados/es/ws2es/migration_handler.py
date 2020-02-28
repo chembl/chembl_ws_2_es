@@ -1,5 +1,7 @@
 import argparse
 import sys
+import time
+from datetime import datetime, timedelta
 import glados.es.ws2es.es_util as es_util
 from glados.es.ws2es.resource_iterator import ResourceIterator, SharedThreadPool
 import glados.es.ws2es.resources_description as resources_description
@@ -49,6 +51,7 @@ def query_yes_no(question, default="yes"):
 
 
 def main():
+    t_ini = time.time()
     parser = argparse.ArgumentParser(description="Migrate ChEMBL data from the WebServices to Elastic Search")
     parser.add_argument("--delete-indexes",
                         dest="delete_indexes",
@@ -155,6 +158,15 @@ def main():
                 migration_common.MIG_TOTAL[res_i])
             )
     glados.es.ws2es.progress_bar_handler.write_after_progress_bars()
+
+    total_time = time.time() - t_ini
+    sec = timedelta(seconds=total_time)
+    d = datetime(1, 1, 1) + sec
+
+    migration_common.MIG_LOG.info(
+        "Finished in: {0} Day(s), {1} Hour(s), {2} Minute(s) and {3} Second(s)"
+        .format(d.day - 1, d.hour, d.minute, d.second)
+    )
 
 
 if __name__ == "__main__":
