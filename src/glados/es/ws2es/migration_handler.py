@@ -93,7 +93,6 @@ def main():
 
     es_util.setup_connection(args.es_host, args.es_port)
 
-
     if not es_util.ping():
         print("ERROR: Can't ping the elastic search server.", file=sys.stderr)
         sys.exit(1)
