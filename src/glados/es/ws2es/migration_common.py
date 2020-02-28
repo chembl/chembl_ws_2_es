@@ -141,9 +141,9 @@ def write_res_doc2es_first_id(res_name, res_id_fields, res_doc):
     doc_id = resources_description.RESOURCES_BY_RES_NAME[res_name].get_doc_id(res_doc)
 
     if DELETE_AND_CREATE_INDEXES:
-        es_util.update_doc_bulk(idx_name, doc_id, res_doc)
-    else:
         es_util.index_doc_bulk(idx_name, doc_id, res_doc)
+    else:
+        es_util.update_doc_bulk(idx_name, doc_id, res_doc)
 
 
 def generate_mapping_skeleton_file(res_name):
