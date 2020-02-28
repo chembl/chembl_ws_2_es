@@ -88,8 +88,6 @@ def main():
                         action="store_true",)
     args = parser.parse_args()
 
-    es_util.bulk_submitter.start()
-
     if args.create_alias:
         resources_description.ResourceDescription.create_all_aliases(args.es_host, args.es_port)
         sys.exit(0)
@@ -113,6 +111,8 @@ def main():
         if not query_yes_no("This procedure will delete and create all indexes again in the server.\n"
                             "Do you want to proceed?", default="no"):
             return
+
+    es_util.bulk_submitter.start()
 
     on_start = migration_common.create_res_idx
     on_doc = migration_common.write_res_doc2es_first_id
