@@ -150,7 +150,7 @@ def main():
         if migration_common.MIG_TOTAL[res_i] > 0:
             migration_common.MIG_LOG.info("{0} migrated {1} out of {2} tried out of {3} total".format(
                 res_i,
-                migration_common.MIG_SUCCESS_COUNT[res_i],
+                es_util.get_idx_count(migration_common.get_index_name(res_i)),
                 migration_common.MIG_TRIED_COUNT[res_i],
                 migration_common.MIG_TOTAL[res_i])
             )

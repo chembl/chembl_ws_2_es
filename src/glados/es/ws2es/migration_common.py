@@ -21,7 +21,6 @@ MIG_LOG = migration_logging.get_logger()
 # ----------------------------------------------------------------------------------------------------------------------
 
 MIG_TRIED_COUNT = {res_i: 0 for res_i in resources_description.ALL_WS_RESOURCES_NAMES}
-MIG_SUCCESS_COUNT = {res_i: 0 for res_i in resources_description.ALL_WS_RESOURCES_NAMES}
 MIG_TOTAL = {res_i: 0 for res_i in resources_description.ALL_WS_RESOURCES_NAMES}
 
 DELETE_AND_CREATE_INDEXES = False
@@ -129,7 +128,7 @@ def fill_autocomplete(res_name, res_doc):
 
 
 def write_res_doc2es_first_id(res_name, res_id_fields, res_doc):
-    global MIG_TRIED_COUNT, MIG_SUCCESS_COUNT
+    global MIG_TRIED_COUNT
 
     if res_name in resources_metadata:
         res_doc['_metadata'] = copy.deepcopy(resources_metadata[res_name])
