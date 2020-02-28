@@ -50,16 +50,16 @@ def query_yes_no(question, default="yes"):
 
 def main():
     parser = argparse.ArgumentParser(description="Migrate ChEMBL data from the WebServices to Elastic Search")
+    parser.add_argument("--delete-indexes",
+                        dest="delete_indexes",
+                        help="Delete indexes if they exist already in the elastic cluster.",
+                        action="store_true",)
     parser.add_argument("-A", "--all",
                         dest="migrate_all",
                         help="Migrate all the data in the WebServices, "
                              "if missing defaults to only 1000 records per resource.",
                         action="store_true",)
-    parser.add_argument("--ignore-warning",
-                        dest="ignore_warning",
-                        help="Ignores the initial warning about index deletion.",
-                        action="store_true",)
-    parser.add_argument("-GM", "--generate_mappings",
+    parser.add_argument("--generate-mappings",
                         dest="generate_mappings",
                         help="Generate elastic search mapping skeleton files without migrating",
                         action="store_true",)
@@ -79,13 +79,9 @@ def main():
                         dest="ws_prod_env",
                         help="If included will use the production environment of the WS, if not will default to dev.",
                         action="store_true",)
-    parser.add_argument("-CA", "--create-alias",
+    parser.add_argument("--create-alias",
                         dest="create_alias",
                         help="If included will create alias for the configured resources.",
-                        action="store_true",)
-    parser.add_argument("-UAC",
-                        dest="update_autocomplete_only",
-                        help="If included will only update the auto complete fields.",
                         action="store_true",)
     args = parser.parse_args()
 
@@ -97,7 +93,6 @@ def main():
 
     es_util.setup_connection(args.es_host, args.es_port)
 
-    migration_common.UPDATE_AUTOCOMPLETE_ONLY = args.update_autocomplete_only
 
     if not es_util.ping():
         print("ERROR: Can't ping the elastic search server.", file=sys.stderr)
@@ -111,7 +106,8 @@ def main():
         migration_common.generate_mappings_for_resources(selected_resources)
         return
 
-    if not args.ignore_warning:
+    migration_common.DELETE_AND_CREATE_INDEXES = args.delete_indexes
+    if migration_common.DELETE_AND_CREATE_INDEXES:
         if not query_yes_no("This procedure will delete and create all indexes again in the server.\n"
                             "Do you want to proceed?", default="no"):
             return
