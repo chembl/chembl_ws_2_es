@@ -53,7 +53,7 @@ def query_yes_no(question, default="yes"):
 def main():
     t_ini = time.time()
     parser = argparse.ArgumentParser(description="Migrate ChEMBL data from the WebServices to Elastic Search")
-    parser.add_argument("--delete-indexes",
+    parser.add_argument("--delete_indexes",
                         dest="delete_indexes",
                         help="Delete indexes if they exist already in the elastic cluster.",
                         action="store_true",)
@@ -62,7 +62,7 @@ def main():
                         help="Migrate all the data in the WebServices, "
                              "if missing defaults to only 1000 records per resource.",
                         action="store_true",)
-    parser.add_argument("--generate-mappings",
+    parser.add_argument("--generate_mappings",
                         dest="generate_mappings",
                         help="Generate elastic search mapping skeleton files without migrating",
                         action="store_true",)
@@ -82,7 +82,7 @@ def main():
                         dest="ws_prod_env",
                         help="If included will use the production environment of the WS, if not will default to dev.",
                         action="store_true",)
-    parser.add_argument("--create-alias",
+    parser.add_argument("--create_alias",
                         dest="create_alias",
                         help="If included will create alias for the configured resources.",
                         action="store_true",)

@@ -213,11 +213,11 @@ def main():
                         dest="denormalize_activity",
                         help="If included will denormalize the configured activity related data.",
                         action="store_true",)
-    parser.add_argument("--compound-hierarchy",
+    parser.add_argument("--compound_hierarchy",
                         dest="denormalize_compound_hierarchy",
                         help="If included will denormalize the Compound Hierarchy data.",
                         action="store_true",)
-    parser.add_argument("--mechanism-and-drug-indication",
+    parser.add_argument("--mechanism_and_drug_indication",
                         dest="denormalize_mechanism_and_drug_indication",
                         help="If included will denormalize the Mechanism and Drug Indication data.",
                         action="store_true",)
