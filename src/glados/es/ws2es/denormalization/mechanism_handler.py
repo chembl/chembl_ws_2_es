@@ -118,6 +118,7 @@ class MechanismDenormalizationHandler(DenormalizationHandler):
                 mechanism_comments_set = set()
                 selectivity_comments_set = set()
                 binding_site_comments_set = set()
+                max_phase = 0
                 for mechanism_i in group_mechanisms:
                     if action_type != mechanism_i.get('action_type', None):
                         print('ACTION TYPE SHOULD BE {0} FOR MECHANISM {1}!'.format(action_type, mechanism_i['mec_id'])
@@ -144,6 +145,8 @@ class MechanismDenormalizationHandler(DenormalizationHandler):
 
                     mechanism_refs += mechanism_i.get('mechanism_refs', [])
 
+                    max_phase = max(max_phase, mechanism_i.get('max_phase', 0))
+
                 parent_chembl_id, target_chembl_id, mechanism_of_action = \
                     self.get_mechanism_grouping_id_parts(base_mechanism)
 
@@ -156,6 +159,7 @@ class MechanismDenormalizationHandler(DenormalizationHandler):
                 new_mechanism_doc['mechanism_of_action']['mechanism_comment'] = list(mechanism_comments_set)
                 new_mechanism_doc['mechanism_of_action']['selectivity_comment'] = list(selectivity_comments_set)
                 new_mechanism_doc['mechanism_of_action']['binding_site_comment'] = list(binding_site_comments_set)
+                new_mechanism_doc['mechanism_of_action']['max_phase'] = max_phase
                 doc_id = self.generated_resource.get_doc_id(new_mechanism_doc)
 
                 if len(mechanism_comments_set) > 1:
