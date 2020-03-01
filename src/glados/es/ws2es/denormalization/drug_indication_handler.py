@@ -143,14 +143,12 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
         i = 0
         for group_drug_inds in self.drug_inds_by_grouping_id.values():
             base_drug_ind = group_drug_inds[0]
-            max_phase = 0
             efo_data = {}
             indication_refs = []
+            max_phase_for_ind = 0
             for drug_ind_i in group_drug_inds:
 
-                max_phase_i = drug_ind_i.get('max_phase', 0)
-                if max_phase_i > max_phase:
-                    max_phase = max_phase_i
+                max_phase_for_ind = max(max_phase_for_ind, drug_ind_i.get('max_phase_for_ind', 0))
 
                 efo_id_i = drug_ind_i.get('efo_id', None)
                 if efo_id_i is not None:
@@ -163,7 +161,7 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
             drug_ind_data = SummableDict(**DRUG_INDICATION.get_doc_by_id_from_es(base_drug_ind['drugind_id']))
             drug_ind_data -= ['efo_term', 'efo_id']
             drug_ind_data['efo'] = [{'id': efo_id, 'term': term} for efo_id, term in efo_data.items()]
-            drug_ind_data['max_phase'] = max_phase
+            drug_ind_data['max_phase_for_ind'] = max_phase_for_ind
             drug_ind_data['indication_refs'] = indication_refs
 
             new_mechanism_doc = {
