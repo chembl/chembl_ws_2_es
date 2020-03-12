@@ -120,8 +120,8 @@ def denormalize_activity():
     source_dh.scan_data_from_es()
 
     # required to change the order to be able to load source description
-    assay_dh = AssayDenormalizationHandler()
-    assay_dh.scan_data_from_es(source_dh=source_dh)
+    assay_dh = AssayDenormalizationHandler(source_dh=source_dh)
+    assay_dh.scan_data_from_es()
 
     compound_dh = CompoundDenormalizationHandler()
     compound_dh.scan_data_from_es()
@@ -141,12 +141,16 @@ def denormalize_activity():
     compound_record_dh = CompoundRecordDenormalizationHandler()
     compound_record_dh.scan_data_from_es()
 
+    document_dh = DocumentDenormalizationHandler()
+    document_dh.scan_data_from_es()
+
     activity_dh = ActivityDenormalizationHandler(
         complete_from_activity=True, assay_dh=assay_dh,
         compound_dh=compound_dh, organism_dh=organism_dh,
         source_dh=source_dh, target_dh=target_dh,
         target_component_dh=target_component_dh,
-        compound_record_dh=compound_record_dh
+        compound_record_dh=compound_record_dh,
+        document_dh=document_dh
     )
     activity_dh.scan_data_from_es()
 

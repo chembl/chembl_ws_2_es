@@ -10,6 +10,14 @@ class DocumentDenormalizationHandler(DenormalizationHandler):
 
     RESOURCE = DenormalizationHandler.AVAILABLE_RESOURCES.DOCUMENT
 
+    FIELDS_FOR_ACTIVITY = ['pubmed_id', 'volume', 'year', 'first_page']
+
+    FIELDS_FOR_ACTIVITY_MAPPING = {}
+
+    for field_i in FIELDS_FOR_ACTIVITY:
+        put_js_path_in_dict(FIELDS_FOR_ACTIVITY_MAPPING, '._metadata.document_data.{0}'.format(field_i),
+                            DefaultMappings.NO_INDEX_KEYWORD, es_properties_style=True)
+
     FIELDS_FOR_ASSAY = ['journal', 'year', 'volume', 'first_page', 'last_page', 'title', 'pubmed_id', 'doi']
 
     FIELDS_FOR_ASSAY_MAPPING = {}
@@ -27,6 +35,7 @@ class DocumentDenormalizationHandler(DenormalizationHandler):
         self.assay_dh = assay_dh
         self.source_dh = source_dh
         self.docs_for_assay_by_chembl_id = {}
+        self.docs_for_activity_by_chembl_id = {}
 
     def handle_doc(self, doc: dict, total_docs: int, index: int, first: bool, last: bool):
         doc_chembl_id = doc['document_chembl_id']
@@ -34,6 +43,11 @@ class DocumentDenormalizationHandler(DenormalizationHandler):
         for field_i in self.FIELDS_FOR_ASSAY:
             fields_for_assay[field_i] = doc[field_i]
         self.docs_for_assay_by_chembl_id[doc_chembl_id] = fields_for_assay
+
+        fields_for_activity = {}
+        for field_i in self.FIELDS_FOR_ACTIVITY:
+            fields_for_activity[field_i] = doc[field_i]
+        self.docs_for_activity_by_chembl_id[doc_chembl_id] = fields_for_activity
 
     def get_custom_mappings_for_complete_data(self):
         mappings = SummableDict()
