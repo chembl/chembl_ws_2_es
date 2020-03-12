@@ -108,7 +108,7 @@ class AssayDenormalizationHandler(DenormalizationHandler):
             'cell_chembl_id': doc['cell_chembl_id'],
             'tissue_chembl_id': doc['tissue_chembl_id'],
             'type_label': '{0} - {1}'.format(doc['assay_type'], doc['assay_type_description']),
-            'assay_parameters': doc['assay_parameters']
+            'assay_parameters': doc.get('assay_parameters', None)
         }
         if doc['document_chembl_id']:
             # TODO documents should not have multiple src_ids, but we'll have to wait until CHEMBL_24
