@@ -121,7 +121,7 @@ class AssayDenormalizationHandler(DenormalizationHandler):
         }
         if self.source_dh and doc.get('src_id', None):
             self.assay_activity_data[doc['assay_chembl_id']]['src_desc'] = \
-                self.source_dh.sources_by_id[doc['src_id']]
+                self.source_dh.sources_by_id[doc['src_id']]['src_description']
         if doc['document_chembl_id']:
             # TODO documents should not have multiple src_ids, but we'll have to wait until CHEMBL_24
             if doc['document_chembl_id'] not in self.document_2_src_id:
