@@ -28,7 +28,8 @@ class CompoundDenormalizationHandler(DenormalizationHandler):
                             'num_ro5_violations': DefaultMappings.SHORT,
                             'full_mwt': DefaultMappings.DOUBLE,
                             'alogp': DefaultMappings.DOUBLE,
-                            'image_file': DefaultMappings.KEYWORD
+                            'psa': DefaultMappings.DOUBLE,
+                            'image_file': DefaultMappings.KEYWORD,
                         }
                     }
                 }
@@ -180,6 +181,9 @@ class CompoundDenormalizationHandler(DenormalizationHandler):
                 doc['molecule_properties']['full_mwt']
             self.molecule_activity_data[doc['molecule_chembl_id']]['alogp'] = \
                 doc['molecule_properties']['alogp']
+            self.molecule_activity_data[doc['molecule_chembl_id']]['psa'] = \
+                doc['molecule_properties']['psa']
+
         non_structure_image = self.get_non_structure_image_type(doc)
         if non_structure_image:
             self.image_file_by_chembl_id[doc['molecule_chembl_id']] = non_structure_image
