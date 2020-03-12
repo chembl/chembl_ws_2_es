@@ -116,17 +116,18 @@ def denormalize_unichem():
 
 
 def denormalize_activity():
+    source_dh = SourceDenormalizationHandler()
+    source_dh.scan_data_from_es()
+
+    # required to change the order to be able to load source description
     assay_dh = AssayDenormalizationHandler()
-    assay_dh.scan_data_from_es()
+    assay_dh.scan_data_from_es(source_dh=source_dh)
 
     compound_dh = CompoundDenormalizationHandler()
     compound_dh.scan_data_from_es()
 
     organism_dh = OrganismDenormalizationHandler()
     organism_dh.scan_data_from_es()
-
-    source_dh = SourceDenormalizationHandler()
-    source_dh.scan_data_from_es()
 
     target_dh = TargetDenormalizationHandler()
     target_dh.scan_data_from_es()
