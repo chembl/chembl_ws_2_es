@@ -32,6 +32,11 @@ class AssayDenormalizationHandler(DenormalizationHandler):
                             'assay_parameters': get_js_path_from_dict(
                                 assay_mappings, '_doc.properties.assay_parameters'
                             ),
+                            'assay_type': DefaultMappings.KEYWORD,
+                            'assay_tax_id': DefaultMappings.ID_REF,
+                            'assay_strain': DefaultMappings.KEYWORD,
+                            'src_id': DefaultMappings.ID_REF,
+                            'src_desc': DefaultMappings.LOWER_CASE_KEYWORD,
                         }
                     }
                 }
@@ -108,8 +113,15 @@ class AssayDenormalizationHandler(DenormalizationHandler):
             'cell_chembl_id': doc['cell_chembl_id'],
             'tissue_chembl_id': doc['tissue_chembl_id'],
             'type_label': '{0} - {1}'.format(doc['assay_type'], doc['assay_type_description']),
-            'assay_parameters': doc.get('assay_parameters', None)
+            'assay_parameters': doc.get('assay_parameters', None),
+            'assay_type': doc.get('assay_type', None),
+            'assay_tax_id': doc.get('assay_tax_id', None),
+            'assay_strain': doc.get('assay_strain', None),
+            'src_id': doc.get('src_id', None),
         }
+        if self.source_dh and doc.get('src_id', None):
+            self.assay_activity_data[doc['assay_chembl_id']]['src_desc'] = \
+                self.source_dh.sources_by_id[doc['src_id']]
         if doc['document_chembl_id']:
             # TODO documents should not have multiple src_ids, but we'll have to wait until CHEMBL_24
             if doc['document_chembl_id'] not in self.document_2_src_id:
