@@ -195,9 +195,9 @@ class AssayDenormalizationHandler(DenormalizationHandler):
             'relationship_label': relationship_label,
             'type_label': type_label,
         }
-
-        update_doc_md['document_data'] = self.document_dh.docs_for_assay_by_chembl_id\
-            .get(doc.get('document_chembl_id', None), None)
+        if self.document_dh:
+            update_doc_md['document_data'] = self.document_dh.docs_for_assay_by_chembl_id\
+                .get(doc.get('document_chembl_id', None), None)
 
         return {
             '_metadata': update_doc_md
