@@ -1,9 +1,10 @@
 from glados.es.ws2es.denormalization import DenormalizationHandler
-from glados.es.ws2es.util import SummableDict
+from glados.es.ws2es.util import SummableDict, get_js_path_from_dict
 from glados.es.ws2es.es_util import DefaultMappings
 from glados.es.ws2es.denormalization.source_handler import SourceDenormalizationHandler
 from glados.es.ws2es.denormalization.organism_handler import OrganismDenormalizationHandler
 from glados.es.ws2es.progress_bar_handler import get_new_progressbar
+from glados.es.ws2es.mappings.es_chembl_assay_mapping import mappings as assay_mappings
 
 
 class AssayDenormalizationHandler(DenormalizationHandler):
@@ -27,7 +28,10 @@ class AssayDenormalizationHandler(DenormalizationHandler):
                             'assay_subcellular_fraction': DefaultMappings.LOWER_CASE_KEYWORD,
                             'cell_chembl_id': DefaultMappings.CHEMBL_ID_REF,
                             'tissue_chembl_id': DefaultMappings.CHEMBL_ID_REF,
-                            'type_label': DefaultMappings.KEYWORD
+                            'type_label': DefaultMappings.KEYWORD,
+                            'assay_parameters': get_js_path_from_dict(
+                                assay_mappings, '_doc.properties.assay_parameters'
+                            ),
                         }
                     }
                 }
@@ -103,7 +107,8 @@ class AssayDenormalizationHandler(DenormalizationHandler):
             'assay_subcellular_fraction': doc['assay_subcellular_fraction'],
             'cell_chembl_id': doc['cell_chembl_id'],
             'tissue_chembl_id': doc['tissue_chembl_id'],
-            'type_label': '{0} - {1}'.format(doc['assay_type'], doc['assay_type_description'])
+            'type_label': '{0} - {1}'.format(doc['assay_type'], doc['assay_type_description']),
+            'assay_parameters': doc['assay_parameters']
         }
         if doc['document_chembl_id']:
             # TODO documents should not have multiple src_ids, but we'll have to wait until CHEMBL_24
@@ -236,4 +241,3 @@ class AssayDenormalizationHandler(DenormalizationHandler):
                     ).get('count', 0)
             pb.update(i)
         pb.finish()
-
