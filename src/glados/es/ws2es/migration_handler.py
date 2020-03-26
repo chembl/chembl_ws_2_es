@@ -70,6 +70,14 @@ def main():
                         dest="es_host",
                         help="Elastic Search Hostname or IP address.",
                         default="localhost")
+    parser.add_argument("--user",
+                        dest="es_user",
+                        help="Elastic Search username.",
+                        default=None)
+    parser.add_argument("--password",
+                        dest="es_password",
+                        help="Elastic Search username password.",
+                        default=None)
     parser.add_argument("--port",
                         dest="es_port",
                         help="Elastic Search port.",
@@ -92,7 +100,7 @@ def main():
         resources_description.ResourceDescription.create_all_aliases(args.es_host, args.es_port)
         sys.exit(0)
 
-    es_util.setup_connection(args.es_host, args.es_port)
+    es_util.setup_connection(args.es_host, args.es_port, args.es_user, args.es_password)
 
     if not es_util.ping():
         print("ERROR: Can't ping the elastic search server.", file=sys.stderr)

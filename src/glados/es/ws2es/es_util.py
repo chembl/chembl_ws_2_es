@@ -30,10 +30,15 @@ def setup_connection_from_full_url(url):
     es_conn = Elasticsearch([url])
 
 
-def setup_connection(host, port):
+def setup_connection(host, port, user=None, password=None):
     global es_conn
+    http_auth_data = None
+    if user is not None:
+        http_auth_data = (user, password)
+        
     es_conn = Elasticsearch(hosts=[{'host': host, 'port': port,
                                     'transport_class': Urllib3HttpConnection, 'timeout': 60}],
+                            http_auth=http_auth_data,
                             retry_on_timeout=True)
     es_conn.cluster.health(request_timeout=60)
 
