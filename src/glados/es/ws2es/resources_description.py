@@ -107,7 +107,7 @@ class ResourceDescription(object):
         return memoized_get_simplified_mapping_from_es(self.res_name, self.idx_name)
 
     def get_doc_by_id_from_es(self, doc_id):
-        return es_util.get_doc_by_id(self.idx_name, '_doc', doc_id)
+        return es_util.get_doc_by_id(self.idx_name, doc_id)
 
     @staticmethod
     def create_all_aliases(es_host='localhost', es_port=9200):

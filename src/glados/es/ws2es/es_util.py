@@ -65,14 +65,15 @@ def get_idx_count(idx_name):
 
 
 def update_doc_type_mappings(idx_name, mappings):
-    es_conn.indices.put_mapping('_doc', mappings, idx_name)
+    # first argument used to be '_doc' know in version 7 is not required
+    es_conn.indices.put_mapping(mappings, idx_name)
 
 
 # noinspection PyBroadException
 @lru_cache(maxsize=None)
-def get_doc_by_id(idx_name, doc_type, doc_id, source_only=True):
+def get_doc_by_id(idx_name, doc_id, source_only=True):
     try:
-        doc_data = es_conn.get(index=idx_name, doc_type=doc_type, id=doc_id)
+        doc_data = es_conn.get(index=idx_name, id=doc_id)
         if source_only:
             return doc_data['_source']
         return doc_data
@@ -81,8 +82,7 @@ def get_doc_by_id(idx_name, doc_type, doc_id, source_only=True):
 
 
 def update_mappings_idx(idx_name,  mappings):
-    for doc_type in mappings.keys():
-        es_conn.indices.put_mapping(doc_type, mappings[doc_type], idx_name)
+    es_conn.indices.put_mapping(mappings['_doc'], idx_name)
 
 
 def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=None):
@@ -100,7 +100,10 @@ def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=
         create_body['settings']['analysis'] = analysis
 
     if mappings:
-        create_body['mappings'] = mappings
+        # Indexes in elasticsearch do not allow multiple types, use _doc directly
+        if '_doc' not in mappings:
+            raise Exception("Missing _doc mappings!")
+        create_body['mappings'] = mappings['_doc']
 
     if logger:
         logger.debug("ATTEMPTING TO CREATE INDEX:{0}\nREQUEST_BODY:\n{1}"
@@ -217,9 +220,9 @@ class ESBulkSubmitter(Thread):
         return len(self.index_actions_queue[idx_name])
 
     # noinspection PyBroadException
-    def submit_multi_search(self, idx_name, doc_type, queries):
+    def submit_multi_search(self, idx_name, queries):
         try:
-            task = self.submission_pool.submit(es_conn.msearch, body=queries, index=idx_name, doc_type=doc_type)
+            task = self.submission_pool.submit(es_conn.msearch, body=queries, index=idx_name)
             return task.result()
         except:
             traceback.print_exc()
@@ -339,7 +342,8 @@ def index_doc_bulk(idx_name, doc_id, dict_doc):
         '_index': idx_name,
         '_id': doc_id,
         '_source': json.dumps(dict_doc),
-        '_type': '_doc'
+        # in elastic search v7 it is no longer required to define doc type
+        # '_type': '_doc'
     }
     bulk_submitter.add_to_queue(idx_name, action)
 
@@ -349,7 +353,8 @@ def update_doc_bulk(idx_name, doc_id, script=None, doc=None, upsert=False):
         '_op_type': 'update',
         '_index': idx_name,
         '_id': doc_id,
-        '_type': '_doc'
+        # in elastic search v7 it is no longer required to define doc type
+        # '_type': '_doc'
     }
     if script is not None:
         action['script'] = script
@@ -363,18 +368,17 @@ def update_doc_bulk(idx_name, doc_id, script=None, doc=None, upsert=False):
     bulk_submitter.add_to_queue(idx_name, action)
 
 
-def index_doc(idx_name, doc_type, doc_id, dict_doc):
+def index_doc(idx_name, doc_id, dict_doc):
     global es_conn
-    es_conn.index(idx_name, doc_type, dict_doc, doc_id)
+    es_conn.index(idx_name, dict_doc, doc_id)
 
 
-def run_coffee_query(coffee_query_file, index, doc_type, replacements_dict=None):
+def run_coffee_query(coffee_query_file, index, replacements_dict=None):
     """
 
     :param coffee_query_file: WARNING: this file must use JSON format
     e.g. {a:0,b:"text"} will not work, but {"a":0,"b":"text"} will.
     :param index:
-    :param doc_type:
     :param replacements_dict:
     :return:
     """
@@ -386,7 +390,7 @@ def run_coffee_query(coffee_query_file, index, doc_type, replacements_dict=None)
             compiled = compiled.replace(key, val)
     # removes unnecessary prefix and suffix added by the compiler ['(', ');']
     compiled = compiled[1:-3]
-    result = es_conn.search(index=index, doc_type=doc_type, body=compiled)
+    result = es_conn.search(index=index, body=compiled)
 
     results = []
     for hits_idx, hit_i in enumerate(result['hits']['hits']):

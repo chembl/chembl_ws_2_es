@@ -37,7 +37,7 @@ def create_test_doc(str_field):
     new_doc = {
         test_str_std_name: str_field
     }
-    es_util.index_doc(test_idx_name, test_doc_name, doc_id_seq, new_doc)
+    es_util.index_doc(test_idx_name, doc_id_seq, new_doc)
     doc_id_seq += 1
 
 
@@ -157,6 +157,7 @@ def main():
         logging.error("ERROR: Can not establish connection with the elastic search server.")
         sys.exit(1)
     run_coffee_queries()
+
 
 ########################################################################################################################
 
