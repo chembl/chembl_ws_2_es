@@ -500,7 +500,7 @@ class DefaultMappings(object):
     COMMON_FILTERS = SummableDict(
         greek_synonym_filter={
             'type': 'synonym',
-            'synonyms_path': './synonyms/greek_letters_synonyms.txt'
+            'synonyms_path': '/chembl/config/greek_letters_synonyms.txt'
         },
         english_stop={
           'type':       'stop',
