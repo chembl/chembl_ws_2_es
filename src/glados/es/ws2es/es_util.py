@@ -90,6 +90,10 @@ def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=
     if es_conn.indices.exists(index=idx_name):
         es_conn.indices.delete(index=idx_name, ignore=[400, 404])
     create_body = {
+            'analyze': {
+                # set the max token count to 1.000.000 due to new limitations on elastic v7
+                'max_token_count': 10**6
+            },
             'settings': {
                 'index.mapping.total_fields.limit': 3000,
                 'number_of_shards': shards,
