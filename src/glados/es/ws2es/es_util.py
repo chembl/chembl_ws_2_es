@@ -555,7 +555,7 @@ class DefaultMappings(object):
                     whitespace_alphanumeric_lowercase_std_analyzer={
                         'type': 'custom',
                         'tokenizer': 'whitespace',
-                        'filter': ['standard', 'lowercase'],
+                        'filter': ['lowercase'],
                         'char_filter': ['vitamin_char_filter', 'alphanumeric_and_space_char_filter']
                     })
 
