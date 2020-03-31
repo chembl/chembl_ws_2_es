@@ -72,7 +72,7 @@ def infer_type(examples: list):
 def get_property_examples(es_index, doc_type, es_property):
     examples = es_util.run_coffee_query(
         os.path.join(os.path.abspath(os.path.dirname(__file__)), './es_property_query.coffee'),
-        es_index, doc_type,
+        es_index,
         {'<PROPERTY_NAME>': es_property}
     )
     examples_list = []

@@ -107,7 +107,7 @@ def run_analysers():
         create_test_doc('6-Octylsalicylic Acid')
         create_test_doc('ACETYLSALICYLIC-LYSINE')
         time.sleep(3)
-        run_coffee_query("./es_query_test.coffee", test_idx_name, test_doc_name,
+        run_coffee_query("./es_query_test.coffee", test_idx_name,
                          replacements_dict={
                              "<SEARCH_STRING>": "Acetylsalicylic Acid"
                          },
@@ -124,7 +124,7 @@ def run_analysers():
 
 def run_coffee_queries():
     # run_analysers()
-    run_coffee_query("./es_query_test.coffee", "chembl_molecule", "molecule",
+    run_coffee_query("./es_query_test.coffee", "chembl_molecule",
                      replacements_dict={
                          "<SEARCH_STRING>": "Acetyl salicylic Acid"
                      },
@@ -133,7 +133,7 @@ def run_coffee_queries():
                          "molecule_synonyms"
                      ]
                      )
-    run_coffee_query("./es_query_test.coffee", "chembl_molecule", "molecule",
+    run_coffee_query("./es_query_test.coffee", "chembl_molecule",
                      replacements_dict={
                          "<SEARCH_STRING>": "viagra"
                      },
@@ -142,7 +142,7 @@ def run_coffee_queries():
                          "molecule_synonyms"
                      ]
                      )
-    # run_coffee_query("./es_query_string_test.coffee", "chembl_molecule", "molecule",
+    # run_coffee_query("./es_query_string_test.coffee", "chembl_molecule",
     #                  show_only=[
     #                      "pref_name",
     #                      "molecule_synonyms",
