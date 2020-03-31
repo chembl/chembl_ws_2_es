@@ -57,8 +57,8 @@ def delete_idx(idx_name):
 def get_idx_count(idx_name):
     global es_conn
     try:
-        search_res = es_conn.search(index=idx_name, size=0)
-        return search_res['hits']['total']
+        search_res = es_conn.search(index=idx_name, body={'track_total_hits': True}, size=0)
+        return search_res['hits']['total']['value']
     except:
         traceback.print_exc(file=sys.stderr)
         return -1
@@ -144,8 +144,11 @@ def scan_index(es_index, on_doc=None, query=None):
         print("FATAL ERROR: there is not an elastic search connection defined.", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         sys.exit(1)
+    if query is None:
+        query = {}
+    query['track_total_hits'] = True
     search_res = es_conn.search(index=es_index, body=query)
-    total_docs = search_res['hits']['total']
+    total_docs = search_res['hits']['total']['value']
     update_every = min(math.ceil(total_docs*0.001), 1000)
     scan_query = SummableDict()
     if query:
