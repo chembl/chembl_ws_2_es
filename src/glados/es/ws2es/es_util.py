@@ -528,12 +528,12 @@ class DefaultMappings(object):
                     greek_syn_std_analyzer={
                         'type': 'custom',
                         'tokenizer': 'standard',
-                        'filter': ['standard', 'greek_synonym_filter', 'lowercase'],
+                        'filter': ['greek_synonym_filter', 'lowercase'],
                         'char_filter': 'vitamin_char_filter'
                     }, greek_syn_eng_analyzer={
                         'type': 'custom',
                         'tokenizer': 'standard',
-                        'filter': ['standard', 'greek_synonym_filter',
+                        'filter': ['greek_synonym_filter',
                                    # English analyzer based on:
                                    # https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html#english-analyzer
                                    'english_possessive_stemmer',
