@@ -90,10 +90,6 @@ def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=
     if es_conn.indices.exists(index=idx_name):
         es_conn.indices.delete(index=idx_name, ignore=[400, 404])
     create_body = {
-            'analyze': {
-                # set the max token count to 1.000.000 due to new limitations on elastic v7
-                'max_token_count': 10**6
-            },
             'settings': {
                 'index.mapping.total_fields.limit': 3000,
                 'number_of_shards': shards,
@@ -528,6 +524,10 @@ class DefaultMappings(object):
         english_possessive_stemmer={
           'type':       'stemmer',
           'language':   'possessive_english'
+        },
+        large_id_ref_filter={
+          'type': 'limit',
+          'max_token_count': 10**6
         }
     )
 
@@ -661,7 +661,7 @@ class DefaultMappings(object):
 
     CHEMBL_ID_REF = __DO_INDEX + __KEYWORD_TYPE + __CHEMBL_ID_REF_FIELD + __ALPHANUMERIC_LOWERCASE_KEYWORD
 
-    CHEMBL_ID_REF_AS_WS = __DO_INDEX + __TEXT_TYPE_NO_OFFSETS + __WS_ANALYZED_FIELD
+    CHEMBL_ID_REF_AS_WS = __DO_INDEX + __TEXT_TYPE_NO_OFFSETS + __WS_ANALYZED_FIELD + {'filter': 'large_id_ref_filter'}
 
     # TEXT FIELDS no indexation for the field itself (Non Aggregatable)
 
