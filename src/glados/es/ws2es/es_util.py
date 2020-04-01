@@ -9,7 +9,7 @@ from glados.es.ws2es.util import SummableDict
 from concurrent.futures import Future
 import copy
 import json
-import coffeescript
+import yaml
 import sys
 import time
 import pprint
@@ -376,29 +376,30 @@ def index_doc(idx_name, doc_id, dict_doc):
     es_conn.index(idx_name, dict_doc, doc_id)
 
 
-def run_coffee_query(coffee_query_file, index, replacements_dict=None):
+def run_yaml_query(yaml_query_file, index, replacements_dict=None):
     """
 
-    :param coffee_query_file: WARNING: this file must use JSON format
+    :param yaml_query_file: WARNING: this file must use JSON format
     e.g. {a:0,b:"text"} will not work, but {"a":0,"b":"text"} will.
     :param index:
     :param replacements_dict:
     :return:
     """
     global es_conn
-    coffee_query_file = coffee_query_file
-    compiled = coffeescript.compile_file(coffee_query_file, bare=True)
-    if replacements_dict:
-        for key, val in replacements_dict.items():
-            compiled = compiled.replace(key, val)
-    # removes unnecessary prefix and suffix added by the compiler ['(', ');']
-    compiled = compiled[1:-3]
-    result = es_conn.search(index=index, body=compiled)
+    yaml_query_file = yaml_query_file
+    with open(yaml_query_file, 'r') as yaml_f:
+        query_body = yaml.safe_load(yaml_f)
+        if replacements_dict:
+            for key, val in replacements_dict.items():
+                query_body = query_body.replace(key, val)
+        # removes unnecessary prefix and suffix added by the compiler ['(', ');']
+        query_body = query_body[1:-3]
+        result = es_conn.search(index=index, body=query_body)
 
-    results = []
-    for hits_idx, hit_i in enumerate(result['hits']['hits']):
-        results.append(hit_i['_source'])
-    return results
+        results = []
+        for hits_idx, hit_i in enumerate(result['hits']['hits']):
+            results.append(hit_i['_source'])
+        return results
 
 
 shards_guide = {
