@@ -36,8 +36,7 @@ MAX_RES_NAME_LENGTH = 0
 @lru_cache(maxsize=64)
 def memoized_get_resource_mapping_from_es(idx_name):
     mapping = es_util.get_index_mapping(idx_name)
-    path_to_properties = '{0}.properties'.format('_doc')
-    return util.get_js_path_from_dict(mapping, path_to_properties)
+    return mapping['properties']
 
 
 @lru_cache(maxsize=64)

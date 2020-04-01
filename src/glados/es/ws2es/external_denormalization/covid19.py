@@ -17,12 +17,10 @@ with open(molecules_file, 'r') as csv_file:
 print("READ {} DISTINCT MOLECULES".format(len(molecule_chembl_ids)))
 
 NEW_MAPPINGS = {
-    '_doc': {
-        'properties': {
-            '_metadata': {
-                'properties': {
-                    'is_covid19_ds': es_util.DefaultMappings.BOOLEAN
-                }
+    'properties': {
+        '_metadata': {
+            'properties': {
+                'is_covid19_ds': es_util.DefaultMappings.BOOLEAN
             }
         }
     }

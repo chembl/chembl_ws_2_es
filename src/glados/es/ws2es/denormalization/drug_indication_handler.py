@@ -16,28 +16,24 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
     @staticmethod
     def get_new_index_mappings():
         return {
-            '_doc':
+            'properties':
             {
-                'properties':
+                'parent_molecule':
                 {
-                    'parent_molecule':
+                    'properties': MOLECULE.get_resource_mapping_from_es()
+                },
+                'drug_indication': {
+                    'properties': SummableDict(**DRUG_INDICATION.get_resource_mapping_from_es()) -
+                    ['efo_term', 'efo_id'] +
                     {
-                        'properties': MOLECULE.get_resource_mapping_from_es()
-                    },
-                    'drug_indication': {
-                        'properties': SummableDict(**DRUG_INDICATION.get_resource_mapping_from_es()) -
-                        ['efo_term', 'efo_id'] +
-                        {
-                            'efo': {
-                                'properties': {
-                                    'term': DefaultMappings.LOWER_CASE_KEYWORD + DefaultMappings.TEXT_STD,
-                                    'id': DefaultMappings.ID
-                                }
+                        'efo': {
+                            'properties': {
+                                'term': DefaultMappings.LOWER_CASE_KEYWORD + DefaultMappings.TEXT_STD,
+                                'id': DefaultMappings.ID
                             }
                         }
                     }
                 }
-
             }
         }
 
@@ -95,7 +91,7 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
                 'properties': {
                     '_metadata': {
                         'properties': {
-                            'drug_indications': drug_indication_mapping.mappings['_doc']
+                            'drug_indications': drug_indication_mapping.mappings
                         }
                     }
                 }

@@ -31,7 +31,7 @@ mappings = \
                     'drug': {
                         'properties': {
                             'is_drug': DefaultMappings.BOOLEAN,
-                            'drug_data': drug_mapping.mappings['_doc']
+                            'drug_data': drug_mapping.mappings
                         }
                     },
                     'related_targets':

@@ -16,26 +16,22 @@ class MechanismDenormalizationHandler(DenormalizationHandler):
     @staticmethod
     def get_new_index_mappings():
         return {
-            '_doc':
+            'properties':
             {
-                'properties':
+                'parent_molecule':
                 {
-                    'parent_molecule':
-                    {
-                        'properties': MOLECULE.get_resource_mapping_from_es()
-                    },
-                    'target':
-                    {
-                        'properties': TARGET.get_resource_mapping_from_es()
-                    },
-                    'binding_site': {
-                        'properties': BINDING_SITE.get_resource_mapping_from_es()
-                    },
-                    'mechanism_of_action': {
-                        'properties': MECHANISM.get_resource_mapping_from_es()
-                    }
+                    'properties': MOLECULE.get_resource_mapping_from_es()
+                },
+                'target':
+                {
+                    'properties': TARGET.get_resource_mapping_from_es()
+                },
+                'binding_site': {
+                    'properties': BINDING_SITE.get_resource_mapping_from_es()
+                },
+                'mechanism_of_action': {
+                    'properties': MECHANISM.get_resource_mapping_from_es()
                 }
-
             }
         }
 

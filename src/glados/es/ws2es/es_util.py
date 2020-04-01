@@ -82,7 +82,10 @@ def get_doc_by_id(idx_name, doc_id, source_only=True):
 
 
 def update_mappings_idx(idx_name,  mappings):
-    es_conn.indices.put_mapping(mappings['_doc'], idx_name)
+    # mappings do not accept types anymore in elastic v7
+    if '_doc' in mappings:
+        mappings = mappings['_doc']
+    es_conn.indices.put_mapping(mappings, idx_name)
 
 
 def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=None):
