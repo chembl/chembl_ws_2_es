@@ -100,10 +100,10 @@ def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=
         create_body['settings']['analysis'] = analysis
 
     if mappings:
-        # Indexes in elasticsearch do not allow multiple types, use _doc directly
-        if '_doc' not in mappings:
-            raise Exception("Missing _doc mappings!")
-        create_body['mappings'] = mappings['_doc']
+        # Indexes in elasticsearch do not allow multiple types in v7, use _doc directly
+        if '_doc' in mappings:
+            mappings = mappings['_doc']
+    create_body['mappings'] = mappings
 
     if logger:
         logger.debug("ATTEMPTING TO CREATE INDEX:{0}\nREQUEST_BODY:\n{1}"
