@@ -388,13 +388,12 @@ def run_yaml_query(yaml_query_file, index, replacements_dict=None):
     global es_conn
     yaml_query_file = yaml_query_file
     with open(yaml_query_file, 'r') as yaml_f:
-        query_body = yaml.safe_load(yaml_f)
+        yaml_f_text = yaml_f.readlines()
         if replacements_dict:
             for key, val in replacements_dict.items():
-                query_body = query_body.replace(key, val)
-        # removes unnecessary prefix and suffix added by the compiler ['(', ');']
-        query_body = query_body[1:-3]
-        result = es_conn.search(index=index, body=query_body)
+                yaml_f_text = yaml_f_text.replace(key, val)
+        query_body = yaml.safe_load(yaml_f_text)
+        result = es_conn.search(index=index, body=json.dumps(query_body))
 
         results = []
         for hits_idx, hit_i in enumerate(result['hits']['hits']):
