@@ -206,6 +206,14 @@ def main():
                         dest="es_host",
                         help="Elastic Search Hostname or IP address.",
                         default="localhost")
+    parser.add_argument("--user",
+                        dest="es_user",
+                        help="Elastic Search username.",
+                        default=None)
+    parser.add_argument("--password",
+                        dest="es_password",
+                        help="Elastic Search username password.",
+                        default=None)
     parser.add_argument("--port",
                         dest="es_port",
                         help="Elastic Search port.",
@@ -228,7 +236,7 @@ def main():
                         action="store_true",)
     args = parser.parse_args()
 
-    es_util.setup_connection(args.es_host, args.es_port)
+    es_util.setup_connection(args.es_host, args.es_port, args.es_user, args.es_password)
     es_util.bulk_submitter.start()
 
     signal_handler.add_termination_handler(es_util.stop_scan)
