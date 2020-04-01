@@ -388,7 +388,7 @@ def run_yaml_query(yaml_query_file, index, replacements_dict=None):
     global es_conn
     yaml_query_file = yaml_query_file
     with open(yaml_query_file, 'r') as yaml_f:
-        yaml_f_text = yaml_f.readlines()
+        yaml_f_text = '\n'.join(yaml_f.readlines())
         if replacements_dict:
             for key, val in replacements_dict.items():
                 yaml_f_text = yaml_f_text.replace(key, val)
