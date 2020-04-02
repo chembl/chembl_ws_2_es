@@ -30,7 +30,7 @@ class AssayDenormalizationHandler(DenormalizationHandler):
                             'tissue_chembl_id': DefaultMappings.CHEMBL_ID_REF,
                             'type_label': DefaultMappings.KEYWORD,
                             'assay_parameters': get_js_path_from_dict(
-                                assay_mappings, '_doc.properties.assay_parameters'
+                                assay_mappings, 'properties.assay_parameters'
                             ),
                             'assay_type': DefaultMappings.KEYWORD,
                             'assay_tax_id': DefaultMappings.ID_REF,
