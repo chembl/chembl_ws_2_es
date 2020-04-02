@@ -149,7 +149,7 @@ class CompoundFamilyNode:
             dn_dict += dn_data_i
             shared_family_data += sf_data_i
         # Warning checks!
-        if is_db_drug != ((is_usan_src or is_drug_src) and self.is_family_parent()):
+        if is_db_drug and is_db_drug != ((is_usan_src or is_drug_src) and self.is_family_parent()):
             print(
                 'WARNING! {0} has db_drug {1} and sources_drug {2}'.format(
                     self.chembl_id, is_db_drug, (is_usan_src or is_drug_src)
