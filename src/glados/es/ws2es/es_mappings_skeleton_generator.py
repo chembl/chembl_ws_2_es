@@ -69,7 +69,7 @@ def infer_type(examples: list):
     return inferred_type
 
 
-def get_property_examples(es_index, doc_type, es_property):
+def get_property_examples(es_index, es_property):
     examples = es_util.run_yaml_query(
         os.path.join(os.path.abspath(os.path.dirname(__file__)), './es_property_query.yaml'),
         es_index,
@@ -99,20 +99,16 @@ def get_complete_property(es_property, parent_property):
     return (parent_property+'.' if parent_property else '')+es_property
 
 
-def format_mappings_dict(es_index, data_dict, cur_indent=0, indent=4, append_comma=False, current_doc_type=None,
+def format_mappings_dict(es_index, data_dict, cur_indent=0, indent=4, append_comma=False,
                          current_parent_property=None, last_level_was_properties=False):
     output = ' '*cur_indent+'{\n'
     cur_indent += indent
     sorted_keys = sorted(data_dict.keys())
-    doc_type_level = current_doc_type is None
     max_line_length = 120
     for es_property in sorted_keys:
         es_property_val = data_dict[es_property]
-        doc_type_i = es_property if doc_type_level else current_doc_type
         is_properties_level = False
-        if doc_type_level:
-            property_i = None
-        elif es_property == 'properties' and not last_level_was_properties:
+        if es_property == 'properties' and not last_level_was_properties:
             property_i = current_parent_property
             is_properties_level = True
         else:
@@ -123,11 +119,11 @@ def format_mappings_dict(es_index, data_dict, cur_indent=0, indent=4, append_com
             output += ' '*cur_indent+"'{0}': \n".format(es_property)
             output += format_mappings_dict(
                 es_index, es_property_val, cur_indent=cur_indent, indent=indent,
-                append_comma=(es_property != sorted_keys[-1]), current_doc_type=doc_type_i,
+                append_comma=(es_property != sorted_keys[-1]),
                 current_parent_property=property_i, last_level_was_properties=is_properties_level
             )
         elif property_i:
-            examples, inferred_type = get_property_examples(es_index, current_doc_type, property_i)
+            examples, inferred_type = get_property_examples(es_index, property_i)
             if examples:
                 output += ' '*cur_indent+"'{0}': '{1}',\n".format(es_property, inferred_type)
                 output += ' '*cur_indent+"# EXAMPLES:\n"
@@ -135,7 +131,7 @@ def format_mappings_dict(es_index, data_dict, cur_indent=0, indent=4, append_com
                 for chunk_index in range(0, len(examples), length_chunk):
                     output += ' ' * cur_indent + "# {0}\n".format(examples[chunk_index:chunk_index+length_chunk])
         else:
-            print(es_index, current_doc_type, property_i)
+            print(es_index, property_i)
 
     cur_indent -= indent
     output += ' '*cur_indent+'}'+(',' if append_comma else '')+'\n'
