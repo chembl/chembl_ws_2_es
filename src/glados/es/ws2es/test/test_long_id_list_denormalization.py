@@ -39,7 +39,9 @@ class TestCase(unittest.TestCase):
         es_util.create_idx(test_idx_name, 1, 0, mappings=custom_mappings,
                            analysis=custom_analysis, logger=logging.getLogger())
 
-        analyze()
+        test_text = ['0']*(10**6)
+
+        analyze(test_idx_name, )
 
         es_util.delete_idx(test_idx_name)
 
