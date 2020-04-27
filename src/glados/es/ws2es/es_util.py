@@ -664,7 +664,11 @@ class DefaultMappings(object):
 
     CHEMBL_ID_REF = __DO_INDEX + __KEYWORD_TYPE + __CHEMBL_ID_REF_FIELD + __ALPHANUMERIC_LOWERCASE_KEYWORD
 
-    CHEMBL_ID_REF_AS_WS = __DO_INDEX + __TEXT_TYPE_NO_OFFSETS + __WS_ANALYZED_FIELD + {'filter': 'large_id_ref_filter'}
+    CHEMBL_ID_REF_AS_WS = __DO_INDEX + __TEXT_TYPE_NO_OFFSETS + \
+        {
+          'analyzer': 'whitespace_alphanumeric_lowercase_std_analyzer',
+          'filter': 'large_id_ref_filter'
+        }
 
     # TEXT FIELDS no indexation for the field itself (Non Aggregatable)
 
