@@ -567,6 +567,12 @@ class DefaultMappings(object):
                         'tokenizer': 'whitespace',
                         'filter': ['lowercase'],
                         'char_filter': ['vitamin_char_filter', 'alphanumeric_and_space_char_filter']
+                    },
+                    whitespace_alphanumeric_std_no_limit_analyzer={
+                        'type': 'custom',
+                        'tokenizer': 'whitespace',
+                        'filter': ['large_id_ref_filter'],
+                        'char_filter': ['alphanumeric_and_space_char_filter']
                     })
 
     COMMON_ANALYSIS = SummableDict(
@@ -666,8 +672,7 @@ class DefaultMappings(object):
 
     CHEMBL_ID_REF_AS_WS = __DO_INDEX + __TEXT_TYPE_NO_OFFSETS + \
         {
-          'analyzer': 'whitespace_alphanumeric_lowercase_std_analyzer',
-          'filter': 'large_id_ref_filter'
+          'analyzer': 'whitespace_alphanumeric_std_no_limit_analyzer'
         }
 
     # TEXT FIELDS no indexation for the field itself (Non Aggregatable)
