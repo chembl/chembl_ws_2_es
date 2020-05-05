@@ -386,7 +386,9 @@ class ESUtil(object):
         p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
         for doc_n in scanner:
             if callable(on_doc):
-                should_stop = on_doc(doc_n['_source'], total_docs, count, count == 0, count == total_docs-1)
+                should_stop = on_doc(
+                    doc_n['_source'], doc_n['_id'], total_docs, count, count == 0, count == total_docs-1
+                )
                 if should_stop or self.stop_scan:
                     return
             count += 1

@@ -76,7 +76,7 @@ class DenormalizationHandler(object):
         self.complete_data = complete_data
         self.complete_data_pb = None
 
-    def on_doc_for_scan(self, doc: dict, total_docs: int, index: int, first: bool, last: bool):
+    def on_doc_for_scan(self, doc: dict, doc_id: str, total_docs: int, index: int, first: bool, last: bool):
         if self.complete_data:
             self.do_complete_data(doc, total_docs, index, first, last)
         self.handle_doc(doc, total_docs, index, first, last)
