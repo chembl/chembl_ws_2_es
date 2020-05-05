@@ -125,7 +125,7 @@ class ESBulkSubmitter(Thread):
         self.submission_completed_count = 0
         self.stop_submission = False
         self.submission_pb = None
-        self.max_docs_per_request = 500
+        self.max_docs_per_request = 1000
         self.complete_futures = False
         self.es_util_owner = es_util_owner
 
@@ -381,7 +381,7 @@ class ESUtil(object):
         scan_query = SummableDict()
         if query:
             scan_query += query
-        scanner = helpers.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=500)
+        scanner = helpers.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=1000)
         count = 0
         p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
         for doc_n in scanner:
