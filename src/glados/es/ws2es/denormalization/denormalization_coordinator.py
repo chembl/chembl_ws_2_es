@@ -23,6 +23,7 @@ from glados.es.ws2es.denormalization.source_handler import SourceDenormalization
 from glados.es.ws2es.denormalization.target_component_handler import TargetComponentDenormalizationHandler
 from glados.es.ws2es.denormalization.target_handler import TargetDenormalizationHandler
 from glados.es.ws2es.denormalization.tissue_handler import TissueDenormalizationHandler
+import glados.es.ws2es.progress_bar_handler
 
 __author__ = 'jfmosquera@ebi.ac.uk'
 
@@ -258,6 +259,9 @@ def main():
         denormalize_all_but_activity()
         dn_type = 'ALL-NO-ACTIVITY'
     end_msg = 'DENORMALIZATION FOR "{}" FINISHED'.format(dn_type)
+
+    es_util.bulk_submitter.join()
+    glados.es.ws2es.progress_bar_handler.write_after_progress_bars()
 
     total_time = time.time() - t_ini
     sec = timedelta(seconds=total_time)
