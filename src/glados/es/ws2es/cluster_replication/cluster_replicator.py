@@ -2,7 +2,7 @@ import argparse
 import sys
 import time
 from datetime import datetime, timedelta
-from glados.es.ws2es.es_util import ESUtil, num_shards_by_num_rows
+from glados.es.ws2es.es_util import ESUtil, num_shards_by_num_rows, DefaultMappings
 import glados.es.ws2es.signal_handler as signal_handler
 import glados.es.ws2es.resources_description as resources_description
 import glados.es.ws2es.progress_bar_handler as pbh
@@ -34,6 +34,7 @@ class IndexReplicator(Thread):
         self.es_util_dest.delete_idx(self.idx_name)
         self.es_util_dest.create_idx(
             self.idx_name, num_shards_by_num_rows(origin_count), 1,
+            analysis=DefaultMappings.COMMON_ANALYSIS,
             mappings=self.es_util_origin.get_index_mapping(self.idx_name)
         )
         print('INFO: Index created for {0}.'.format(self.idx_name), file=sys.stderr)
