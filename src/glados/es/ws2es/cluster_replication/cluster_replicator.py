@@ -33,7 +33,7 @@ class IndexReplicator(Thread):
 
         self.es_util_dest.delete_idx(self.idx_name)
         self.es_util_dest.create_idx(
-            self.idx_name, num_shards_by_num_rows(origin_count), 1,
+            self.idx_name, num_shards_by_num_rows(origin_count), 0,
             analysis=DefaultMappings.COMMON_ANALYSIS,
             mappings=self.es_util_origin.get_index_mapping(self.idx_name)
         )
