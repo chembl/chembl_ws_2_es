@@ -1,5 +1,5 @@
 import sys
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util, num_shards_by_num_rows
 import glados.es.ws2es.es_resources_desc as es_resources_desc
 import glados.es.ws2es.migration_logging as migration_logging
 import glados.es.ws2es.es_mappings_skeleton_generator as es_mappings_skeleton_generator
@@ -47,7 +47,7 @@ def create_res_idx(res_name, num_docs):
         MIG_LOG.info('INDEX {0} EXISTS. SKIPPING DELETION.'.format(idx_name))
         return
 
-    n_shards = getattr(idx_desc, 'shards', es_util.num_shards_by_num_rows(num_docs))
+    n_shards = getattr(idx_desc, 'shards', num_shards_by_num_rows(num_docs))
     n_replicas = getattr(idx_desc, 'replicas', 0)
     res_analysis = getattr(idx_desc, 'analysis', None)
     res_mappings = getattr(idx_desc, 'mappings', None)

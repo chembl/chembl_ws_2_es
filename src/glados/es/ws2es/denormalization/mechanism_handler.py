@@ -2,7 +2,7 @@ import glados.es.ws2es.progress_bar_handler as progress_bar_handler
 from glados.es.ws2es.denormalization import DenormalizationHandler
 from glados.es.ws2es.util import SummableDict
 from glados.es.ws2es.denormalization.compound_family_helper import CompoundFamiliesDir
-from glados.es.ws2es.es_util import DefaultMappings, create_idx, delete_idx
+from glados.es.ws2es.es_util import DefaultMappings, es_util
 
 from glados.es.ws2es.resources_description import MOLECULE, TARGET, BINDING_SITE, MECHANISM, MECHANISM_BY_PARENT_TARGET
 import sys
@@ -96,8 +96,8 @@ class MechanismDenormalizationHandler(DenormalizationHandler):
 
     def save_denormalization(self):
         if self.compound_families_dir:
-            delete_idx(self.generated_resource.idx_name)
-            create_idx(self.generated_resource.idx_name, 3, 1, analysis=DefaultMappings.COMMON_ANALYSIS,
+            es_util.delete_idx(self.generated_resource.idx_name)
+            es_util.create_idx(self.generated_resource.idx_name, 3, 1, analysis=DefaultMappings.COMMON_ANALYSIS,
                        mappings=MechanismDenormalizationHandler.get_new_index_mappings())
 
             dn_dict = {}

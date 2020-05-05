@@ -5,6 +5,7 @@ import glados.es.ws2es.signal_handler as signal_handler
 import time
 from wrapt.decorators import synchronized
 import re
+from concurrent.futures import Future
 
 PROPERTY_REGEX = re.compile('[0-9A-Za-z_]*')
 PROPERTY_NAME_IDS = {}
@@ -13,6 +14,21 @@ VOWELS_REGEX = re.compile('[aeiouy]', flags=re.IGNORECASE)
 SPACE_REGEX = re.compile(r'\s')
 REPEATED_CHARACTERS_REGEX = re.compile(r'(.)\1+')
 
+
+def complete_futures_values(doc_or_list):
+    if isinstance(doc_or_list, list):
+        for i, item_i in enumerate(doc_or_list):
+            if isinstance(item_i, dict) or isinstance(item_i, list):
+                complete_futures_values(item_i)
+            elif isinstance(item_i, Future):
+                doc_or_list[i] = item_i.result()
+    if isinstance(doc_or_list, dict):
+        for key_i in doc_or_list:
+            value_i = doc_or_list[key_i]
+            if isinstance(value_i, dict) or isinstance(value_i, list):
+                complete_futures_values(value_i)
+            elif isinstance(value_i, Future):
+                doc_or_list[key_i] = doc_or_list[key_i].result()
 
 def remove_duplicate_words(sentence):
     words = SPACE_REGEX.split(sentence)

@@ -4,7 +4,7 @@ import requests
 import sys
 import traceback
 import glados.es.ws2es.util as util
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util, simplify_es_properties
 import re
 from functools import lru_cache
 
@@ -42,7 +42,7 @@ def memoized_get_resource_mapping_from_es(idx_name):
 @lru_cache(maxsize=64)
 def memoized_get_simplified_mapping_from_es(res_name, idx_name):
     mapping = memoized_get_resource_mapping_from_es(idx_name)
-    return es_util.simplify_es_properties(res_name, mapping)
+    return simplify_es_properties(res_name, mapping)
 
 
 class ResourceDescription(object):

@@ -2,7 +2,7 @@ import argparse
 import sys
 import time
 from datetime import datetime, timedelta
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util
 from glados.es.ws2es.resource_iterator import ResourceIterator, SharedThreadPool
 import glados.es.ws2es.resources_description as resources_description
 import glados.es.ws2es.progress_bar_handler

@@ -1,7 +1,5 @@
 from glados.es.ws2es.denormalization import DenormalizationHandler
 from glados.es.ws2es.es_util import DefaultMappings
-import glados.es.ws2es.es_util as es_util
-import glados.es.ws2es.progress_bar_handler as progress_bar_handler
 
 
 class OrganismDenormalizationHandler(DenormalizationHandler):

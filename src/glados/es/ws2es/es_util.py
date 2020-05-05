@@ -6,7 +6,6 @@ from elasticsearch import helpers
 import glados.es.ws2es.progress_bar_handler as progress_bar_handler
 import glados.es.ws2es.signal_handler as signal_handler
 from glados.es.ws2es.util import SummableDict
-from concurrent.futures import Future
 import copy
 import json
 import yaml
@@ -15,180 +14,107 @@ import time
 import pprint
 import math
 from functools import lru_cache
-from glados.es.ws2es.util import SharedThreadPool, get_labels_from_property_name
+from glados.es.ws2es.util import SharedThreadPool, get_labels_from_property_name, complete_futures_values
 
 __author__ = 'jfmosquera@ebi.ac.uk'
 
 
-es_conn = None
+# ----------------------------------------------------------------------------------------------------------------------
+# CONNECTION INDEPENDENT FUNCTIONS
+# ----------------------------------------------------------------------------------------------------------------------
 
-########################################################################################################################
-
-
-def setup_connection_from_full_url(url):
-    global es_conn
-    es_conn = Elasticsearch([url])
-
-
-def setup_connection(host, port, user=None, password=None):
-    global es_conn
-    http_auth_data = None
-    if user is not None:
-        http_auth_data = (user, password)
-        
-    es_conn = Elasticsearch(hosts=[{'host': host, 'port': port,
-                                    'transport_class': Urllib3HttpConnection, 'timeout': 60}],
-                            http_auth=http_auth_data,
-                            retry_on_timeout=True)
-    es_conn.cluster.health(request_timeout=60)
+shards_guide = {
+        0: 1,
+        10**5: 2,
+        10**6: 4,
+        10**7: 8,
+        10**8: 16,
+        10**9: 32,
+        10**10: 64
+    }
 
 
-def ping():
-    global es_conn
-    return es_conn.ping()
+def num_shards_by_num_rows(n_rows):
+    cur_i = 0
+    guides = sorted(shards_guide.keys())
+    while cur_i < len(guides) and n_rows >= guides[cur_i]:
+        cur_i += 1
+    return shards_guide[guides[cur_i-1]]
 
 
-def delete_idx(idx_name):
-    global es_conn
-    if es_conn.indices.exists(index=idx_name):
-        es_conn.indices.delete(index=idx_name)
+def remove_es_mapping_properties_level(mapping_dict: dict={}):
+    return_dict = {}
+    for key, value in mapping_dict.items():
+        if key == 'properties' and isinstance(value, dict):
+            for inner_key, inner_value in value.items():
+                if isinstance(inner_value, dict):
+                    if 'properties' not in inner_value.keys():
+                        inner_value['es_mapping_leaf'] = True
+                        return_dict[inner_key] = inner_value
+                    else:
+                        return_dict[inner_key] = remove_es_mapping_properties_level(inner_value)
+                else:
+                    return_dict[key] = inner_value
+        elif isinstance(value, dict):
+            if 'properties' not in value.keys():
+                value['es_mapping_leaf'] = True
+                return_dict[key] = value
+            else:
+                return_dict[key] = remove_es_mapping_properties_level(value)
+        elif value:
+            return_dict[key] = value
+    return return_dict
 
 
-def get_idx_count(idx_name):
-    global es_conn
-    try:
-        search_res = es_conn.search(index=idx_name, body={'track_total_hits': True}, size=0)
-        return search_res['hits']['total']['value']
-    except:
-        traceback.print_exc(file=sys.stderr)
-        return -1
+def simplify_single_mapping(single_mapping):
+    mapping_type = single_mapping['type']
+    indexed = single_mapping.get('index', True)
+    return {
+        'type': DefaultMappings.SIMPLE_MAPPINGS_REVERSE.get(mapping_type, mapping_type),
+        'aggregatable': indexed and mapping_type in DefaultMappings.AGGREGATABLE_TYPES,
+        'sortable': indexed and mapping_type in DefaultMappings.AGGREGATABLE_TYPES
+    }
 
 
-def update_doc_type_mappings(idx_name, mappings):
-    # first argument used to be '_doc' know in version 7 is not required
-    es_conn.indices.put_mapping(mappings, idx_name)
+def _recursive_simplify_es_properties(cur_dict: dict, cur_prefix: str):
+    simple_props = SummableDict()
+    for key, value in cur_dict.items():
+        next_prefix = '{0}.{1}'.format(cur_prefix, key) if cur_prefix else key
+        if isinstance(value, dict):
+            if 'es_mapping_leaf' in value.keys():
+                simple_props[next_prefix] = simplify_single_mapping(value)
+            else:
+                simple_props[next_prefix] = {
+                    'type': 'object',
+                    'aggregatable': False,
+                    'sortable': False
+                }
+                simple_props += _recursive_simplify_es_properties(value, next_prefix)
+        elif value:
+            simple_props[next_prefix] = value
+
+    return simple_props
 
 
-# noinspection PyBroadException
-@lru_cache(maxsize=None)
-def get_doc_by_id(idx_name, doc_id, source_only=True):
-    try:
-        doc_data = es_conn.get(index=idx_name, id=doc_id)
-        if source_only:
-            return doc_data['_source']
-        return doc_data
-    except:
-        return None
+def simplify_es_properties(res_name, mappings_dict: dict):
+    mappings_dict_no_props = remove_es_mapping_properties_level(mappings_dict)
+    simplified_props = _recursive_simplify_es_properties(mappings_dict_no_props, '')
 
+    for property_i, desc in simplified_props.items():
+        label, label_mini = get_labels_from_property_name(res_name, property_i)
+        desc['label'] = label
+        desc['label_mini'] = label_mini
 
-def update_mappings_idx(idx_name,  mappings):
-    # mappings do not accept types anymore in elastic v7
-    if '_doc' in mappings:
-        mappings = mappings['_doc']
-    es_conn.indices.put_mapping(mappings, idx_name)
-
-
-def create_idx(idx_name, shards, replicas, analysis=None, mappings=None, logger=None):
-    global es_conn
-    if es_conn.indices.exists(index=idx_name):
-        es_conn.indices.delete(index=idx_name, ignore=[400, 404])
-    create_body = {
-            'settings': {
-                'index.mapping.total_fields.limit': 3000,
-                'number_of_shards': shards,
-                'number_of_replicas': replicas
-            }
-        }
-    if analysis:
-        create_body['settings']['analysis'] = analysis
-
-    if mappings:
-        # Indexes in elasticsearch do not allow multiple types in v7, use _doc directly
-        if '_doc' in mappings:
-            mappings = mappings['_doc']
-    create_body['mappings'] = mappings
-
-    if logger:
-        logger.debug("ATTEMPTING TO CREATE INDEX:{0}\nREQUEST_BODY:\n{1}"
-                     .format(idx_name, json.dumps(create_body, indent=4, sort_keys=True)))
-    creation_error = "UNKNOWN REASON"
-    # noinspection PyBroadException
-    try:
-        es_conn.indices.create(index=idx_name, body=create_body)
-    except:
-        creation_error = traceback.format_exc()
-    if not es_conn.indices.exists(index=idx_name):
-        raise Exception('ERROR: Index {0} was not created!\nDue too:\n{1}'.format(idx_name, creation_error))
-
-
-def get_index_mapping(es_index):
-    if es_conn is None:
-        print("FATAL ERROR: there is not an elastic search connection defined.", file=sys.stderr)
-        traceback.print_exc(file=sys.stderr)
-        sys.exit(1)
-    return es_conn.indices.get_mapping(index=es_index)[es_index]['mappings']
-
-
-STOP_SCAN = False
-
-
-def stop_scan(signal, frame):
-    global STOP_SCAN
-    STOP_SCAN = True
-
-
-def scan_index(es_index, on_doc=None, query=None):
-    global STOP_SCAN
-    if es_conn is None:
-        print("FATAL ERROR: there is not an elastic search connection defined.", file=sys.stderr)
-        traceback.print_exc(file=sys.stderr)
-        sys.exit(1)
-    if query is None:
-        query = {}
-    query['track_total_hits'] = True
-    search_res = es_conn.search(index=es_index, body=query)
-    total_docs = search_res['hits']['total']['value']
-    update_every = min(math.ceil(total_docs*0.001), 1000)
-    scan_query = SummableDict()
-    if query:
-        scan_query += query
-    scanner = helpers.scan(es_conn, index=es_index, scroll='10m', query=query, size=500)
-    count = 0
-    p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
-    for doc_n in scanner:
-        if callable(on_doc):
-            should_stop = on_doc(doc_n['_source'], total_docs, count, count == 0, count == total_docs-1)
-            if should_stop or STOP_SCAN:
-                return
-        count += 1
-        if count % update_every == 0:
-            p_bar.update(count)
-    p_bar.finish()
+    return simplified_props
 
 # ----------------------------------------------------------------------------------------------------------------------
 # BULK SUBMITTER
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-def complete_futures_values(doc_or_list):
-    if isinstance(doc_or_list, list):
-        for i, item_i in enumerate(doc_or_list):
-            if isinstance(item_i, dict) or isinstance(item_i, list):
-                complete_futures_values(item_i)
-            elif isinstance(item_i, Future):
-                doc_or_list[i] = item_i.result()
-    if isinstance(doc_or_list, dict):
-        for key_i in doc_or_list:
-            value_i = doc_or_list[key_i]
-            if isinstance(value_i, dict) or isinstance(value_i, list):
-                complete_futures_values(value_i)
-            elif isinstance(value_i, Future):
-                doc_or_list[key_i] = doc_or_list[key_i].result()
-
-
 class ESBulkSubmitter(Thread):
 
-    def __init__(self):
+    def __init__(self, es_util_owner):
         super().__init__()
         self.index_actions_queue = {}
         self.index_actions_queue_stats = {}
@@ -201,6 +127,7 @@ class ESBulkSubmitter(Thread):
         self.submission_pb = None
         self.max_docs_per_request = 500
         self.complete_futures = False
+        self.es_util_owner = es_util_owner
 
     def stop_submitter(self, signal, frame):
         self.stop_submission = True
@@ -228,7 +155,7 @@ class ESBulkSubmitter(Thread):
     # noinspection PyBroadException
     def submit_multi_search(self, idx_name, queries):
         try:
-            task = self.submission_pool.submit(es_conn.msearch, body=queries, index=idx_name)
+            task = self.submission_pool.submit(self.es_util_owner.es_conn.msearch, body=queries, index=idx_name)
             return task.result()
         except:
             traceback.print_exc()
@@ -316,7 +243,7 @@ class ESBulkSubmitter(Thread):
             if self.stop_submission:
                 return
             try:
-                helpers.bulk(client=es_conn, actions=actions)
+                helpers.bulk(client=self.es_util_owner.es_conn, actions=actions)
                 success = True
                 break
             except:
@@ -337,156 +264,198 @@ class ESBulkSubmitter(Thread):
         self.update_counts(idx_name, success, len(actions))
         self.update_pb(False, success)
 
-
-bulk_submitter = ESBulkSubmitter()
-# START ONLY WHEN REQUIRED
-# bulk_submitter.start()
-
-
-def index_doc_bulk(idx_name, doc_id, dict_doc):
-    action = {
-        '_index': idx_name,
-        '_id': doc_id,
-        '_source': json.dumps(dict_doc),
-        # in elastic search v7 it is no longer required to define doc type
-        # '_type': '_doc'
-    }
-    bulk_submitter.add_to_queue(idx_name, action)
+# ----------------------------------------------------------------------------------------------------------------------
+# ES UTIL
+# ----------------------------------------------------------------------------------------------------------------------
 
 
-def update_doc_bulk(idx_name, doc_id, script=None, doc=None, upsert=False):
-    action = {
-        '_op_type': 'update',
-        '_index': idx_name,
-        '_id': doc_id,
-        # in elastic search v7 it is no longer required to define doc type
-        # '_type': '_doc'
-    }
-    if script is not None:
-        action['script'] = script
-        if upsert:
-            action['upsert'] = {}
-    if doc is not None:
-        action['doc'] = doc
-        if upsert:
-            action['doc_as_upsert'] = True
+class ESUtil(object):
 
-    bulk_submitter.add_to_queue(idx_name, action)
+    def __init__(self):
+        self.es_conn = None
+        self.stop_scan = False
+        self.bulk_submitter = ESBulkSubmitter(self)
+        # START ONLY WHEN REQUIRED
+        # self.bulk_submitter.start()
 
+    def setup_connection_from_full_url(self, url):
+        self.es_conn = Elasticsearch([url])
 
-def index_doc(idx_name, doc_id, dict_doc):
-    global es_conn
-    es_conn.index(idx_name, dict_doc, doc_id)
+    def setup_connection(self, host, port, user=None, password=None):
+        http_auth_data = None
+        if user is not None:
+            http_auth_data = (user, password)
 
+        self.es_conn = Elasticsearch(
+            hosts=[{'host': host, 'port': port, 'transport_class': Urllib3HttpConnection, 'timeout': 60}],
+            http_auth=http_auth_data,
+            retry_on_timeout=True
+        )
+        self.es_conn.cluster.health(request_timeout=60)
 
-def run_yaml_query(yaml_query_file, index, replacements_dict=None):
-    """
+    def ping(self):
+        return self.es_conn.ping()
 
-    :param yaml_query_file: WARNING: this file must use JSON format
-    e.g. {a:0,b:"text"} will not work, but {"a":0,"b":"text"} will.
-    :param index:
-    :param replacements_dict:
-    :return:
-    """
-    global es_conn
-    yaml_query_file = yaml_query_file
-    with open(yaml_query_file, 'r') as yaml_f:
-        yaml_f_text = '\n'.join(yaml_f.readlines())
-        if replacements_dict:
-            for key, val in replacements_dict.items():
-                yaml_f_text = yaml_f_text.replace(key, val)
-        query_body = yaml.safe_load(yaml_f_text)
-        result = es_conn.search(index=index, body=json.dumps(query_body))
+    def delete_idx(self, idx_name):
+        if self.es_conn.indices.exists(index=idx_name):
+            self.es_conn.indices.delete(index=idx_name)
 
-        results = []
-        for hits_idx, hit_i in enumerate(result['hits']['hits']):
-            results.append(hit_i['_source'])
-        return results
+    def get_idx_count(self, idx_name):
+        try:
+            search_res = self.es_conn.search(index=idx_name, body={'track_total_hits': True}, size=0)
+            return search_res['hits']['total']['value']
+        except:
+            traceback.print_exc(file=sys.stderr)
+            return -1
 
+    def update_doc_type_mappings(self, idx_name, mappings):
+        # first argument used to be '_doc' now in version 7 is not required
+        self.es_conn.indices.put_mapping(mappings, idx_name)
 
-shards_guide = {
-        0: 1,
-        10**5: 2,
-        10**6: 4,
-        10**7: 8,
-        10**8: 16,
-        10**9: 32,
-        10**10: 64
-    }
+    # noinspection PyBroadException
+    @lru_cache(maxsize=None)
+    def get_doc_by_id(self, idx_name, doc_id, source_only=True):
+        try:
+            doc_data = self.es_conn.get(index=idx_name, id=doc_id)
+            if source_only:
+                return doc_data['_source']
+            return doc_data
+        except:
+            return None
 
+    def update_mappings_idx(self, idx_name,  mappings):
+        # mappings do not accept types anymore in elastic v7
+        if '_doc' in mappings:
+            mappings = mappings['_doc']
+        self.es_conn.indices.put_mapping(mappings, idx_name)
 
-def num_shards_by_num_rows(n_rows):
-    cur_i = 0
-    guides = sorted(shards_guide.keys())
-    while cur_i < len(guides) and n_rows >= guides[cur_i]:
-        cur_i += 1
-    return shards_guide[guides[cur_i-1]]
-
-
-def remove_es_mapping_properties_level(mapping_dict: dict={}):
-    return_dict = {}
-    for key, value in mapping_dict.items():
-        if key == 'properties' and isinstance(value, dict):
-            for inner_key, inner_value in value.items():
-                if isinstance(inner_value, dict):
-                    if 'properties' not in inner_value.keys():
-                        inner_value['es_mapping_leaf'] = True
-                        return_dict[inner_key] = inner_value
-                    else:
-                        return_dict[inner_key] = remove_es_mapping_properties_level(inner_value)
-                else:
-                    return_dict[key] = inner_value
-        elif isinstance(value, dict):
-            if 'properties' not in value.keys():
-                value['es_mapping_leaf'] = True
-                return_dict[key] = value
-            else:
-                return_dict[key] = remove_es_mapping_properties_level(value)
-        elif value:
-            return_dict[key] = value
-    return return_dict
-
-
-def simplify_single_mapping(single_mapping):
-    mapping_type = single_mapping['type']
-    indexed = single_mapping.get('index', True)
-    return {
-        'type': DefaultMappings.SIMPLE_MAPPINGS_REVERSE.get(mapping_type, mapping_type),
-        'aggregatable': indexed and mapping_type in DefaultMappings.AGGREGATABLE_TYPES,
-        'sortable': indexed and mapping_type in DefaultMappings.AGGREGATABLE_TYPES
-    }
-
-
-def _recursive_simplify_es_properties(cur_dict: dict, cur_prefix: str):
-    simple_props = SummableDict()
-    for key, value in cur_dict.items():
-        next_prefix = '{0}.{1}'.format(cur_prefix, key) if cur_prefix else key
-        if isinstance(value, dict):
-            if 'es_mapping_leaf' in value.keys():
-                simple_props[next_prefix] = simplify_single_mapping(value)
-            else:
-                simple_props[next_prefix] = {
-                    'type': 'object',
-                    'aggregatable': False,
-                    'sortable': False
+    def create_idx(self, idx_name, shards, replicas, analysis=None, mappings=None, logger=None):
+        if self.es_conn.indices.exists(index=idx_name):
+            self.es_conn.indices.delete(index=idx_name, ignore=[400, 404])
+        create_body = {
+                'settings': {
+                    'index.mapping.total_fields.limit': 3000,
+                    'number_of_shards': shards,
+                    'number_of_replicas': replicas
                 }
-                simple_props += _recursive_simplify_es_properties(value, next_prefix)
-        elif value:
-            simple_props[next_prefix] = value
+            }
+        if analysis:
+            create_body['settings']['analysis'] = analysis
 
-    return simple_props
+        if mappings:
+            # Indexes in elasticsearch do not allow multiple types in v7, use _doc directly
+            if '_doc' in mappings:
+                mappings = mappings['_doc']
+        create_body['mappings'] = mappings
+
+        if logger:
+            logger.debug("ATTEMPTING TO CREATE INDEX:{0}\nREQUEST_BODY:\n{1}"
+                         .format(idx_name, json.dumps(create_body, indent=4, sort_keys=True)))
+        creation_error = "UNKNOWN REASON"
+        # noinspection PyBroadException
+        try:
+            self.es_conn.indices.create(index=idx_name, body=create_body)
+        except:
+            creation_error = traceback.format_exc()
+        if not self.es_conn.indices.exists(index=idx_name):
+            raise Exception('ERROR: Index {0} was not created!\nDue too:\n{1}'.format(idx_name, creation_error))
+
+    def get_index_mapping(self, es_index):
+        if self.es_conn is None:
+            print("FATAL ERROR: there is not an elastic search connection defined.", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
+            sys.exit(1)
+        return self.es_conn.indices.get_mapping(index=es_index)[es_index]['mappings']
+
+    def scan_index(self, es_index, on_doc=None, query=None):
+        if self.es_conn is None:
+            print("FATAL ERROR: there is not an elastic search connection defined.", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
+            sys.exit(1)
+        if query is None:
+            query = {}
+        query['track_total_hits'] = True
+        search_res = self.es_conn.search(index=es_index, body=query)
+        total_docs = search_res['hits']['total']['value']
+        update_every = min(math.ceil(total_docs*0.001), 1000)
+        scan_query = SummableDict()
+        if query:
+            scan_query += query
+        scanner = helpers.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=500)
+        count = 0
+        p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
+        for doc_n in scanner:
+            if callable(on_doc):
+                should_stop = on_doc(doc_n['_source'], total_docs, count, count == 0, count == total_docs-1)
+                if should_stop or self.stop_scan:
+                    return
+            count += 1
+            if count % update_every == 0:
+                p_bar.update(count)
+        p_bar.finish()
+
+    def index_doc_bulk(self, idx_name, doc_id, dict_doc):
+        action = {
+            '_index': idx_name,
+            '_id': doc_id,
+            '_source': json.dumps(dict_doc),
+            # in elastic search v7 it is no longer required to define doc type
+            # '_type': '_doc'
+        }
+        self.bulk_submitter.add_to_queue(idx_name, action)
+
+    def update_doc_bulk(self, idx_name, doc_id, script=None, doc=None, upsert=False):
+        action = {
+            '_op_type': 'update',
+            '_index': idx_name,
+            '_id': doc_id,
+            # in elastic search v7 it is no longer required to define doc type
+            # '_type': '_doc'
+        }
+        if script is not None:
+            action['script'] = script
+            if upsert:
+                action['upsert'] = {}
+        if doc is not None:
+            action['doc'] = doc
+            if upsert:
+                action['doc_as_upsert'] = True
+
+        self.bulk_submitter.add_to_queue(idx_name, action)
+
+    def index_doc(self, idx_name, doc_id, dict_doc):
+        self.es_conn.index(idx_name, dict_doc, doc_id)
+
+    def run_yaml_query(self, yaml_query_file, index, replacements_dict=None):
+        """
+
+        :param yaml_query_file: WARNING: this file must use JSON format
+        e.g. {a:0,b:"text"} will not work, but {"a":0,"b":"text"} will.
+        :param index:
+        :param replacements_dict:
+        :return:
+        """
+        yaml_query_file = yaml_query_file
+        with open(yaml_query_file, 'r') as yaml_f:
+            yaml_f_text = '\n'.join(yaml_f.readlines())
+            if replacements_dict:
+                for key, val in replacements_dict.items():
+                    yaml_f_text = yaml_f_text.replace(key, val)
+            query_body = yaml.safe_load(yaml_f_text)
+            result = self.es_conn.search(index=index, body=json.dumps(query_body))
+
+            results = []
+            for hits_idx, hit_i in enumerate(result['hits']['hits']):
+                results.append(hit_i['_source'])
+            return results
 
 
-def simplify_es_properties(res_name, mappings_dict: dict):
-    mappings_dict_no_props = remove_es_mapping_properties_level(mappings_dict)
-    simplified_props = _recursive_simplify_es_properties(mappings_dict_no_props, '')
+# Singleton instance
+es_util = ESUtil()
 
-    for property_i, desc in simplified_props.items():
-        label, label_mini = get_labels_from_property_name(res_name, property_i)
-        desc['label'] = label
-        desc['label_mini'] = label_mini
-
-    return simplified_props
+# ----------------------------------------------------------------------------------------------------------------------
+# ES MAPPINGS
+# ----------------------------------------------------------------------------------------------------------------------
 
 
 class DefaultMappings(object):

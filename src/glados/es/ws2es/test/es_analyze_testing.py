@@ -1,4 +1,4 @@
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util
 import sys
 import logging
 import time

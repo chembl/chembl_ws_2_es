@@ -2,7 +2,7 @@ import argparse
 import sys
 import time
 from datetime import datetime, timedelta
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util
 import glados.es.ws2es.signal_handler as signal_handler
 from glados.es.ws2es.denormalization.activity_handler import ActivityDenormalizationHandler
 from glados.es.ws2es.denormalization.atc_class_handler import ATCClassDenormalizationHandler

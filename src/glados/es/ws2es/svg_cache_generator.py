@@ -1,12 +1,12 @@
 import traceback
 import sys
 import requests
-import glados.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
-from glados.ws2es.util import SharedThreadPool
-from glados.ws2es.resources_description import MOLECULE
-import glados.ws2es.progress_bar_handler as progress_bar_handler
-import glados.ws2es.signal_handler as signal_handler
+from glados.es.ws2es.util import SharedThreadPool
+from glados.es.ws2es.resources_description import MOLECULE
+import glados.es.ws2es.progress_bar_handler as progress_bar_handler
+import glados.es.ws2es.signal_handler as signal_handler
 import os
 import json
 from wrapt.decorators import synchronized

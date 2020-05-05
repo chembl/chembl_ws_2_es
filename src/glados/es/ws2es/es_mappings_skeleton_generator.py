@@ -1,8 +1,7 @@
 import os
 import re
-import glados.es.ws2es.es_util as es_util
 from glados.es.ws2es.resources_description import ALL_WS_RESOURCES, RESOURCES_BY_IDX_NAME
-from glados.es.ws2es.es_util import DefaultMappings
+from glados.es.ws2es.es_util import es_util, DefaultMappings
 import glados.es.ws2es.es_resources_desc as es_resources_desc
 import glados.es.ws2es.resources_description as resources_description
 import requests
@@ -142,7 +141,7 @@ def generate_mapping_skeleton(es_index):
     os.makedirs(FILES_DIR, exist_ok=True)
     alias = RESOURCES_BY_IDX_NAME[es_index].idx_alias
     with open(os.path.join(FILES_DIR, MODULE_PATTERN.format(alias)), 'w') as map_file:
-        index_mapping = es_util.es_conn.indices.get_mapping(es_index)
+        index_mapping = resources_description.RESOURCES_BY_IDX_NAME[es_index].get
         formatted_mappings = format_mappings_dict(es_index, index_mapping[es_index]['mappings'], cur_indent=4)
         map_file.write(FILE_HEADER)
         map_file.write(formatted_mappings)

@@ -1,4 +1,4 @@
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util
 import unittest
 import logging
 import pprint
@@ -27,6 +27,8 @@ def analyze(test_idx_name, text, analyzer, tokens_only=True):
 class TestCase(unittest.TestCase):
 
     def test_analyzer(self):
+
+
         test_idx_name = 'chembl_test_long_id_field_idx'
         custom_analysis = es_util.DefaultMappings.COMMON_ANALYSIS
         field_name = 'test_long_id_field'

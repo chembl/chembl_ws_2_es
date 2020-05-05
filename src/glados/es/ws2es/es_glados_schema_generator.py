@@ -1,7 +1,7 @@
 import os
 import re
 from glados.es.ws2es.resources_description import RESOURCES_BY_RES_NAME, RESOURCES_BY_IDX_NAME
-import glados.es.ws2es.es_util as es_util
+from glados.es.ws2es.es_util import es_util, DefaultMappings
 
 
 PROPERTY_REGEX = re.compile('[0-9A-Za-z_]*')
@@ -120,11 +120,11 @@ def get_label_from_property_name(es_doc_type, prop_name, idx_name):
 def get_js_mapping(prop_name, es_util_mapping, level, es_doc_type, idx_name):
     global PROPERTY_NAME_IDS
     mapping_type = es_util_mapping.get('type', None)
-    es_aggregatable = 'true' if mapping_type in es_util.DefaultMappings.AGGREGATABLE_TYPES else 'false'
+    es_aggregatable = 'true' if mapping_type in DefaultMappings.AGGREGATABLE_TYPES else 'false'
 
-    if mapping_type == es_util.DefaultMappings.BOOLEAN['type']:
+    if mapping_type == DefaultMappings.BOOLEAN['type']:
         js_type = "Boolean"
-    elif mapping_type in es_util.DefaultMappings.NUMERIC_TYPES:
+    elif mapping_type in DefaultMappings.NUMERIC_TYPES:
         js_type = "Number"
     elif isinstance(es_util_mapping, dict) and 'properties' in es_util_mapping:
         js_type = "Object"
@@ -139,7 +139,7 @@ def get_js_mapping(prop_name, es_util_mapping, level, es_doc_type, idx_name):
     js_mapping = '\n'
     js_mapping += ' ' * level + 'type : {0}\n'.format(js_type)
     if js_type == "Number":
-        es_integer = 'true' if mapping_type in es_util.DefaultMappings.INTEGER_NUMERIC_TYPES else 'false'
+        es_integer = 'true' if mapping_type in DefaultMappings.INTEGER_NUMERIC_TYPES else 'false'
         js_mapping += ' ' * level + 'integer : {0}\n'.format(es_integer)
         js_mapping += ' ' * level + 'year : {0}\n'.format('true' if 'year' in prop_name else 'false')
     js_mapping += ' ' * level + 'aggregatable : {0}\n'.format(es_aggregatable)

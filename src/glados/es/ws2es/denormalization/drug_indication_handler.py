@@ -3,7 +3,7 @@ from glados.es.ws2es.util import SummableDict
 from glados.es.ws2es.denormalization import DenormalizationHandler
 import glados.es.ws2es.mappings.es_chembl_drug_indication_mapping as drug_indication_mapping
 from glados.es.ws2es.denormalization.compound_family_helper import CompoundFamiliesDir
-from glados.es.ws2es.es_util import DefaultMappings, create_idx, delete_idx
+from glados.es.ws2es.es_util import DefaultMappings, es_util
 
 from glados.es.ws2es.resources_description import MOLECULE, DRUG_INDICATION, DRUG_INDICATION_BY_PARENT
 import sys
@@ -127,9 +127,11 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
         }
 
     def save_denormalization_for_new_index(self):
-        delete_idx(self.generated_resource.idx_name)
-        create_idx(self.generated_resource.idx_name, 3, 1, analysis=DefaultMappings.COMMON_ANALYSIS,
-                   mappings=DrugIndicationDenormalizationHandler.get_new_index_mappings())
+        es_util.delete_idx(self.generated_resource.idx_name)
+        es_util.create_idx(
+            self.generated_resource.idx_name, 3, 1, analysis=DefaultMappings.COMMON_ANALYSIS,
+            mappings=DrugIndicationDenormalizationHandler.get_new_index_mappings()
+        )
 
         dn_dict = {}
 
