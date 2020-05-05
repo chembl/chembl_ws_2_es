@@ -2,7 +2,7 @@ import argparse
 import sys
 import time
 from datetime import datetime, timedelta
-from glados.es.ws2es.es_util import ESUtil
+from glados.es.ws2es.es_util import ESUtil, num_shards_by_num_rows
 import glados.es.ws2es.signal_handler as signal_handler
 import glados.es.ws2es.resources_description as resources_description
 import glados.es.ws2es.progress_bar_handler as pbh
@@ -32,7 +32,10 @@ class IndexReplicator(Thread):
             return
 
         self.es_util_dest.delete_idx(self.idx_name)
-        self.es_util_dest.create_idx(self.idx_name, mappings=self.es_util_origin.get_index_mapping(self.idx_name))
+        self.es_util_dest.create_idx(
+            self.idx_name, num_shards_by_num_rows(origin_count), 1,
+            mappings=self.es_util_origin.get_index_mapping(self.idx_name)
+        )
         print('INFO: Index created for {0}.'.format(self.idx_name), file=sys.stderr)
         sys.stderr.flush()
 
@@ -70,7 +73,7 @@ def check_origin_vs_destination_counts(es_util_origin: ESUtil, es_util_dest: ESU
         formatted_es_count = ' ' * (12 - len(formatted_es_count)) + formatted_es_count
         print_txt = '{0}: origin_count: {1} - destination_count: {2}  {3}' \
             .format(resource_i.get_res_name_for_print(), formatted_ws_count, formatted_es_count, mismatch_txt)
-        print(print_txt)
+        print(print_txt, file=sys.stderr)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # MAIN
@@ -129,11 +132,11 @@ def main():
 
     es_util_origin = ESUtil()
     es_util_origin.setup_connection(
-      args.es_host_origin, args.es_port_origin, args.es_user_origin, args.es_password_origin
+        args.es_host_origin, args.es_port_origin, args.es_user_origin, args.es_password_origin
     )
     es_util_destination = ESUtil()
     es_util_destination.setup_connection(
-      args.es_host_destination, args.es_port_destination, args.es_user_destination, args.es_password_destination
+        args.es_host_destination, args.es_port_destination, args.es_user_destination, args.es_password_destination
     )
 
     ping_failed = False
