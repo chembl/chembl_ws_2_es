@@ -7,6 +7,7 @@ import glados.es.ws2es.signal_handler as signal_handler
 import glados.es.ws2es.resources_description as resources_description
 import glados.es.ws2es.progress_bar_handler as pbh
 from threading import Thread
+from glados.es.ws2es.util import query_yes_no
 import traceback
 
 __author__ = 'jfmosquera@ebi.ac.uk'
@@ -25,6 +26,11 @@ class IndexReplicator(Thread):
         self.es_util_dest = es_util_dest
 
     def replicate_idx(self):
+        origin_count = self.es_util_origin.get_idx_count(self.idx_name)
+        if origin_count <= 0:
+            print('ERROR: Skipping empty index {0} in origin cluster. COUNT: {1}'.format(self.idx_name, origin_count))
+            return
+
         self.es_util_dest.delete_idx(self.idx_name)
         self.es_util_dest.create_idx(self.idx_name, mappings=self.es_util_origin.get_index_mapping(self.idx_name))
         print('INFO: Index created for {0}.'.format(self.idx_name), file=sys.stderr)
@@ -50,6 +56,21 @@ def replicate_clusters(es_util_origin: ESUtil, es_util_dest: ESUtil):
         replicators.append(res_it_i)
     for res_it_i in replicators:
         res_it_i.join()
+
+
+def check_origin_vs_destination_counts(es_util_origin: ESUtil, es_util_dest: ESUtil):
+    for resource_i in resources_description.ALL_RESOURCES:
+        origin_count = es_util_origin.get_idx_count(resource_i.idx_name)
+        destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
+        mismatch = origin_count == -1 or destination_count == -1 or origin_count != destination_count
+        mismatch_txt = 'MISMATCH' if mismatch else ''
+        formatted_ws_count = '{0:,}'.format(origin_count)
+        formatted_ws_count = ' ' * (12 - len(formatted_ws_count)) + formatted_ws_count
+        formatted_es_count = '{0:,}'.format(destination_count)
+        formatted_es_count = ' ' * (12 - len(formatted_es_count)) + formatted_es_count
+        print_txt = '{0}: origin_count: {1} - destination_count: {2}  {3}' \
+            .format(resource_i.get_res_name_for_print(), formatted_ws_count, formatted_es_count, mismatch_txt)
+        print(print_txt)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # MAIN
@@ -94,6 +115,17 @@ def main():
                         help="Elastic Search port for destination cluster.",
                         default=9200)
     args = parser.parse_args()
+
+    print('ORIGIN:')
+    print(args.es_host_origin, args.es_port_origin, args.es_user_origin)
+    print('DESTINATION:')
+    print(args.es_host_destination, args.es_port_destination, args.es_user_destination)
+    if args.es_host_origin == args.es_host_destination and args.es_port_origin == args.es_port_destination:
+        print('ERROR: Origin and destination clusters are the same.')
+        return
+    if not query_yes_no("This procedure will delete and create all indexes again in the destination server.\n"
+                        "Do you want to proceed?", default="no"):
+        return
 
     es_util_origin = ESUtil()
     es_util_origin.setup_connection(
@@ -140,7 +172,9 @@ def main():
         .format(d.day-1, d.hour, d.minute, d.second),
         file=sys.stderr
     )
+    check_origin_vs_destination_counts(es_util_origin, es_util_destination)
 
 
 if __name__ == "__main__":
     main()
+
