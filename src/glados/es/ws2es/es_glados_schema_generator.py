@@ -181,11 +181,10 @@ def summarize_mapping_definition(es_doc_type, mapping, parent_property=None, lev
 
 
 def summarize_mappings_types(mappings, glados_schema_file, level=0, idx_name=''):
-    for es_doc_type in sorted(mappings.keys()):
-        props_summary = summarize_mapping_definition(es_doc_type, mappings[es_doc_type]['properties'], level=level,
-                                                     idx_name=idx_name)
-        for prop in props_summary:
-            print(" "*level+prop, file=glados_schema_file)
+    props_summary = summarize_mapping_definition('_doc', mappings['properties'], level=level,
+                                                 idx_name=idx_name)
+    for prop in props_summary:
+        print(" "*level+prop, file=glados_schema_file)
 
 
 def generate_glados_schema_and_po_files():
@@ -233,5 +232,4 @@ def generate_glados_schema_and_po_files():
 
 
 if __name__ == '__main__':
-    es_util.setup_connection('wp-p2m-50.ebi.ac.uk', 9200)
     generate_glados_schema_and_po_files()
