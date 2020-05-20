@@ -85,16 +85,24 @@ class ResourceDescription(object):
         return '___'.join(ids_parts)
 
     # noinspection PyBroadException
-    def create_alias(self, es_host='localhost', es_port=9200):
+    def create_alias(self, es_host='localhost', es_port=9200, user=None, password=None):
         try:
-            req = requests.post('http://{0}:{1}/_aliases'.format(es_host, es_port), json={
-                "actions": [
-                    {"remove": {"index": "*", "alias": self.idx_alias}},
-                    {"add": {"index": self.idx_name, "alias": self.idx_alias}}
-                ]
-            })
+            auth_data = None
+            if user is not None and password is not None:
+                auth_data = (user, password)
+            req = requests.post(
+                'http://{0}:{1}/_aliases'.format(es_host, es_port),
+                json={
+                    "actions": [
+                        {"remove": {"index": "*", "alias": self.idx_alias}},
+                        {"add": {"index": self.idx_name, "alias": self.idx_alias}}
+                    ]
+                },
+                auth=auth_data
+            )
+            if req.status_code != 200:
+                raise Exception(req.content)
             print('INDEX ALIAS CREATED FOR {0}!'.format(self.idx_alias))
-            print(req.json())
         except Exception as e:
             traceback.print_exc(file=sys.stderr)
             print('ERROR: Failed to create alias for {0}'.format(self.idx_alias), file=sys.stderr)
@@ -109,9 +117,9 @@ class ResourceDescription(object):
         return es_util.get_doc_by_id(self.idx_name, doc_id)
 
     @staticmethod
-    def create_all_aliases(es_host='localhost', es_port=9200):
+    def create_all_aliases(es_host='localhost', es_port=9200, user=None, password=None):
         for res_i in ALL_RESOURCES:
-            res_i.create_alias(es_host, es_port)
+            res_i.create_alias(es_host, es_port, user, password)
 
 
 # Resources coming from the Web Services

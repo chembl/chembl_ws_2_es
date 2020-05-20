@@ -64,7 +64,9 @@ def main():
     args = parser.parse_args()
 
     if args.create_alias:
-        resources_description.ResourceDescription.create_all_aliases(args.es_host, args.es_port)
+        resources_description.ResourceDescription.create_all_aliases(
+            args.es_host, args.es_port, args.es_user, args.es_password
+        )
         sys.exit(0)
 
     es_util.setup_connection(args.es_host, args.es_port, args.es_user, args.es_password)
