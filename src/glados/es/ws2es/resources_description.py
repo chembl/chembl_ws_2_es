@@ -10,8 +10,8 @@ from functools import lru_cache
 
 ########################################################################################################################
 
-WS_DEV_URL = 'http://wwwdev.ebi.ac.uk/chembl/api/data'
-WS_PROD_URL = 'http://www.ebi.ac.uk/chembl/api/data'
+WS_DEV_URL = 'https://wwwdev.ebi.ac.uk/chembl/api/data'
+WS_PROD_URL = 'https://www.ebi.ac.uk/chembl/api/data'
 
 WS_URL_TO_USE = WS_DEV_URL
 
