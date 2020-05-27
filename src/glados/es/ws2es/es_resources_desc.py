@@ -9,6 +9,8 @@ import glados.es.ws2es.mappings.es_chembl_biotherapeutic_mapping as es_chembl_bi
 import glados.es.ws2es.mappings.es_chembl_cell_line_mapping as es_chembl_cell_line_mapping
 import glados.es.ws2es.mappings.es_chembl_chembl_id_lookup_mapping as es_chembl_chembl_id_lookup_mapping
 import glados.es.ws2es.mappings.es_chembl_compound_record_mapping as es_chembl_compound_record_mapping
+import glados.es.ws2es.mappings.es_chembl_compound_structural_alert_mapping as \
+    es_chembl_compound_structural_alert_mapping
 import glados.es.ws2es.mappings.es_chembl_document_mapping as es_chembl_document_mapping
 import glados.es.ws2es.mappings.es_chembl_document_similarity_mapping as es_chembl_document_similarity_mapping
 import glados.es.ws2es.mappings.es_chembl_drug_mapping as es_chembl_drug_mapping
@@ -40,6 +42,7 @@ resources_2_es_mapping = \
         'cell_line': es_chembl_cell_line_mapping,
         'chembl_id_lookup': es_chembl_chembl_id_lookup_mapping,
         'compound_record': es_chembl_compound_record_mapping,
+        'compound_structural_alert': es_chembl_compound_structural_alert_mapping,
         'document': es_chembl_document_mapping,
         'document_similarity': es_chembl_document_similarity_mapping,
         'drug': es_chembl_drug_mapping,
