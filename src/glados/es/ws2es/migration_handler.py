@@ -105,27 +105,25 @@ def main():
     print('CHEMBL WS URL: {0}'.format(resources_description.WS_URL_TO_USE), file=sys.stderr)
     sys.stderr.flush()
 
-    if args.ws_resource:
-        resource = resources_description.RESOURCES_BY_RES_NAME.get(args.ws_resource, None)
-        if resource is None:
-            print('Unknown resource {0}'.format(args.ws_resource), file=sys.stderr)
-        iterator = ResourceIterator(
-            resource, iterator_thread_pool,
+    resources_to_run = resources_description.ALL_WS_RESOURCES
+    if selected_resources:
+        resources_to_run = []
+        for resource_i_str in selected_resources:
+            resource_i = resources_description.RESOURCES_BY_RES_NAME.get(resource_i_str, None)
+            if resource_i is None:
+                print('Unknown resource {0}'.format(resource_i_str), file=sys.stderr)
+                sys.exit(1)
+            resources_to_run.append(resource_i)
+    iterators = []
+    for resource_i in resources_to_run:
+        res_it_i = ResourceIterator(
+            resource_i, iterator_thread_pool,
             on_start=on_start, on_doc=on_doc, on_done=on_done, iterate_all=iterate_all, redo_failed_chunks=True
         )
-        iterator.start()
-        iterator.join()
-    else:
-        iterators = []
-        for resource_i in resources_description.ALL_WS_RESOURCES:
-            res_it_i = ResourceIterator(
-                resource_i, iterator_thread_pool,
-                on_start=on_start, on_doc=on_doc, on_done=on_done, iterate_all=iterate_all, redo_failed_chunks=True
-            )
-            res_it_i.start()
-            iterators.append(res_it_i)
-        for res_it_i in iterators:
-            res_it_i.join()
+        res_it_i.start()
+        iterators.append(res_it_i)
+    for res_it_i in iterators:
+        res_it_i.join()
 
     es_util.bulk_submitter.join()
     for res_i in resources_description.ALL_WS_RESOURCES_NAMES:
