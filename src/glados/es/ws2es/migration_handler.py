@@ -63,6 +63,13 @@ def main():
                         action="store_true",)
     args = parser.parse_args()
 
+    prod_env = False
+    if args.ws_prod_env:
+        prod_env = True
+    resources_description.set_ws_env(prod_env)
+    print('CHEMBL WS URL: {0}'.format(resources_description.WS_URL_TO_USE), file=sys.stderr)
+    sys.stderr.flush()
+
     if args.create_alias:
         resources_description.ResourceDescription.create_all_aliases(
             args.es_host, args.es_port, args.es_user, args.es_password
@@ -97,13 +104,6 @@ def main():
     iterate_all = args.migrate_all
 
     iterator_thread_pool = SharedThreadPool(max_workers=10)
-
-    prod_env = False
-    if args.ws_prod_env:
-        prod_env = True
-    resources_description.set_ws_env(prod_env)
-    print('CHEMBL WS URL: {0}'.format(resources_description.WS_URL_TO_USE), file=sys.stderr)
-    sys.stderr.flush()
 
     resources_to_run = resources_description.ALL_WS_RESOURCES
     if selected_resources:

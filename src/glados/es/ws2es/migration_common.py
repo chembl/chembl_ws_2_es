@@ -154,7 +154,7 @@ def generate_mapping_skeleton_file(res_name):
 def generate_mappings_for_resources(resources=None):
     imports = ''
     descriptions = '    {\n'
-    es_mappings_skeleton_generator.check_ws_vs_es_counts()
+    es_mappings_skeleton_generator.check_ws_vs_es_counts(resources=resources)
     for res_i in sorted(resources_description.ALL_WS_RESOURCES_NAMES):
         if resources and res_i not in resources:
             continue

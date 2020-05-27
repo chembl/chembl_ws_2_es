@@ -33,6 +33,7 @@ def get_ws_count(resource):
         return req.json()['page_meta']['total_count']
     except:
         traceback.print_exc(file=sys.stderr)
+        print('FAILED URL: {0}'.format(ws_url), file=sys.stderr)
         return -1
 
 
@@ -141,8 +142,8 @@ def generate_mapping_skeleton(es_index):
     os.makedirs(FILES_DIR, exist_ok=True)
     alias = RESOURCES_BY_IDX_NAME[es_index].idx_alias
     with open(os.path.join(FILES_DIR, MODULE_PATTERN.format(alias)), 'w') as map_file:
-        index_mapping = resources_description.RESOURCES_BY_IDX_NAME[es_index].get
-        formatted_mappings = format_mappings_dict(es_index, index_mapping[es_index]['mappings'], cur_indent=4)
+        index_mapping = resources_description.RESOURCES_BY_IDX_NAME[es_index].get_full_resource_mapping_from_es()
+        formatted_mappings = format_mappings_dict(es_index, index_mapping, cur_indent=4)
         map_file.write(FILE_HEADER)
         map_file.write(formatted_mappings)
 
@@ -159,6 +160,8 @@ def compare_mappings(resources=None):
     import glados.es.ws2es.mappings_skeletons.es_chembl_biotherapeutic_mapping as es_chembl_biotherapeutic_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_cell_line_mapping as es_chembl_cell_line_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_chembl_id_lookup_mapping as es_chembl_chembl_id_lookup_mapping
+    import glados.es.ws2es.mappings_skeletons.es_chembl_compound_structural_alert_mapping as \
+        es_chembl_compound_structural_alert_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_compound_record_mapping as es_chembl_compound_record_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_document_mapping as es_chembl_document_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_document_similarity_mapping as \
@@ -190,6 +193,7 @@ def compare_mappings(resources=None):
         'cell_line': es_chembl_cell_line_mapping,
         'chembl_id_lookup': es_chembl_chembl_id_lookup_mapping,
         'compound_record': es_chembl_compound_record_mapping,
+        'compound_structural_alert': es_chembl_compound_structural_alert_mapping,
         'document': es_chembl_document_mapping,
         'document_similarity': es_chembl_document_similarity_mapping,
         'drug': es_chembl_drug_mapping,
@@ -272,8 +276,10 @@ def compare_mappings(resources=None):
             print("No changes found for: {0}".format(resource))
 
 
-def check_ws_vs_es_counts():
+def check_ws_vs_es_counts(resources=None):
     for resource_i in ALL_WS_RESOURCES:
+        if resources and resource_i.res_name not in resources:
+            continue
         ws_count = get_ws_count(resource_i.res_name)
         es_count = es_util.get_idx_count(resource_i.idx_name)
         mismatch = ws_count == -1 or es_count == -1 or ws_count != es_count

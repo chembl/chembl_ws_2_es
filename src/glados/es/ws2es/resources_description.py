@@ -107,6 +107,11 @@ class ResourceDescription(object):
             traceback.print_exc(file=sys.stderr)
             print('ERROR: Failed to create alias for {0}'.format(self.idx_alias), file=sys.stderr)
 
+    def get_full_resource_mapping_from_es(self):
+        return {
+            'properties': memoized_get_resource_mapping_from_es(self.idx_name)
+        }
+
     def get_resource_mapping_from_es(self):
         return memoized_get_resource_mapping_from_es(self.idx_name)
 
