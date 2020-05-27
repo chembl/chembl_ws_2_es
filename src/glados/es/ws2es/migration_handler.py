@@ -102,6 +102,8 @@ def main():
     if args.ws_prod_env:
         prod_env = True
     resources_description.set_ws_env(prod_env)
+    print('CHEMBL WS URL: {0}'.format(resources_description.WS_URL_TO_USE), file=sys.stderr)
+    sys.stderr.flush()
 
     if args.ws_resource:
         resource = resources_description.RESOURCES_BY_RES_NAME.get(args.ws_resource, None)
