@@ -217,11 +217,16 @@ class ResourceIterator(Thread):
         return None
 
     def iterate_resource(self):
+        stop_at = self.total_count if self.iterate_all else (ResourceIterator.LIMIT * 10)
+
         self.count_future = self.thread_pool.submit(self._get_resource_count)
         self.total_count = self.count_future.result()
         self.iterated_count = 0
         chunk_size = ResourceIterator.LIMIT*3
-        self.progress_bar = progress_bar_handler.get_new_progressbar(self.resource.res_name, self.total_count)
+        self.progress_bar = progress_bar_handler.get_new_progressbar(
+            self.resource.res_name,
+            self.total_count if self.iterate_all else stop_at
+        )
         if self.on_start:
             try:
                 self.on_start(self.resource.res_name, self.total_count)
@@ -232,7 +237,6 @@ class ResourceIterator(Thread):
                       file=sys.stderr)
                 sys.stderr.flush()
                 return
-        stop_at = self.total_count if self.iterate_all else (ResourceIterator.LIMIT * 10)
         for offset_i in range(0, stop_at, chunk_size):
             if self.stop:
                 return
