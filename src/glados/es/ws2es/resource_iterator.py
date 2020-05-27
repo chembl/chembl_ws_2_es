@@ -17,6 +17,7 @@ from urllib.parse import urlparse
 class ResourceIterator(Thread):
 
     LIMIT = 1000
+    CHUNK_SIZE_MULTIPLIER = 5
     MAX_RETRIES = 30
 
     def __init__(self, resource: resources_description.ResourceDescription, thread_pool: SharedThreadPool,
@@ -217,12 +218,14 @@ class ResourceIterator(Thread):
         return None
 
     def iterate_resource(self):
-        stop_at = self.total_count if self.iterate_all else (ResourceIterator.LIMIT * 10)
+        stop_at = self.total_count if self.iterate_all else (
+            ResourceIterator.LIMIT * 10 * ResourceIterator.CHUNK_SIZE_MULTIPLIER
+        )
 
         self.count_future = self.thread_pool.submit(self._get_resource_count)
         self.total_count = self.count_future.result()
         self.iterated_count = 0
-        chunk_size = ResourceIterator.LIMIT*3
+        chunk_size = ResourceIterator.LIMIT * ResourceIterator.CHUNK_SIZE_MULTIPLIER
         self.progress_bar = progress_bar_handler.get_new_progressbar(
             self.resource.res_name,
             self.total_count if self.iterate_all else stop_at
