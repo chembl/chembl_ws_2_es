@@ -218,12 +218,11 @@ class ResourceIterator(Thread):
         return None
 
     def iterate_resource(self):
+        self.count_future = self.thread_pool.submit(self._get_resource_count)
+        self.total_count = self.count_future.result()
         stop_at = self.total_count if self.iterate_all else (
             ResourceIterator.LIMIT * 10 * ResourceIterator.CHUNK_SIZE_MULTIPLIER
         )
-
-        self.count_future = self.thread_pool.submit(self._get_resource_count)
-        self.total_count = self.count_future.result()
         self.iterated_count = 0
         chunk_size = ResourceIterator.LIMIT * ResourceIterator.CHUNK_SIZE_MULTIPLIER
         self.progress_bar = progress_bar_handler.get_new_progressbar(
