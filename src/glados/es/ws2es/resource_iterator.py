@@ -82,7 +82,7 @@ class ResourceIterator(Thread):
         res_count = 0
         try:
             res_url = self._build_url()
-            req = requests.get(res_url)
+            req = requests.get(res_url, verify=False)
             response = req.json()
             res_count = response['page_meta']['total_count']
         except:
@@ -160,7 +160,7 @@ class ResourceIterator(Thread):
                                 traceback.print_exc()
                                 response = None
                         if response is None:
-                            req = requests.get(next_url)
+                            req = requests.get(next_url, verify=False)
                             if req.status_code != 200:
                                 raise Exception("STATUS CODE: {0}".format(req.status_code))
                             response = req.json()
