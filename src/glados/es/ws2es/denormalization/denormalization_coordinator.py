@@ -9,6 +9,8 @@ from glados.es.ws2es.denormalization.atc_class_handler import ATCClassDenormaliz
 from glados.es.ws2es.denormalization.assay_handler import AssayDenormalizationHandler
 from glados.es.ws2es.denormalization.binding_site_handler import BindingSiteHandler
 from glados.es.ws2es.denormalization.compound_handler import CompoundDenormalizationHandler
+from glados.es.ws2es.denormalization.compound_structural_alert_handler import \
+    CompoundStructuralAlertDenormalizationHandler
 from glados.es.ws2es.denormalization.cell_handler import CellDenormalizationHandler
 from glados.es.ws2es.denormalization.compound_record_handler import CompoundRecordDenormalizationHandler
 from glados.es.ws2es.denormalization.document_handler import DocumentDenormalizationHandler
@@ -33,6 +35,10 @@ __author__ = 'jfmosquera@ebi.ac.uk'
 # ----------------------------------------------------------------------------------------------------------------------
 
 def denormalize_all_but_activity():
+    csa_dh = CompoundStructuralAlertDenormalizationHandler()
+    csa_dh.scan_data_from_es()
+    csa_dh.save_denormalization()
+
     source_dh = SourceDenormalizationHandler()
     source_dh.scan_data_from_es()
     source_dh.save_denormalization()
