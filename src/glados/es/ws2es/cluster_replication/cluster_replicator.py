@@ -163,7 +163,7 @@ def main():
     print(args.es_host_destination, args.es_port_destination, args.es_user_destination)
 
     selected_resources = None
-    if args.ws_resource:
+    if args.es_resource:
         selected_resources = args.es_resource.split(',')
     resources_to_run = resources_description.ALL_WS_RESOURCES
     if selected_resources:
