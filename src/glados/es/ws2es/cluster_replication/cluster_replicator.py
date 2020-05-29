@@ -59,11 +59,9 @@ class IndexReplicator(Thread):
 
         def index_doc_on_doc(scan_doc, scan_doc_id, total_docs, current_count, firts_doc, last_doc):
             if idx_exists:
-                print('UPDATING', file=sys.stderr)
-                # self.es_util_dest.update_doc_bulk(self.idx_name, scan_doc_id, doc=scan_doc, upsert=True)
+                self.es_util_dest.update_doc_bulk(self.idx_name, scan_doc_id, doc=scan_doc, upsert=True)
             else:
-                print('INDEXING', file=sys.stderr)
-                # self.es_util_dest.index_doc_bulk(self.idx_name, scan_doc_id, scan_doc)
+                self.es_util_dest.index_doc_bulk(self.idx_name, scan_doc_id, scan_doc)
 
         self.es_util_origin.scan_index(self.idx_name, index_doc_on_doc)
 
@@ -165,7 +163,7 @@ def main():
     selected_resources = None
     if args.es_resource:
         selected_resources = args.es_resource.split(',')
-    resources_to_run = resources_description.ALL_WS_RESOURCES
+    resources_to_run = resources_description.ALL_RESOURCES
     if selected_resources:
         resources_to_run = []
         for resource_i_str in selected_resources:
