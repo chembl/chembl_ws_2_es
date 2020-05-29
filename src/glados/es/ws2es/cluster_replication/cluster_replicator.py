@@ -19,29 +19,51 @@ __author__ = 'jfmosquera@ebi.ac.uk'
 
 class IndexReplicator(Thread):
 
-    def __init__(self, idx_name: str, es_util_origin: ESUtil, es_util_dest: ESUtil):
+    def __init__(self, idx_name: str, es_util_origin: ESUtil, es_util_dest: ESUtil, delete_dest_idx: bool=False):
         super().__init__()
         self.idx_name = idx_name
         self.es_util_origin = es_util_origin
         self.es_util_dest = es_util_dest
+        self.delete_dest_idx = delete_dest_idx
 
     def replicate_idx(self):
         origin_count = self.es_util_origin.get_idx_count(self.idx_name)
         if origin_count <= 0:
             print('ERROR: Skipping empty index {0} in origin cluster. COUNT: {1}'.format(self.idx_name, origin_count))
             return
+        idx_exists = self.es_util_dest.get_idx_count(self.idx_name) > 0
+        # noinspection PyBroadException
+        try:
+            if idx_exists and self.delete_dest_idx:
+                # self.es_util_dest.delete_idx(self.idx_name)
+                print('INFO: INDEX DELETED : {0}.'.format(self.idx_name), file=sys.stderr)
 
-        self.es_util_dest.delete_idx(self.idx_name)
-        self.es_util_dest.create_idx(
-            self.idx_name, num_shards_by_num_rows(origin_count), 0,
-            analysis=DefaultMappings.COMMON_ANALYSIS,
-            mappings=self.es_util_origin.get_index_mapping(self.idx_name)
-        )
-        print('INFO: Index created for {0}.'.format(self.idx_name), file=sys.stderr)
+            if not idx_exists or (idx_exists and self.delete_dest_idx):
+                self.es_util_dest.create_idx(
+                    self.idx_name, num_shards_by_num_rows(origin_count), 0,
+                    analysis=DefaultMappings.COMMON_ANALYSIS,
+                    mappings=self.es_util_origin.get_index_mapping(self.idx_name)
+                )
+                print('INFO: INDEX CREATED : {0}.'.format(self.idx_name), file=sys.stderr)
+            else:
+                self.es_util_dest.update_mappings_idx(
+                    self.idx_name, self.es_util_origin.get_index_mapping(self.idx_name)
+                )
+                print('INFO: INDEX MAPPINGS UPDATED : {0}.'.format(self.idx_name), file=sys.stderr)
+        except Exception as e:
+            traceback.print_exc(file=sys.stderr)
+            print('ERROR: INDEX CREATION/UPDATE FAILED : {0}.'.format(self.idx_name), file=sys.stderr)
+            return
+
         sys.stderr.flush()
 
         def index_doc_on_doc(scan_doc, scan_doc_id, total_docs, current_count, firts_doc, last_doc):
-            self.es_util_dest.index_doc_bulk(self.idx_name, scan_doc_id, scan_doc)
+            if idx_exists:
+                print('UPDATING', file=sys.stderr)
+                # self.es_util_dest.update_doc_bulk(self.idx_name, scan_doc_id, doc=scan_doc, upsert=True)
+            else:
+                print('INDEXING', file=sys.stderr)
+                # self.es_util_dest.index_doc_bulk(self.idx_name, scan_doc_id, scan_doc)
 
         self.es_util_origin.scan_index(self.idx_name, index_doc_on_doc)
 
@@ -52,18 +74,25 @@ class IndexReplicator(Thread):
             traceback.print_exc()
 
 
-def replicate_clusters(es_util_origin: ESUtil, es_util_dest: ESUtil):
+def replicate_clusters(
+    es_util_origin: ESUtil, es_util_dest: ESUtil,
+    resources_to_run=resources_description.ALL_RESOURCES,
+    delete_dest_idx: bool=False
+):
     replicators = []
-    for resource_i in resources_description.ALL_RESOURCES:
-        res_it_i = IndexReplicator(resource_i.idx_name, es_util_origin, es_util_dest)
+    for resource_i in resources_to_run:
+        res_it_i = IndexReplicator(resource_i.idx_name, es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx)
         res_it_i.start()
         replicators.append(res_it_i)
     for res_it_i in replicators:
         res_it_i.join()
 
 
-def check_origin_vs_destination_counts(es_util_origin: ESUtil, es_util_dest: ESUtil):
-    for resource_i in resources_description.ALL_RESOURCES:
+def check_origin_vs_destination_counts(
+    es_util_origin: ESUtil, es_util_dest: ESUtil,
+    resources_to_run=resources_description.ALL_RESOURCES
+):
+    for resource_i in resources_to_run:
         origin_count = es_util_origin.get_idx_count(resource_i.idx_name)
         destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
         mismatch = origin_count == -1 or destination_count == -1 or origin_count != destination_count
@@ -86,6 +115,14 @@ def main():
     parser = argparse.ArgumentParser(
         description="Replicate ChEMBL data existing in Elastic Search from origin to destination."
     )
+    parser.add_argument("--delete_indexes",
+                        dest="delete_indexes",
+                        help="Delete indexes if they exist already in the elastic cluster.",
+                        action="store_true",)
+    parser.add_argument("--resource",
+                        dest="es_resource",
+                        help="Resource to iterate, if not specified will iterate all the resources.",
+                        default=None)
     parser.add_argument("--host-origin",
                         dest="es_host_origin",
                         help="Elastic Search Hostname or IP address for origin cluster.",
@@ -124,12 +161,28 @@ def main():
     print(args.es_host_origin, args.es_port_origin, args.es_user_origin)
     print('DESTINATION:')
     print(args.es_host_destination, args.es_port_destination, args.es_user_destination)
+
+    selected_resources = None
+    if args.ws_resource:
+        selected_resources = args.es_resource.split(',')
+    resources_to_run = resources_description.ALL_WS_RESOURCES
+    if selected_resources:
+        resources_to_run = []
+        for resource_i_str in selected_resources:
+            resource_i = resources_description.RESOURCES_BY_RES_NAME.get(resource_i_str, None)
+            if resource_i is None:
+                print('Unknown resource {0}'.format(resource_i_str), file=sys.stderr)
+                sys.exit(1)
+            resources_to_run.append(resource_i)
+
     if args.es_host_origin == args.es_host_destination and args.es_port_origin == args.es_port_destination:
         print('ERROR: Origin and destination clusters are the same.')
         return
-    if not query_yes_no("This procedure will delete and create all indexes again in the destination server.\n"
-                        "Do you want to proceed?", default="no"):
-        return
+
+    if args.delete_indexes:
+        if not query_yes_no("This procedure will delete and create all indexes again in the destination server.\n"
+                            "Do you want to proceed?", default="no"):
+            return
 
     es_util_origin = ESUtil()
     es_util_origin.setup_connection(
@@ -159,7 +212,9 @@ def main():
     signal_handler.add_termination_handler(es_util_destination.stop_scan)
     signal_handler.add_termination_handler(es_util_destination.bulk_submitter.stop_submitter)
 
-    replicate_clusters(es_util_origin, es_util_destination)
+    replicate_clusters(
+        es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=args.delete_indexes
+    )
 
     es_util_destination.bulk_submitter.join()
     pbh.write_after_progress_bars()
@@ -176,7 +231,7 @@ def main():
         .format(d.day-1, d.hour, d.minute, d.second),
         file=sys.stderr
     )
-    check_origin_vs_destination_counts(es_util_origin, es_util_destination)
+    check_origin_vs_destination_counts(es_util_origin, es_util_destination, resources_to_run=resources_to_run)
 
 
 if __name__ == "__main__":
