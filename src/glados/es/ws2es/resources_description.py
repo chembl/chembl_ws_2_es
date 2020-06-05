@@ -57,22 +57,32 @@ class ResourceDescription(object):
     def __get_index_alias(cls, res_name):
         return '{0}_{1}'.format(cls.INDEX_PREFIX, res_name)
 
-    def __init__(self, res_name, resource_ids, ws_resource=True):
+    def __init__(self, res_name, resource_ids, ws_resource=True,
+                 monitoring_resource=False, glados_custom_resource=False):
         global RESOURCES_BY_RES_NAME, ALL_RESOURCES, MAX_RES_NAME_LENGTH
+        if monitoring_resource or glados_custom_resource:
+            ws_resource = False
         self.res_name = res_name
         self.idx_name = self.__get_index_name(res_name)
         self.idx_alias = self.__get_index_alias(res_name)
         self.resource_ids = resource_ids
         self.ws_resource = ws_resource
+        self.monitoring_resource = monitoring_resource
+        self.glados_custom_resource = glados_custom_resource
         MAX_RES_NAME_LENGTH = max(MAX_RES_NAME_LENGTH, len(self.res_name))
         RESOURCES_BY_RES_NAME[res_name] = self
         RESOURCES_BY_IDX_NAME[self.idx_name] = self
         RESOURCES_BY_ALIAS_NAME[self.idx_alias] = self
-        ALL_RESOURCES.append(self)
-        ALL_RESOURCES_NAMES.append(res_name)
+
+        if not self.glados_custom_resource and not self.monitoring_resource:
+            ALL_RESOURCES.append(self)
+            ALL_RESOURCES_NAMES.append(res_name)
+
         if self.ws_resource:
             ALL_WS_RESOURCES.append(self)
             ALL_WS_RESOURCES_NAMES.append(res_name)
+
+        if
 
     def get_res_name_for_print(self):
         global MAX_RES_NAME_LENGTH
@@ -169,3 +179,23 @@ DRUG_INDICATION_BY_PARENT = ResourceDescription(
     'drug_indication_by_parent', ['parent_molecule.molecule_chembl_id', 'drug_indication.mesh_id'],
     ws_resource=False
 )
+
+# GLaDOS Custom data resources
+CHEMBL_GLADOS_TINY_URL = ResourceDescription('chembl_glados_tiny_url', ['hash'], glados_custom_resource=True)
+
+# Monitoring Resources - GLaDOS
+CHEMBL_GLADOS_ES_CACHE_USAGE = ResourceDescription('chembl_glados_es_cache_usage', [], monitoring_resource=True)
+CHEMBL_GLADOS_ES_DOWNLOAD_RECORD = ResourceDescription('chembl_glados_es_download_record', [], monitoring_resource=True)
+CHEMBL_GLADOS_ES_SEARCH_RECORD = ResourceDescription('chembl_glados_es_search_record', [], monitoring_resource=True)
+CHEMBL_GLADOS_ES_TINYURL_USAGE_RECORD = \
+    ResourceDescription('chembl_glados_es_tinyurl_usage_record', [], monitoring_resource=True)
+CHEMBL_GLADOS_ES_VIEW_RECORD = ResourceDescription('chembl_glados_es_view_record', [], monitoring_resource=True)
+
+
+# Monitoring Resources DELAYED JOBS
+CHEMBL_DELAYED_JOBS_JOB_CACHE_RECORD = \
+    ResourceDescription('chembl_delayed_jobs_job_cache_record', [], monitoring_resource=True)
+CHEMBL_DELAYED_JOBS_JOB_RECORD = ResourceDescription('chembl_delayed_jobs_job_record', [], monitoring_resource=True)
+CHEMBL_DELAYED_JOBS_MMV_JOB_RECORD = \
+    ResourceDescription('chembl_delayed_jobs_mmv_job_record', [], monitoring_resource=True)
+CHEMBL_DELAYED_JOBS_TEST_JOB_RECORD = ResourceDescription('chembl_delayed_jobs_test_job_record', [], monitoring_resource=True)
