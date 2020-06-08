@@ -2,7 +2,7 @@ import argparse
 import sys
 import time
 from datetime import datetime, timedelta
-from glados.es.ws2es.es_util import ESUtil, num_shards_by_num_rows, DefaultMappings
+from glados.es.ws2es.es_util import ESUtil, num_shards_by_num_rows, DefaultMappings, CURRENT_ES_VERSION
 import glados.es.ws2es.signal_handler as signal_handler
 import glados.es.ws2es.resources_description as resources_description
 import glados.es.ws2es.progress_bar_handler as pbh
@@ -11,6 +11,7 @@ from glados.es.ws2es.util import query_yes_no
 import traceback
 
 __author__ = 'jfmosquera@ebi.ac.uk'
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Replication
@@ -74,7 +75,7 @@ class IndexReplicator(Thread):
 
 def replicate_clusters(
     es_util_origin: ESUtil, es_util_dest: ESUtil,
-    resources_to_run=resources_description.ALL_RESOURCES,
+    resources_to_run=resources_description.ALL_RELEASE_RESOURCES,
     delete_dest_idx: bool=False
 ):
     replicators = []
@@ -86,14 +87,27 @@ def replicate_clusters(
         res_it_i.join()
 
 
+def get_initial_counts(es_util_dest: ESUtil, resources_to_run:list):
+    counts_by_resource = {}
+    for resource_i in resources_to_run:
+        destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
+        counts_by_resource[resource_i.res_name] = destination_count
+    return counts_by_resource
+
+
 def check_origin_vs_destination_counts(
     es_util_origin: ESUtil, es_util_dest: ESUtil,
-    resources_to_run=resources_description.ALL_RESOURCES
+    resources_to_run=resources_description.ALL_RELEASE_RESOURCES,
+    initial_dest_counts_by_resource=None
 ):
     for resource_i in resources_to_run:
         origin_count = es_util_origin.get_idx_count(resource_i.idx_name)
         destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
+        if initial_dest_counts_by_resource is not None:
+            destination_count -= initial_dest_counts_by_resource[resource_i.res_name]
         mismatch = origin_count == -1 or destination_count == -1 or origin_count != destination_count
+        if destination_count >= 0 and origin_count >= 0 and initial_dest_counts_by_resource is not None:
+            mismatch = origin_count > destination_count
         mismatch_txt = 'MISMATCH' if mismatch else ''
         formatted_ws_count = '{0:,}'.format(origin_count)
         formatted_ws_count = ' ' * (12 - len(formatted_ws_count)) + formatted_ws_count
@@ -117,10 +131,18 @@ def main():
                         dest="delete_indexes",
                         help="Delete indexes if they exist already in the elastic cluster.",
                         action="store_true",)
+    parser.add_argument("--monitoring",
+                        dest="monitoring",
+                        help="Replicate the monitoring indexes.",
+                        action="store_true",)
     parser.add_argument("--resource",
                         dest="es_resource",
                         help="Resource to iterate, if not specified will iterate all the resources.",
                         default=None)
+    parser.add_argument("--es-major-version-origin",
+                        dest="es_major_version_origin",
+                        help="Elastic Search class to use for origin cluster.",
+                        default=CURRENT_ES_VERSION)
     parser.add_argument("--host-origin",
                         dest="es_host_origin",
                         help="Elastic Search Hostname or IP address for origin cluster.",
@@ -155,6 +177,18 @@ def main():
                         default=9200)
     args = parser.parse_args()
 
+    try:
+        args.es_major_version_origin = int(args.es_major_version_origin)
+        assert args.es_major_version_origin <= CURRENT_ES_VERSION
+    except:
+        traceback.print_exc()
+        print(
+            'ERROR: Major version for elastic "{0}" is not valid, it must be an integer lower than {1}.'
+            .format(args.es_major_version_origin, CURRENT_ES_VERSION),
+            file=sys.stderr
+        )
+        sys.exit(1)
+
     print('ORIGIN:')
     print(args.es_host_origin, args.es_port_origin, args.es_user_origin)
     print('DESTINATION:')
@@ -163,7 +197,8 @@ def main():
     selected_resources = None
     if args.es_resource:
         selected_resources = args.es_resource.split(',')
-    resources_to_run = resources_description.ALL_RESOURCES
+    resources_to_run = resources_description.ALL_MONITORING_RESOURCES if args.monitoring else \
+        resources_description.ALL_RELEASE_RESOURCES
     if selected_resources:
         resources_to_run = []
         for resource_i_str in selected_resources:
@@ -182,7 +217,7 @@ def main():
                             "Do you want to proceed?", default="no"):
             return
 
-    es_util_origin = ESUtil()
+    es_util_origin = ESUtil(es_major_version=args.es_major_version_origin)
     es_util_origin.setup_connection(
         args.es_host_origin, args.es_port_origin, args.es_user_origin, args.es_password_origin
     )
@@ -203,6 +238,10 @@ def main():
 
     if ping_failed:
         return
+
+    counts_by_resource = None
+    if args.monitoring:
+        counts_by_resource = get_initial_counts(es_util_dest=es_util_destination)
 
     es_util_destination.bulk_submitter.start()
 
@@ -229,7 +268,8 @@ def main():
         .format(d.day-1, d.hour, d.minute, d.second),
         file=sys.stderr
     )
-    check_origin_vs_destination_counts(es_util_origin, es_util_destination, resources_to_run=resources_to_run)
+    check_origin_vs_destination_counts(es_util_origin, es_util_destination, resources_to_run=resources_to_run,
+                                       initial_dest_counts_by_resource=counts_by_resource)
 
 
 if __name__ == "__main__":
