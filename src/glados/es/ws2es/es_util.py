@@ -1,8 +1,8 @@
 import traceback
 from threading import Thread
 from wrapt.decorators import synchronized
-from elasticsearch import Elasticsearch, Urllib3HttpConnection
-from elasticsearch import helpers
+import elasticsearch
+import elasticsearch.helpers
 import glados.es.ws2es.progress_bar_handler as progress_bar_handler
 import glados.es.ws2es.signal_handler as signal_handler
 from glados.es.ws2es.util import SummableDict
@@ -13,11 +13,13 @@ import sys
 import time
 import pprint
 import math
+import importlib
 from functools import lru_cache
 from glados.es.ws2es.util import SharedThreadPool, get_labels_from_property_name, complete_futures_values
 
 __author__ = 'jfmosquera@ebi.ac.uk'
 
+CURRENT_ES_VERSION = 7
 
 # ----------------------------------------------------------------------------------------------------------------------
 # CONNECTION INDEPENDENT FUNCTIONS
@@ -243,7 +245,7 @@ class ESBulkSubmitter(Thread):
             if self.stop_submission:
                 return
             try:
-                helpers.bulk(client=self.es_util_owner.es_conn, actions=actions)
+                self.es_util_owner.es_helpers_module.bulk(client=self.es_util_owner.es_conn, actions=actions)
                 success = True
                 break
             except:
@@ -271,23 +273,39 @@ class ESBulkSubmitter(Thread):
 
 class ESUtil(object):
 
-    def __init__(self):
+    def __init__(self, es_major_version=None):
+        global CURRENT_ES_VERSION
         self.es_conn = None
         self.stop_scan = False
         self.bulk_submitter = ESBulkSubmitter(self)
+        self.es_module = elasticsearch
+        self.es_helpers_module = elasticsearch.helpers
+        self.es_major_version = es_major_version if es_major_version is not None else CURRENT_ES_VERSION
+        if self.es_major_version != CURRENT_ES_VERSION:
+            try:
+                es_module_str = 'elasticsearch{}'.format(es_major_version)
+                self.es_module = importlib.import_module(es_module_str)
+                if getattr(self.es_module, 'Elasticsearch', None) is None:
+                    raise Exception('Elasticsearch class not found')
+                self.es_helpers_module = importlib.import_module(es_module_str+'.helpers')
+            except Exception as e:
+                print('ERROR: COULD NOT LOAD ELASTICSEARCH from "{}"'.format(es_module_str), file=sys.stderr)
+                sys.exit(1)
         # START ONLY WHEN REQUIRED
         # self.bulk_submitter.start()
 
     def setup_connection_from_full_url(self, url):
-        self.es_conn = Elasticsearch([url])
+        self.es_conn = self.es_module.Elasticsearch([url])
 
     def setup_connection(self, host, port, user=None, password=None):
         http_auth_data = None
         if user is not None:
             http_auth_data = (user, password)
 
-        self.es_conn = Elasticsearch(
-            hosts=[{'host': host, 'port': port, 'transport_class': Urllib3HttpConnection, 'timeout': 60}],
+        self.es_conn = self.es_module.Elasticsearch(
+            hosts=[
+                {'host': host, 'port': port, 'transport_class': self.es_module.Urllib3HttpConnection, 'timeout': 60}
+            ],
             http_auth=http_auth_data,
             retry_on_timeout=True
         )
@@ -302,8 +320,9 @@ class ESUtil(object):
 
     def get_idx_count(self, idx_name):
         try:
-            search_res = self.es_conn.search(index=idx_name, body={'track_total_hits': True}, size=0)
-            return search_res['hits']['total']['value']
+            request_body = {'track_total_hits': True} if self.es_major_version >= 7 else None
+            search_res = self.es_conn.search(index=idx_name, body=request_body, size=0)
+            return search_res['hits']['total'] if self.es_major_version < 7 else search_res['hits']['total']['value']
         except:
             traceback.print_exc(file=sys.stderr)
             return -1
@@ -374,14 +393,17 @@ class ESUtil(object):
             sys.exit(1)
         if query is None:
             query = {}
-        query['track_total_hits'] = True
+        if self.es_major_version >= 7:
+            query['track_total_hits'] = True
         search_res = self.es_conn.search(index=es_index, body=query)
-        total_docs = search_res['hits']['total']['value']
+        total_docs = search_res['hits']['total']
+        if self.es_major_version >= 7:
+            total_docs = total_docs['value']
         update_every = min(math.ceil(total_docs*0.001), 1000)
         scan_query = SummableDict()
         if query:
             scan_query += query
-        scanner = helpers.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=1000)
+        scanner = self.es_helpers_module.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=1000)
         count = 0
         p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
         for doc_n in scanner:
