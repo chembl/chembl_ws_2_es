@@ -87,27 +87,14 @@ def replicate_clusters(
         res_it_i.join()
 
 
-def get_initial_counts(es_util_dest: ESUtil, resources_to_run: list):
-    counts_by_resource = {}
-    for resource_i in resources_to_run:
-        destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
-        counts_by_resource[resource_i.res_name] = destination_count
-    return counts_by_resource
-
-
 def check_origin_vs_destination_counts(
     es_util_origin: ESUtil, es_util_dest: ESUtil,
-    resources_to_run=resources_description.ALL_RELEASE_RESOURCES,
-    initial_dest_counts_by_resource=None
+    resources_to_run=resources_description.ALL_RELEASE_RESOURCES
 ):
     for resource_i in resources_to_run:
         origin_count = es_util_origin.get_idx_count(resource_i.idx_name)
         destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
-        if initial_dest_counts_by_resource is not None:
-            destination_count -= initial_dest_counts_by_resource[resource_i.res_name]
         mismatch = origin_count == -1 or destination_count == -1 or origin_count != destination_count
-        if destination_count >= 0 and origin_count >= 0 and initial_dest_counts_by_resource is not None:
-            mismatch = origin_count > destination_count
         mismatch_txt = 'MISMATCH' if mismatch else ''
         formatted_ws_count = '{0:,}'.format(origin_count)
         formatted_ws_count = ' ' * (12 - len(formatted_ws_count)) + formatted_ws_count
@@ -239,10 +226,6 @@ def main():
     if ping_failed:
         return
 
-    counts_by_resource = None
-    if args.monitoring:
-        counts_by_resource = get_initial_counts(es_util_dest=es_util_destination, resources_to_run=resources_to_run)
-
     es_util_destination.bulk_submitter.start()
 
     signal_handler.add_termination_handler(es_util_origin.stop_scan)
@@ -268,8 +251,7 @@ def main():
         .format(d.day-1, d.hour, d.minute, d.second),
         file=sys.stderr
     )
-    check_origin_vs_destination_counts(es_util_origin, es_util_destination, resources_to_run=resources_to_run,
-                                       initial_dest_counts_by_resource=counts_by_resource)
+    check_origin_vs_destination_counts(es_util_origin, es_util_destination, resources_to_run=resources_to_run)
 
 
 if __name__ == "__main__":
