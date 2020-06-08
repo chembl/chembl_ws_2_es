@@ -20,12 +20,14 @@ __author__ = 'jfmosquera@ebi.ac.uk'
 
 class IndexReplicator(Thread):
 
-    def __init__(self, idx_name: str, es_util_origin: ESUtil, es_util_dest: ESUtil, delete_dest_idx: bool=False):
+    def __init__(self, idx_name: str, es_util_origin: ESUtil, es_util_dest: ESUtil, delete_dest_idx: bool=False,
+                 skip_update_mappings: bool=False):
         super().__init__()
         self.idx_name = idx_name
         self.es_util_origin = es_util_origin
         self.es_util_dest = es_util_dest
         self.delete_dest_idx = delete_dest_idx
+        self.update_mappings = not skip_update_mappings
 
     def replicate_idx(self):
         origin_count = self.es_util_origin.get_idx_count(self.idx_name)
@@ -46,7 +48,7 @@ class IndexReplicator(Thread):
                     mappings=self.es_util_origin.get_index_mapping(self.idx_name)
                 )
                 print('INFO: INDEX CREATED : {0}.'.format(self.idx_name), file=sys.stderr)
-            else:
+            elif self.update_mappings:
                 self.es_util_dest.update_mappings_idx(
                     self.idx_name, self.es_util_origin.get_index_mapping(self.idx_name)
                 )
@@ -76,11 +78,12 @@ class IndexReplicator(Thread):
 def replicate_clusters(
     es_util_origin: ESUtil, es_util_dest: ESUtil,
     resources_to_run=resources_description.ALL_RELEASE_RESOURCES,
-    delete_dest_idx: bool=False
+    delete_dest_idx: bool=False, skip_update_mappings: bool=False
 ):
     replicators = []
     for resource_i in resources_to_run:
-        res_it_i = IndexReplicator(resource_i.idx_name, es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx)
+        res_it_i = IndexReplicator(resource_i.idx_name, es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx,
+                                   skip_update_mappings=skip_update_mappings)
         res_it_i.start()
         replicators.append(res_it_i)
     for res_it_i in replicators:
@@ -117,6 +120,10 @@ def main():
     parser.add_argument("--delete_indexes",
                         dest="delete_indexes",
                         help="Delete indexes if they exist already in the elastic cluster.",
+                        action="store_true",)
+    parser.add_argument("--skip-update-mappings",
+                        dest="skip_update_mappings",
+                        help="Does not attempt to update the mappings in the destination cluster.",
                         action="store_true",)
     parser.add_argument("--monitoring",
                         dest="monitoring",
@@ -233,7 +240,8 @@ def main():
     signal_handler.add_termination_handler(es_util_destination.bulk_submitter.stop_submitter)
 
     replicate_clusters(
-        es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=args.delete_indexes
+        es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=args.delete_indexes,
+        skip_update_mappings=args.skip_update_mappings
     )
 
     es_util_destination.bulk_submitter.join()
