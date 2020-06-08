@@ -34,7 +34,7 @@ class IndexReplicator(Thread):
         if origin_count <= 0:
             print('ERROR: Skipping empty index {0} in origin cluster. COUNT: {1}'.format(self.idx_name, origin_count))
             return
-        idx_exists = self.es_util_dest.get_idx_count(self.idx_name) > 0
+        idx_exists = self.es_util_dest.get_idx_count(self.idx_name) >= 0
         # noinspection PyBroadException
         try:
             if idx_exists and self.delete_dest_idx:
