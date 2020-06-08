@@ -25,10 +25,12 @@ def set_ws_env(prod):
 RESOURCES_BY_RES_NAME = {}
 RESOURCES_BY_IDX_NAME = {}
 RESOURCES_BY_ALIAS_NAME = {}
-ALL_RESOURCES = []
-ALL_RESOURCES_NAMES = []
+ALL_RELEASE_RESOURCES = []
+ALL_RELEASE_RESOURCES_NAMES = []
 ALL_WS_RESOURCES = []
 ALL_WS_RESOURCES_NAMES = []
+ALL_MONITORING_RESOURCES = []
+ALL_MONITORING_RESOURCES_NAMES = []
 CURRENT_INDEX_VERSION = '27'
 MAX_RES_NAME_LENGTH = 0
 
@@ -50,7 +52,9 @@ class ResourceDescription(object):
     INDEX_PREFIX = "chembl"
 
     @classmethod
-    def __get_index_name(cls, res_name):
+    def __get_index_name(cls, res_name, release_resource=True):
+        if not release_resource:
+            return cls.__get_index_alias(res_name)
         return '{0}_{1}_{2}'.format(cls.INDEX_PREFIX, CURRENT_INDEX_VERSION, res_name)
 
     @classmethod
@@ -59,11 +63,12 @@ class ResourceDescription(object):
 
     def __init__(self, res_name, resource_ids, ws_resource=True,
                  monitoring_resource=False, glados_custom_resource=False):
-        global RESOURCES_BY_RES_NAME, ALL_RESOURCES, MAX_RES_NAME_LENGTH
+        global RESOURCES_BY_RES_NAME, ALL_RELEASE_RESOURCES, MAX_RES_NAME_LENGTH
         if monitoring_resource or glados_custom_resource:
             ws_resource = False
+        self.release_resource = not monitoring_resource and not glados_custom_resource
         self.res_name = res_name
-        self.idx_name = self.__get_index_name(res_name)
+        self.idx_name = self.__get_index_name(res_name, self.release_resource)
         self.idx_alias = self.__get_index_alias(res_name)
         self.resource_ids = resource_ids
         self.ws_resource = ws_resource
@@ -75,14 +80,16 @@ class ResourceDescription(object):
         RESOURCES_BY_ALIAS_NAME[self.idx_alias] = self
 
         if not self.glados_custom_resource and not self.monitoring_resource:
-            ALL_RESOURCES.append(self)
-            ALL_RESOURCES_NAMES.append(res_name)
+            ALL_RELEASE_RESOURCES.append(self)
+            ALL_RELEASE_RESOURCES_NAMES.append(res_name)
 
         if self.ws_resource:
             ALL_WS_RESOURCES.append(self)
             ALL_WS_RESOURCES_NAMES.append(res_name)
 
-        if
+        if self.monitoring_resource:
+            ALL_MONITORING_RESOURCES.append(self)
+            ALL_MONITORING_RESOURCES_NAMES.append(res_name)
 
     def get_res_name_for_print(self):
         global MAX_RES_NAME_LENGTH
@@ -133,7 +140,7 @@ class ResourceDescription(object):
 
     @staticmethod
     def create_all_aliases(es_host='localhost', es_port=9200, user=None, password=None):
-        for res_i in ALL_RESOURCES:
+        for res_i in ALL_RELEASE_RESOURCES:
             res_i.create_alias(es_host, es_port, user, password)
 
 
@@ -181,21 +188,23 @@ DRUG_INDICATION_BY_PARENT = ResourceDescription(
 )
 
 # GLaDOS Custom data resources
-CHEMBL_GLADOS_TINY_URL = ResourceDescription('chembl_glados_tiny_url', ['hash'], glados_custom_resource=True)
+GLADOS_TINY_URL = ResourceDescription('glados_tiny_url', ['hash'], glados_custom_resource=True)
 
 # Monitoring Resources - GLaDOS
-CHEMBL_GLADOS_ES_CACHE_USAGE = ResourceDescription('chembl_glados_es_cache_usage', [], monitoring_resource=True)
-CHEMBL_GLADOS_ES_DOWNLOAD_RECORD = ResourceDescription('chembl_glados_es_download_record', [], monitoring_resource=True)
-CHEMBL_GLADOS_ES_SEARCH_RECORD = ResourceDescription('chembl_glados_es_search_record', [], monitoring_resource=True)
-CHEMBL_GLADOS_ES_TINYURL_USAGE_RECORD = \
-    ResourceDescription('chembl_glados_es_tinyurl_usage_record', [], monitoring_resource=True)
-CHEMBL_GLADOS_ES_VIEW_RECORD = ResourceDescription('chembl_glados_es_view_record', [], monitoring_resource=True)
+GLADOS_ES_CACHE_USAGE = ResourceDescription('glados_es_cache_usage', [], monitoring_resource=True)
+GLADOS_ES_DOWNLOAD_RECORD = ResourceDescription('glados_es_download_record', [], monitoring_resource=True)
+GLADOS_ES_SEARCH_RECORD = ResourceDescription('glados_es_search_record', [], monitoring_resource=True)
+GLADOS_ES_TINYURL_USAGE_RECORD = \
+    ResourceDescription('glados_es_tinyurl_usage_record', [], monitoring_resource=True)
+GLADOS_ES_VIEW_RECORD = ResourceDescription('glados_es_view_record', [], monitoring_resource=True)
 
 
 # Monitoring Resources DELAYED JOBS
-CHEMBL_DELAYED_JOBS_JOB_CACHE_RECORD = \
-    ResourceDescription('chembl_delayed_jobs_job_cache_record', [], monitoring_resource=True)
-CHEMBL_DELAYED_JOBS_JOB_RECORD = ResourceDescription('chembl_delayed_jobs_job_record', [], monitoring_resource=True)
-CHEMBL_DELAYED_JOBS_MMV_JOB_RECORD = \
-    ResourceDescription('chembl_delayed_jobs_mmv_job_record', [], monitoring_resource=True)
-CHEMBL_DELAYED_JOBS_TEST_JOB_RECORD = ResourceDescription('chembl_delayed_jobs_test_job_record', [], monitoring_resource=True)
+DELAYED_JOBS_JOB_CACHE_RECORD = \
+    ResourceDescription('delayed_jobs_job_cache_record', [], monitoring_resource=True)
+DELAYED_JOBS_JOB_RECORD = ResourceDescription('delayed_jobs_job_record', [], monitoring_resource=True)
+DELAYED_JOBS_MMV_JOB_RECORD = \
+    ResourceDescription('delayed_jobs_mmv_job_record', [], monitoring_resource=True)
+DELAYED_JOBS_TEST_JOB_RECORD = ResourceDescription(
+    'delayed_jobs_test_job_record', [], monitoring_resource=True
+)
