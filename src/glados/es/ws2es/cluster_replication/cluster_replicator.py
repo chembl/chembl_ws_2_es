@@ -87,7 +87,7 @@ def replicate_clusters(
         res_it_i.join()
 
 
-def get_initial_counts(es_util_dest: ESUtil, resources_to_run:list):
+def get_initial_counts(es_util_dest: ESUtil, resources_to_run: list):
     counts_by_resource = {}
     for resource_i in resources_to_run:
         destination_count = es_util_dest.get_idx_count(resource_i.idx_name)
@@ -241,7 +241,7 @@ def main():
 
     counts_by_resource = None
     if args.monitoring:
-        counts_by_resource = get_initial_counts(es_util_dest=es_util_destination)
+        counts_by_resource = get_initial_counts(es_util_dest=es_util_destination, resources_to_run=resources_to_run)
 
     es_util_destination.bulk_submitter.start()
 
