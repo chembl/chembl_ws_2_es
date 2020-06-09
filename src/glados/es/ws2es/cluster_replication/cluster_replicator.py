@@ -244,6 +244,7 @@ def main():
         skip_update_mappings=args.skip_update_mappings
     )
 
+    es_util_destination.bulk_submitter.finish_current_queues()
     es_util_destination.bulk_submitter.join()
     pbh.write_after_progress_bars()
 
