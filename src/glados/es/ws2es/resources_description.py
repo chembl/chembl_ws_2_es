@@ -200,11 +200,11 @@ GLADOS_ES_VIEW_RECORD = ResourceDescription('glados_es_view_record', [], monitor
 
 
 # Monitoring Resources DELAYED JOBS
-DELAYED_JOBS_JOB_CACHE_RECORD = \
-    ResourceDescription('delayed_jobs_job_cache_record', [], monitoring_resource=True)
-DELAYED_JOBS_JOB_RECORD = ResourceDescription('delayed_jobs_job_record', [], monitoring_resource=True)
-DELAYED_JOBS_MMV_JOB_RECORD = \
-    ResourceDescription('delayed_jobs_mmv_job_record', [], monitoring_resource=True)
-DELAYED_JOBS_TEST_JOB_RECORD = ResourceDescription(
-    'delayed_jobs_test_job_record', [], monitoring_resource=True
-)
+# DELAYED_JOBS_JOB_CACHE_RECORD = \
+#     ResourceDescription('delayed_jobs_job_cache_record', [], monitoring_resource=True)
+# DELAYED_JOBS_JOB_RECORD = ResourceDescription('delayed_jobs_job_record', [], monitoring_resource=True)
+# DELAYED_JOBS_MMV_JOB_RECORD = \
+#     ResourceDescription('delayed_jobs_mmv_job_record', [], monitoring_resource=True)
+# DELAYED_JOBS_TEST_JOB_RECORD = ResourceDescription(
+#     'delayed_jobs_test_job_record', [], monitoring_resource=True
+# )
