@@ -61,6 +61,11 @@ class IndexReplicator(Thread):
         sys.stderr.flush()
 
         def index_doc_on_doc(scan_doc, scan_doc_id, total_docs, current_count, firts_doc, last_doc):
+            if 'request_date' in scan_doc:
+                try:
+                    scan_doc['request_date'] = int(scan_doc['request_date'])
+                except:
+                    pass
             if idx_exists:
                 self.es_util_dest.update_doc_bulk(self.idx_name, scan_doc_id, doc=scan_doc, upsert=True)
             else:
