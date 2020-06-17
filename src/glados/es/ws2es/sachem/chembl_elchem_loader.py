@@ -22,7 +22,9 @@ def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil, molfil
           'chembl_id': doc_id,
           'molecule': molecule_doc['_source']['molecule_structures']['canonical_smiles']
         }
-        es_util_destination.update_doc_bulk('chembl_molecules', doc_id, doc=doc_to_index, upsert=True)
+        es_util_destination.update_doc_bulk(
+          'chembl_molecule_{0}'.format(molecule_property), doc_id, doc=doc_to_index, upsert=True
+        )
 
     molecules_query = {
         '_source': ['molecule_chembl_id', 'molecule_structures.{0}'.format(molecule_property)],
