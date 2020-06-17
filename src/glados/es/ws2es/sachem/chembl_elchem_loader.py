@@ -20,7 +20,7 @@ def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil, molfil
     def on_molecule_doc(molecule_doc: dict, doc_id: str, total_docs: int, index: int, first: bool, last: bool):
         doc_to_index = {
           'chembl_id': doc_id,
-          'molecule': molecule_doc.get('_source', {}).get('molecule_structures', {}).get('canonical_smiles', None)
+          'molecule': molecule_doc.get('molecule_structures', {}).get(molecule_property, None)
         }
         es_util_destination.update_doc_bulk(
           'chembl_molecule_{0}'.format(molecule_property), doc_id, doc=doc_to_index, upsert=True
