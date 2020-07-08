@@ -644,6 +644,26 @@ class DefaultMappings(object):
         'title_analyzed': __ALT_NAME_ANALYZED_FIELD['fields']['alt_name_analyzed']
         })
 
+    # Chemical structure field types
+
+    __SUBSTRUCTURE_FIELD = SummableDict(
+        fields={
+            "substructure": {
+                "type": "structure_fingerprint",
+                "aromaticity_mode": "preserve"
+            }
+        }
+    )
+
+    __SIMILARITY_FIELD = SummableDict(
+        fields={
+            "substructure": {
+                "type": "similarity_fingerprint",
+                "aromaticity_mode": "preserve"
+            }
+        }
+    )
+
     # Properties MAPPINGS
 
     NO_INDEX_KEYWORD = __NO_INDEX + __KEYWORD_TYPE
@@ -668,7 +688,11 @@ class DefaultMappings(object):
           'analyzer': 'whitespace_alphanumeric_std_no_limit_analyzer'
         }
 
-    # TEXT FIELDS no indexation for the field itself (Non Aggregatable)
+    # CHEMICAL FIELDS
+
+    CHEM_STRUCT_FIELD = __DO_INDEX + __KEYWORD_TYPE + __IGNORE_ABOVE + __SUBSTRUCTURE_FIELD + __SIMILARITY_FIELD
+
+    # TEXT FIELDS indexation for the field itself (Aggregatable)
 
     TEXT_STD = __DO_INDEX + __KEYWORD_TYPE + __IGNORE_ABOVE + __STD_ANALYZED_FIELD + __ENG_ANALYZED_FIELD + \
         __WS_ANALYZED_FIELD
@@ -689,7 +713,9 @@ class DefaultMappings(object):
         # Numeric Types
         BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE,
         # Text Types
-        KEYWORD, LOWER_CASE_KEYWORD, ID_REF, CHEMBL_ID_REF, ID, CHEMBL_ID
+        KEYWORD, LOWER_CASE_KEYWORD, ID_REF, CHEMBL_ID_REF, ID, CHEMBL_ID,
+        # Chemical types
+        CHEM_STRUCT_FIELD
     ]
 
     NUMERIC_TYPES = {desc_i['type'] for desc_i in NUMERIC_MAPPINGS}
