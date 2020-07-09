@@ -3,5 +3,5 @@ elasticsearch>=7.0.0,<8.0.0
 elasticsearch-dsl>=7.0.0,<8.0.0
 progressbar2==3.10.1
 wrapt==1.12.0
-pyyaml==3.12
+pyyaml==5.1
 requests==2.11.1
