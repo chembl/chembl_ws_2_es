@@ -657,7 +657,7 @@ class DefaultMappings(object):
 
     __SIMILARITY_FIELD = SummableDict(
         fields={
-            "substructure": {
+            "similarity": {
                 "type": "similarity_fingerprint",
                 "aromaticity_mode": "preserve"
             }
