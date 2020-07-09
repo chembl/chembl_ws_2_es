@@ -12,25 +12,38 @@ __author__ = 'jfmosquera@ebi.ac.uk'
 # Scan chembl and load
 # ----------------------------------------------------------------------------------------------------------------------
 
+INDEX_NAME = 'chembl_molecule_elchem'
 
-def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil, molfile=True):
+INDEX_MAPPINGS = {
+    'properties': {
+        'chembl_id': DefaultMappings.CHEMBL_ID,
+        'molecule_smiles': DefaultMappings.CHEM_STRUCT_FIELD,
+        'molecule_molfile': DefaultMappings.CHEM_STRUCT_FIELD,
+    }
+}
 
-    molecule_property = 'molfile' if molfile else 'canonical_smiles'
 
+def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil):
+    global INDEX_NAME, INDEX_MAPPINGS
+    # create index
+    es_util_destination.create_idx(INDEX_NAME, 5, 1, mappings=INDEX_MAPPINGS)
+
+    # Index molecules
     def on_molecule_doc(molecule_doc: dict, doc_id: str, total_docs: int, index: int, first: bool, last: bool):
         doc_to_index = {
           'chembl_id': doc_id,
-          'molecule': molecule_doc.get('molecule_structures', {}).get(molecule_property, None)
+          'molecule_smiles': molecule_doc.get('molecule_structures', {}).get('canonical_smiles', None),
+          'molecule_molfile': molecule_doc.get('molecule_structures', {}).get('molfile', None)
         }
         es_util_destination.update_doc_bulk(
-          'chembl_molecule_{0}'.format(molecule_property), doc_id, doc=doc_to_index, upsert=True
+          INDEX_NAME, doc_id, doc=doc_to_index, upsert=True
         )
 
     molecules_query = {
-        '_source': ['molecule_chembl_id', 'molecule_structures.{0}'.format(molecule_property)]
+        '_source': ['molecule_chembl_id', 'molecule_structures']
     }
 
-    es_util_origin.scan_index('chembl_molecule', on_doc=on_molecule_doc, query=molecules_query)
+    es_util_origin.scan_index(INDEX_NAME, on_doc=on_molecule_doc, query=molecules_query)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -43,10 +56,6 @@ def main():
     parser = argparse.ArgumentParser(
         description="Replicate ChEMBL data existing in Elastic Search from origin to destination."
     )
-    parser.add_argument("--molfile",
-                        dest="molfile",
-                        help="Use molfile instead of canonical smiles.",
-                        action="store_true",)
     parser.add_argument("--host-origin",
                         dest="es_host_origin",
                         help="Elastic Search Hostname or IP address for origin cluster.",
@@ -114,7 +123,7 @@ def main():
     signal_handler.add_termination_handler(es_util_destination.stop_scan)
     signal_handler.add_termination_handler(es_util_destination.bulk_submitter.stop_submitter)
 
-    load_chembl_data(es_util_origin, es_util_destination, args.molfile)
+    load_chembl_data(es_util_origin, es_util_destination)
 
     es_util_destination.bulk_submitter.finish_current_queues()
     es_util_destination.bulk_submitter.join()
