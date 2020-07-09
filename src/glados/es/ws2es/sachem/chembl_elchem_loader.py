@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from glados.es.ws2es.es_util import ESUtil, num_shards_by_num_rows, DefaultMappings, CURRENT_ES_VERSION
 import glados.es.ws2es.signal_handler as signal_handler
 import glados.es.ws2es.progress_bar_handler as pbh
+from glados.es.ws2es.resources_description import MOLECULE
 
 __author__ = 'jfmosquera@ebi.ac.uk'
 
@@ -43,7 +44,7 @@ def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil):
         '_source': ['molecule_chembl_id', 'molecule_structures']
     }
 
-    es_util_origin.scan_index(INDEX_NAME, on_doc=on_molecule_doc, query=molecules_query)
+    es_util_origin.scan_index(MOLECULE.idx_name, on_doc=on_molecule_doc, query=molecules_query)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
