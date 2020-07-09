@@ -31,10 +31,13 @@ def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil):
 
     # Index molecules
     def on_molecule_doc(molecule_doc: dict, doc_id: str, total_docs: int, index: int, first: bool, last: bool):
+        molecule_structures = molecule_doc.get('molecule_structures', None)
         doc_to_index = {
           'chembl_id': doc_id,
-          'molecule_smiles': molecule_doc.get('molecule_structures', {}).get('canonical_smiles', None),
-          'molecule_molfile': molecule_doc.get('molecule_structures', {}).get('molfile', None)
+          'molecule_smiles': molecule_structures
+              .get('canonical_smiles', None) if molecule_structures is not None else None,
+          'molecule_molfile': molecule_structures
+              .get('molfile', None) if molecule_structures is not None else None,
         }
         es_util_destination.update_doc_bulk(
           INDEX_NAME, doc_id, doc=doc_to_index, upsert=True
