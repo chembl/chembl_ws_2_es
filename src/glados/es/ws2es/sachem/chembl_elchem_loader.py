@@ -26,7 +26,7 @@ INDEX_MAPPINGS = {
 def load_chembl_data(es_util_origin: ESUtil, es_util_destination: ESUtil):
     global INDEX_NAME, INDEX_MAPPINGS
     # create index
-    es_util_destination.create_idx(INDEX_NAME, 5, 1, mappings=INDEX_MAPPINGS)
+    es_util_destination.create_idx(INDEX_NAME, 5, 1, analysis=DefaultMappings.COMMON_ANALYSIS, mappings=INDEX_MAPPINGS)
 
     # Index molecules
     def on_molecule_doc(molecule_doc: dict, doc_id: str, total_docs: int, index: int, first: bool, last: bool):
