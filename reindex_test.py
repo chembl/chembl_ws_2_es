@@ -45,19 +45,19 @@ signal.signal(signal.SIGTERM, termination_handler)
 signal.signal(signal.SIGINT, termination_handler)
 
 
-base_request_path = '/_reindex?wait_for_completion=false&refresh=false'
+base_request_path = '/_reindex?wait_for_completion=false&refresh=false&wait_for_active_shards=all'
 
 base_reindex_data = {
     'source': {
         'index': 'unichem_bkp_simple',
-        'size': 1000,
+        'size': 500,
         'slice': {
             'id': 2,
             'max': 1000
         }
     },
     'dest': {
-        'index': 'unichem_test'
+        'index': 'unichem_sss_{0}'
     }
 }
 
@@ -77,11 +77,13 @@ def reindex_slice(slice_index):
     if stop_reindex:
         return
 
+    dest_index = slice_index % 10
     task_id = None
     sync_lock.acquire()
     try:
         cur_reindex_data = copy.deepcopy(base_reindex_data)
         cur_reindex_data['source']['slice']['id'] = slice_index
+        cur_reindex_data['dest']['index']= cur_reindex_data['dest']['index'].format(dest_index)
         start_req = requests.post(
             url=base_url+base_request_path,
             auth=es_auth,
@@ -128,7 +130,7 @@ def reindex_slice(slice_index):
 
 
 future_results = []
-with ThreadPoolExecutor(max_workers=2) as executor:
+with ThreadPoolExecutor(max_workers=6) as executor:
     for i in range(num_slices):
         if not stop_reindex:
             task_result = executor.submit(reindex_slice, i)
