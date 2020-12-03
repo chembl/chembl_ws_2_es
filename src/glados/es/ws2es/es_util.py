@@ -386,7 +386,7 @@ class ESUtil(object):
             sys.exit(1)
         return self.es_conn.indices.get_mapping(index=es_index)[es_index]['mappings']
 
-    def scan_index(self, es_index, on_doc=None, query=None):
+    def scan_index(self, es_index, on_doc=None, query=None, progressbar=True):
         if self.es_conn is None:
             print("FATAL ERROR: there is not an elastic search connection defined.", file=sys.stderr)
             traceback.print_exc(file=sys.stderr)
@@ -405,7 +405,9 @@ class ESUtil(object):
             scan_query += query
         scanner = self.es_helpers_module.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=1000)
         count = 0
-        p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
+        p_bar = None
+        if progressbar:
+            p_bar = progress_bar_handler.get_new_progressbar('{0}_es-index-scan'.format(es_index), total_docs)
         for doc_n in scanner:
             if callable(on_doc):
                 should_stop = on_doc(
@@ -414,9 +416,10 @@ class ESUtil(object):
                 if should_stop or self.stop_scan:
                     return
             count += 1
-            if count % update_every == 0:
+            if progressbar and count % update_every == 0:
                 p_bar.update(count)
-        p_bar.finish()
+        if progressbar:
+            p_bar.finish()
 
     def index_doc_bulk(self, idx_name, doc_id, dict_doc):
         action = {
