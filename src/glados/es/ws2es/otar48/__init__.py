@@ -15,8 +15,10 @@ def get_assay_activities(assay_chembl_id):
     es_util.scan_index(
         ASSAY.res_name, on_doc=on_activity_doc,
         query={
-            'query_string': {
-                'query': 'assay_chembl_id:{0}'.format(assay_chembl_id)
+            'query': {
+                'query_string': {
+                    'query': 'assay_chembl_id:{0}'.format(assay_chembl_id)
+                }
             }
         },
         progressbar=False
@@ -34,8 +36,10 @@ def generate_variants_json_file():
         es_util.scan_index(
             ASSAY.res_name, on_doc=generate_assay_json,
             query={
-                'query_string': {
-                    'query': '_exists_:variant_sequence'
+                'query': {
+                    'query_string': {
+                        'query': '_exists_:variant_sequence'
+                    }
                 }
             }
         )
