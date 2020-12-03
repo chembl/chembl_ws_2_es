@@ -35,8 +35,6 @@ class ResourceIterator(Thread):
 
         self.domain = parsed_url.scheme + '://' + parsed_url.netloc
         self.base_url_path = parsed_url.path + '/{0}.json?offset={1}&limit='+str(ResourceIterator.LIMIT)
-        if resource == resources_description.ASSAY:
-            self.base_url_path = parsed_url.path + '/{0}.json?variant_sequence__isnull=false&offset={1}&limit='+str(ResourceIterator.LIMIT)
 
 
         self.stop = False
