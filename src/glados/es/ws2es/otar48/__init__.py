@@ -1,7 +1,7 @@
 import time
 import argparse
 from glados.es.ws2es.es_util import es_util
-from glados.es.ws2es.resources_description import ASSAY
+from glados.es.ws2es.resources_description import ASSAY, ACTIVITY
 import json
 import copy
 
@@ -13,7 +13,7 @@ def get_assay_activities(assay_chembl_id):
         assay_activities.append(act_doc)
 
     es_util.scan_index(
-        ASSAY.res_name, on_doc=on_activity_doc,
+        ACTIVITY.idx_alias, on_doc=on_activity_doc,
         query={
             'query': {
                 'query_string': {
@@ -34,7 +34,7 @@ def generate_variants_json_file():
 
             variant_data_file.write(json.dumps(variant_data)+'\n')
         es_util.scan_index(
-            ASSAY.res_name, on_doc=generate_assay_json,
+            ASSAY.idx_alias, on_doc=generate_assay_json,
             query={
                 'query': {
                     'query_string': {
