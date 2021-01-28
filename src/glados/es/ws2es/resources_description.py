@@ -174,6 +174,7 @@ METABOLISM = ResourceDescription('metabolism', ['met_id'])
 DRUG_INDICATION = ResourceDescription('drug_indication', ['drugind_id'])
 GO_SLIM = ResourceDescription('go_slim', ['go_id'])
 COMPOUND_STRUCTURAL_ALERT = ResourceDescription('compound_structural_alert', ['cpd_str_alert_id'])
+DRUG_WARNING = ResourceDescription('drug_warning', 'warning_id')
 
 
 # Generated Resources
