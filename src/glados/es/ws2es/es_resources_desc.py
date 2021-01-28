@@ -14,6 +14,7 @@ import glados.es.ws2es.mappings.es_chembl_compound_structural_alert_mapping as \
 import glados.es.ws2es.mappings.es_chembl_document_mapping as es_chembl_document_mapping
 import glados.es.ws2es.mappings.es_chembl_document_similarity_mapping as es_chembl_document_similarity_mapping
 import glados.es.ws2es.mappings.es_chembl_drug_mapping as es_chembl_drug_mapping
+import glados.es.ws2es.mappings.es_chembl_drug_warning_mapping as es_chembl_drug_warning_mapping
 import glados.es.ws2es.mappings.es_chembl_drug_indication_mapping as es_chembl_drug_indication_mapping
 import glados.es.ws2es.mappings.es_chembl_go_slim_mapping as es_chembl_go_slim_mapping
 import glados.es.ws2es.mappings.es_chembl_mechanism_mapping as es_chembl_mechanism_mapping
@@ -47,6 +48,7 @@ resources_2_es_mapping = \
         'document_similarity': es_chembl_document_similarity_mapping,
         'drug': es_chembl_drug_mapping,
         'drug_indication': es_chembl_drug_indication_mapping,
+        'drug_warning': es_chembl_drug_warning_mapping,
         'go_slim': es_chembl_go_slim_mapping,
         'mechanism': es_chembl_mechanism_mapping,
         'metabolism': es_chembl_metabolism_mapping,

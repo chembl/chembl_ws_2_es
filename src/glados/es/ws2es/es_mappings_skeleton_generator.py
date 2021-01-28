@@ -167,6 +167,7 @@ def compare_mappings(resources=None):
     import glados.es.ws2es.mappings_skeletons.es_chembl_document_similarity_mapping as \
         es_chembl_document_similarity_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_drug_mapping as es_chembl_drug_mapping
+    import glados.es.ws2es.mappings_skeletons.es_chembl_drug_warning_mapping as es_chembl_drug_warning_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_drug_indication_mapping as es_chembl_drug_indication_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_go_slim_mapping as es_chembl_go_slim_mapping
     import glados.es.ws2es.mappings_skeletons.es_chembl_mechanism_mapping as es_chembl_mechanism_mapping
@@ -197,6 +198,7 @@ def compare_mappings(resources=None):
         'document': es_chembl_document_mapping,
         'document_similarity': es_chembl_document_similarity_mapping,
         'drug': es_chembl_drug_mapping,
+        'drug_warning': es_chembl_drug_warning_mapping,
         'drug_indication': es_chembl_drug_indication_mapping,
         'go_slim': es_chembl_go_slim_mapping,
         'mechanism': es_chembl_mechanism_mapping,
