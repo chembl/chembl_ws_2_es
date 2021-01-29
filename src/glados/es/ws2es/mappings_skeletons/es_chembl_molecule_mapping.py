@@ -248,13 +248,26 @@ mappings = \
                         {
                             'ref_id': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'ee1bf431-97fa-4aba-9cc3-0cfcea779ca2' , '7049f870-6741-4a67-8033-398c36126a06' , 'CFR-201
+                            # 9-title21-vol4/pdf/CFR-2019-title21-vol4-sec216-24.pdf' , '10.1177/009286150103500134' , '
+                            # a6c24189-293f-42ca-b969-75870bb55af0' , '7636bc1e-77b6-46ad-9df0-c8bb1c5e503f' , '5c50b5a3
+                            # -9b39-4cad-8be5-c2a8dd3f7df5' , '10.1177/009286150103500134' , 'ce512844-5220-4661-809f-56
+                            # d088699c9c' , 'dff10e66-a577-451d-ba75-1889458ca833'
                             'ref_type': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'FDA' , 'FDA' , 'USGPO' , 'DOI' , 'FDA' , 'FDA' , 'FDA' , 'DOI' , 'FDA' , 'FDA'
                             'ref_url': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'https://api.fda.gov/drug/label.json?search=set_id:ee1bf431-97fa-4aba-9cc3-0cfcea779ca2' ,
+                            #  'https://api.fda.gov/drug/label.json?search=set_id:7049f870-6741-4a67-8033-398c36126a06' 
+                            # , 'https://www.govinfo.gov/content/pkg/CFR-2019-title21-vol4/pdf/CFR-2019-title21-vol4-sec
+                            # 216-24.pdf' , 'https://doi.org/10.1177/009286150103500134' , 'https://api.fda.gov/drug/lab
+                            # el.json?search=set_id:a6c24189-293f-42ca-b969-75870bb55af0' , 'https://api.fda.gov/drug/la
+                            # bel.json?search=set_id:7636bc1e-77b6-46ad-9df0-c8bb1c5e503f' , 'https://api.fda.gov/drug/l
+                            # abel.json?search=set_id:5c50b5a3-9b39-4cad-8be5-c2a8dd3f7df5' , 'https://doi.org/10.1177/0
+                            # 09286150103500134' , 'https://api.fda.gov/drug/label.json?search=set_id:ce512844-5220-4661
+                            # -809f-56d088699c9c' , 'https://api.fda.gov/drug/label.json?search=set_id:dff10e66-a577-451
+                            # d-ba75-1889458ca833'
                         }
                     },
                     'warning_type': 'TEXT',

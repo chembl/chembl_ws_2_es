@@ -177,13 +177,26 @@ mappings = \
                         {
                             'ref_id': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # '7636bc1e-77b6-46ad-9df0-c8bb1c5e503f' , '5eadda0e-faf8-4b3c-851e-da5a5a127242' , 'a6c2418
+                            # 9-293f-42ca-b969-75870bb55af0' , 'dea460fa-d05e-4191-8461-f185a711ad89' , '10.1177/0092861
+                            # 50103500134' , 'a0a54943-9ce4-4f3e-b681-a1a9144c16ce' , '10.1177/009286150103500134' , '7f
+                            # 77526b-4c40-409c-82ea-d0f934d89cc2' , '967ed3ff-d99b-41e8-b768-dfb586d3d9a6' , 'a2f34915-4
+                            # 898-3a6e-e053-2a95a90a56a8'
                             'ref_type': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'FDA' , 'FDA' , 'FDA' , 'FDA' , 'DOI' , 'FDA' , 'DOI' , 'FDA' , 'FDA' , 'FDA'
                             'ref_url': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'https://api.fda.gov/drug/label.json?search=set_id:7636bc1e-77b6-46ad-9df0-c8bb1c5e503f' ,
+                            #  'https://api.fda.gov/drug/label.json?search=set_id:5eadda0e-faf8-4b3c-851e-da5a5a127242' 
+                            # , 'https://api.fda.gov/drug/label.json?search=set_id:a6c24189-293f-42ca-b969-75870bb55af0'
+                            #  , 'https://api.fda.gov/drug/label.json?search=set_id:dea460fa-d05e-4191-8461-f185a711ad89
+                            # ' , 'https://doi.org/10.1177/009286150103500134' , 'https://api.fda.gov/drug/label.json?se
+                            # arch=set_id:a0a54943-9ce4-4f3e-b681-a1a9144c16ce' , 'https://doi.org/10.1177/0092861501035
+                            # 00134' , 'https://api.fda.gov/drug/label.json?search=set_id:7f77526b-4c40-409c-82ea-d0f934
+                            # d89cc2' , 'https://api.fda.gov/drug/label.json?search=set_id:967ed3ff-d99b-41e8-b768-dfb58
+                            # 6d3d9a6' , 'https://api.fda.gov/drug/label.json?search=set_id:a2f34915-4898-3a6e-e053-2a95
+                            # a90a56a8'
                         }
                     },
                     'warning_type': 'TEXT',

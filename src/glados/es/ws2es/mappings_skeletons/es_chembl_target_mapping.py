@@ -99,10 +99,12 @@ mappings = \
                         {
                             'component_synonym': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # '3.4.22.-' , 'Angiotensin/vasopressin receptor AII/AVP-like' , 'G6PD-6PGL' , '3.4.22.-' , 
+                            # '3.4.22.-' , '3.5.4.-' , '3.4.22.-' , '2.5.1.18' , '2.5.1.15' , 'Iboctadekin'
                             'syn_type': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'EC_NUMBER' , 'UNIPROT' , 'GENE_SYMBOL' , 'EC_NUMBER' , 'EC_NUMBER' , 'EC_NUMBER' , 'EC_NU
+                            # MBER' , 'EC_NUMBER' , 'EC_NUMBER' , 'UNIPROT'
                         }
                     },
                     'target_component_xrefs': 
@@ -111,13 +113,19 @@ mappings = \
                         {
                             'xref_id': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'ENSG00000166192' , 'NLRP3' , 'GO:0004345' , 'ENSG00000138468' , 'ENSG00000112701' , 'ENSG
+                            # 00000239713' , 'ENSG00000168397' , 'GO:0004364' , 'GO:0003848' , 'ENSG00000150782'
                             'xref_name': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'cytosol' , 'Chronic Infantile Neurologic Cutaneous Articular (CINCA) syndrome; Neonatal O
+                            # nset Multisystem Inflammatory Disease (NOMID); Muckle-Wells syndrome' , 'glucose-6-phospha
+                            # te dehydrogenase activity' , 'intracellular' , 'nucleus' , 'P-body' , 'cytoplasm' , 'gluta
+                            # thione transferase activity' , '2-amino-4-hydroxy-6-hydroxymethyldihydropteridine diphosph
+                            # okinase activity' , 'extracellular region'
                             'xref_src_db': 'TEXT',
                             # EXAMPLES:
-                            # 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None' , 'None'
+                            # 'EnsemblGene' , 'CGD' , 'GoFunction' , 'EnsemblGene' , 'EnsemblGene' , 'EnsemblGene' , 'En
+                            # semblGene' , 'GoFunction' , 'GoFunction' , 'EnsemblGene'
                         }
                     }
                 }
