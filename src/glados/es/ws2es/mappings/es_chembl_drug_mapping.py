@@ -59,6 +59,7 @@ mappings = \
             'drug_type': DefaultMappings.SHORT,
             # EXAMPLES:
             # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '7' , '1'
+            'drug_warnings': molecule_n_drug_mapping.drug_warnings,
             'first_approval': DefaultMappings.SHORT,
             # EXAMPLES:
             # '2005' , '1999' , '2004' , '1985' , '1994' , '2009' , '1960' , '1999' , '2014' , '1975'

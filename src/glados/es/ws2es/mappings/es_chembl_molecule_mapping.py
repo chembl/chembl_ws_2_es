@@ -90,6 +90,7 @@ mappings = \
             'dosed_ingredient': DefaultMappings.BOOLEAN,
             # EXAMPLES:
             # 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False'
+            'drug_warnings': molecule_n_drug_mapping.drug_warnings,
             'first_approval': DefaultMappings.SHORT,
             # EXAMPLES:
             # '1961' , '1965' , '1974' , '2014' , '1982' , '1982' , '1999' , '1982' , '1959' , '1996'
