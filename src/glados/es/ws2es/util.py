@@ -139,7 +139,11 @@ def get_js_path_from_dict(doc: dict, js_path, default=None):
             for cur_level_j in cur_level:
                 if isinstance(cur_level_j, dict):
                     if js_path_part_i in cur_level_j:
-                        next_level.append(cur_level_j[js_path_part_i])
+                        next_level_item = cur_level_j[js_path_part_i]
+                        if isinstance(next_level_item, list):
+                            next_level += next_level_item
+                        else:
+                            next_level.append(next_level_item)
             cur_level = next_level
             if len(cur_level) == 0:
                 break
