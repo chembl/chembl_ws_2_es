@@ -13,15 +13,15 @@ mappings = \
         {
             'document_1_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1135026' , 'CHEMBL1135026' , 'CHEMBL1135026' , 'CHEMBL1135026' , 'CHEMBL1135026' , 'CHEMBL1135026' 
-            # , 'CHEMBL1135026' , 'CHEMBL1135028' , 'CHEMBL1135028' , 'CHEMBL1135028'
+            # 'CHEMBL1128878' , 'CHEMBL1126335' , 'CHEMBL1126335' , 'CHEMBL1128878' , 'CHEMBL1127285' , 'CHEMBL1126335' 
+            # , 'CHEMBL1128878' , 'CHEMBL1128878' , 'CHEMBL1128878' , 'CHEMBL1126335'
             'document_2_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1147479' , 'CHEMBL1147580' , 'CHEMBL1121524' , 'CHEMBL1121543' , 'CHEMBL1121371' , 'CHEMBL1121630' 
-            # , 'CHEMBL1121447' , 'CHEMBL1136751' , 'CHEMBL1148890' , 'CHEMBL1152254'
+            # 'CHEMBL1121581' , 'CHEMBL1126981' , 'CHEMBL1127205' , 'CHEMBL1121714' , 'CHEMBL1142485' , 'CHEMBL1126962' 
+            # , 'CHEMBL1121718' , 'CHEMBL1121911' , 'CHEMBL1121779' , 'CHEMBL1126514'
             'mol_tani': 'NUMERIC',
             # EXAMPLES:
-            # '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0'
+            # '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.03'
             'tid_tani': 'NUMERIC',
             # EXAMPLES:
             # '1.0' , '1.0' , '1.0' , '1.0' , '1.0' , '1.0' , '1.0' , '1.0' , '1.0' , '1.0'

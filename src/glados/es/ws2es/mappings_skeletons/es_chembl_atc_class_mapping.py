@@ -13,52 +13,48 @@ mappings = \
         {
             'level1': 'TEXT',
             # EXAMPLES:
-            # 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A'
+            # 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P'
             'level1_description': 'TEXT',
             # EXAMPLES:
-            # 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' 
-            # , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM
-            # ' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLI
-            # SM' , 'ALIMENTARY TRACT AND METABOLISM'
+            # 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLEN
+            # TS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND RE
+            # PELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES 
+            # AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTI
+            # CIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, I
+            # NSECTICIDES AND REPELLENTS'
             'level2': 'TEXT',
             # EXAMPLES:
-            # 'A03' , 'A03' , 'A03' , 'A03' , 'A03' , 'A03' , 'A03' , 'A04' , 'A04' , 'A05'
+            # 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01'
             'level2_description': 'TEXT',
             # EXAMPLES:
-            # 'DRUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'DRUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'D
-            # RUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'DRUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'DRU
-            # GS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'DRUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'DRUGS
-            #  FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'ANTIEMETICS AND ANTINAUSEANTS' , 'ANTIEMETICS AND ANTINAUSE
-            # ANTS' , 'BILE AND LIVER THERAPY'
+            # 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZ
+            # OALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS'
             'level3': 'TEXT',
             # EXAMPLES:
-            # 'A03A' , 'A03B' , 'A03C' , 'A03C' , 'A03C' , 'A03D' , 'A03D' , 'A04A' , 'A04A' , 'A05A'
+            # 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A'
             'level3_description': 'TEXT',
             # EXAMPLES:
-            # 'DRUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS' , 'BELLADONNA AND DERIVATIVES, PLAIN' , 'ANTISPASMODICS 
-            # IN COMBINATION WITH PSYCHOLEPTICS' , 'ANTISPASMODICS IN COMBINATION WITH PSYCHOLEPTICS' , 'ANTISPASMODICS 
-            # IN COMBINATION WITH PSYCHOLEPTICS' , 'ANTISPASMODICS IN COMBINATION WITH ANALGESICS' , 'ANTISPASMODICS IN 
-            # COMBINATION WITH ANALGESICS' , 'ANTIEMETICS AND ANTINAUSEANTS' , 'ANTIEMETICS AND ANTINAUSEANTS' , 'BILE T
-            # HERAPY'
+            # 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL 
+            # DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHE
+            # R PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIA
+            # SIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGA
+            # INST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' ,
+            #  'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES'
             'level4': 'TEXT',
             # EXAMPLES:
-            # 'A03AX' , 'A03BA' , 'A03CA' , 'A03CA' , 'A03CA' , 'A03DA' , 'A03DA' , 'A04AA' , 'A04AD' , 'A05AA'
+            # 'P01AA' , 'P01AA' , 'P01AA' , 'P01AA' , 'P01AB' , 'P01AB' , 'P01AB' , 'P01AB' , 'P01AB' , 'P01AB'
             'level4_description': 'TEXT',
             # EXAMPLES:
-            # 'Other drugs for functional gastrointestinal disorders' , 'Belladonna alkaloids, tertiary amines' , 'Synth
-            # etic anticholinergic agents in combination with psycholeptics' , 'Synthetic anticholinergic agents in comb
-            # ination with psycholeptics' , 'Synthetic anticholinergic agents in combination with psycholeptics' , 'Synt
-            # hetic anticholinergic agents in combination with analgesics' , 'Synthetic anticholinergic agents in combin
-            # ation with analgesics' , 'Serotonin (5HT3) antagonists' , 'Other antiemetics' , 'Bile acids and derivative
-            # s'
+            # 'Hydroxyquinoline derivatives' , 'Hydroxyquinoline derivatives' , 'Hydroxyquinoline derivatives' , 'Hydrox
+            # yquinoline derivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole de
+            # rivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole derivatives'
             'level5': 'TEXT',
             # EXAMPLES:
-            # 'A03AX30' , 'A03BA01' , 'A03CA03' , 'A03CA08' , 'A03CA30' , 'A03DA02' , 'A03DA07' , 'A04AA04' , 'A04AD05' 
-            # , 'A05AA01'
+            # 'P01AA02' , 'P01AA04' , 'P01AA05' , 'P01AA52' , 'P01AB01' , 'P01AB02' , 'P01AB03' , 'P01AB04' , 'P01AB05' 
+            # , 'P01AB06'
             'who_name': 'TEXT',
             # EXAMPLES:
-            # 'trimethyldiphenylpropylamine' , 'atropine' , 'oxyphencyclimine and psycholeptics' , 'diphemanil and psych
-            # oleptics' , 'emepronium and psycholeptics' , 'pitofenone and analgesics' , 'tiemonium iodide and analgesic
-            # s' , 'dolasetron' , 'metopimazine' , 'chenodeoxycholic acid'
+            # 'clioquinol' , 'chlorquinaldol' , 'tilbroquinol' , 'clioquinol, combinations' , 'metronidazole' , 'tinidaz
+            # ole' , 'ornidazole' , 'azanidazole' , 'propenidazole' , 'nimorazole'
         }
     }

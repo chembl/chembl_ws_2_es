@@ -13,24 +13,26 @@ mappings = \
         {
             'chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1000002' , 'CHEMBL1000003' , 'CHEMBL1000008' , 'CHEMBL1000009' , 'CHEMBL100001' , 'CHEMBL1002704' ,
-            #  'CHEMBL1002706' , 'CHEMBL10054' , 'CHEMBL100271' , 'CHEMBL1002710'
+            # 'CHEMBL1374728' , 'CHEMBL1374729' , 'CHEMBL1374738' , 'CHEMBL1374739' , 'CHEMBL1374741' , 'CHEMBL1374745' 
+            # , 'CHEMBL1374753' , 'CHEMBL1374755' , 'CHEMBL1374757' , 'CHEMBL137476'
             'chembl_id_number': 'NUMERIC',
             # EXAMPLES:
-            # '1000002' , '1000003' , '1000008' , '1000009' , '100001' , '1002704' , '1002706' , '10054' , '100271' , '1
-            # 002710'
+            # '1374728' , '1374729' , '1374738' , '1374739' , '1374741' , '1374745' , '1374753' , '1374755' , '1374757' 
+            # , '137476'
             'entity_type': 'TEXT',
             # EXAMPLES:
-            # 'ASSAY' , 'ASSAY' , 'ASSAY' , 'ASSAY' , 'COMPOUND' , 'ASSAY' , 'ASSAY' , 'COMPOUND' , 'COMPOUND' , 'ASSAY'
+            # 'COMPOUND' , 'COMPOUND' , 'COMPOUND' , 'COMPOUND' , 'COMPOUND' , 'COMPOUND' , 'COMPOUND' , 'COMPOUND' , 'C
+            # OMPOUND' , 'COMPOUND'
             'resource_url': 'TEXT',
             # EXAMPLES:
-            # '/chembl/api/data/assay/CHEMBL1000002' , '/chembl/api/data/assay/CHEMBL1000003' , '/chembl/api/data/assay/
-            # CHEMBL1000008' , '/chembl/api/data/assay/CHEMBL1000009' , '/chembl/api/data/molecule/CHEMBL100001' , '/che
-            # mbl/api/data/assay/CHEMBL1002704' , '/chembl/api/data/assay/CHEMBL1002706' , '/chembl/api/data/molecule/CH
-            # EMBL10054' , '/chembl/api/data/molecule/CHEMBL100271' , '/chembl/api/data/assay/CHEMBL1002710'
+            # '/chembl/api/data/molecule/CHEMBL1374728' , '/chembl/api/data/molecule/CHEMBL1374729' , '/chembl/api/data/
+            # molecule/CHEMBL1374738' , '/chembl/api/data/molecule/CHEMBL1374739' , '/chembl/api/data/molecule/CHEMBL137
+            # 4741' , '/chembl/api/data/molecule/CHEMBL1374745' , '/chembl/api/data/molecule/CHEMBL1374753' , '/chembl/a
+            # pi/data/molecule/CHEMBL1374755' , '/chembl/api/data/molecule/CHEMBL1374757' , '/chembl/api/data/molecule/C
+            # HEMBL137476'
             'status': 'TEXT',
             # EXAMPLES:
-            # 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'INACTIVE' , 'ACTIVE' , 'ACTI
-            # VE'
+            # 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE
+            # '
         }
     }
