@@ -83,6 +83,13 @@ mappings = \
             'assay_type': DefaultMappings.KEYWORD,
             # EXAMPLES:
             # 'B' , 'B' , 'B' , 'F' , 'A' , 'F' , 'F' , 'F' , 'B' , 'B'
+            'assay_variant_accession': DefaultMappings.LOWER_CASE_KEYWORD,
+            # EXAMPLES:
+            # 'P41145' , 'P41145' , 'P41145' , 'P0DMS8' , 'P29274' , 'Q9WKE8' , 'P41145' , 'P41145' , 'P56221' , 'P0DMS8
+            # '
+            'assay_variant_mutation': DefaultMappings.LOWER_CASE_KEYWORD,
+            # EXAMPLES:
+            # 'E297K' , 'E297A' , 'E297K' , 'H95A' , 'S277E' , 'K103N' , 'E297K' , 'E297A' , 'N131A' , 'H95A'
             'bao_endpoint': DefaultMappings.KEYWORD,
             # EXAMPLES:
             # 'BAO_0000179' , 'BAO_0000192' , 'BAO_0000192' , 'BAO_0002144' , 'BAO_0000179' , 'BAO_0000189' , 'BAO_0
