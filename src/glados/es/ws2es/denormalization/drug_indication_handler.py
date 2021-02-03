@@ -144,6 +144,7 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
             efo_data = {}
             indication_refs = []
             max_phase_for_ind = 0
+            all_molecule_chembl_ids = set()
             for drug_ind_i in group_drug_inds:
 
                 max_phase_for_ind = max(max_phase_for_ind, drug_ind_i.get('max_phase_for_ind', 0))
@@ -153,6 +154,8 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
                     efo_data[efo_id_i] = drug_ind_i.get('efo_term', None)
 
                 indication_refs += drug_ind_i.get('indication_refs', [])
+                for c_id in drug_ind_i.get('_metadata').get('all_molecule_chembl_ids'):
+                    all_molecule_chembl_ids.add(c_id)
 
             parent_chembl_id, mesh_id = self.get_drug_ind_grouping_id_parts(base_drug_ind)
 
@@ -161,6 +164,7 @@ class DrugIndicationDenormalizationHandler(DenormalizationHandler):
             drug_ind_data['efo'] = [{'id': efo_id, 'term': term} for efo_id, term in efo_data.items()]
             drug_ind_data['max_phase_for_ind'] = max_phase_for_ind
             drug_ind_data['indication_refs'] = indication_refs
+            drug_ind_data['_metadata']['all_molecule_chembl_ids'] = list(all_molecule_chembl_ids)
 
             new_mechanism_doc = {
                 'parent_molecule': MOLECULE.get_doc_by_id_from_es(parent_chembl_id),
