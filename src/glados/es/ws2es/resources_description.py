@@ -10,7 +10,7 @@ from functools import lru_cache
 
 ########################################################################################################################
 
-WS_DEV_URL = 'https://wwwdev.ebi.ac.uk/chembl/api/data'
+WS_DEV_URL = 'http://localhost:8000/chembl/api/data'
 WS_PROD_URL = 'https://www.ebi.ac.uk/chembl/api/data'
 
 WS_URL_TO_USE = WS_DEV_URL
@@ -185,6 +185,10 @@ MECHANISM_BY_PARENT_TARGET = ResourceDescription(
 )
 DRUG_INDICATION_BY_PARENT = ResourceDescription(
     'drug_indication_by_parent', ['parent_molecule.molecule_chembl_id', 'drug_indication.mesh_id'],
+    ws_resource=False
+)
+DRUG_WARNING_BY_PARENT = ResourceDescription(
+    'drug_warning_by_parent', ['parent_molecule.molecule_chembl_id', 'drug_warning.warning_id'],
     ws_resource=False
 )
 
