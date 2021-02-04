@@ -102,7 +102,8 @@ class DrugWarningDenormalizationHandler(DenormalizationHandler):
 
         dn_dict = {}
 
-        print('{0} GROUPED RECORDS WERE FOUND'.format(len(self.drug_warns_by_grouping_id)), file=sys.stderr)
+        print('{0} GROUPED RECORDS WERE FOUND FOR DRUG WARNING'.format(len(self.drug_warns_by_grouping_id)),
+              file=sys.stderr)
         p_bar = progress_bar_handler.get_new_progressbar('drug_warns_by_parent-dn-generation',
                                                          len(self.drug_warns_by_grouping_id))
 
@@ -113,7 +114,25 @@ class DrugWarningDenormalizationHandler(DenormalizationHandler):
             country_year_set = set()
             for drug_warn_i in group_drug_warns:
                 warning_refs += drug_warn_i.get('warning_refs', [])
-                country_year_set.add((drug_warn_i.get('warning_country'), drug_warn_i.get('warning_year')))
+                if drug_warn_i['warning_country']:
+                    countries = drug_warn_i['warning_country'].split(';')
+                    for country_i in countries:
+                        country_i = country_i.strip()
+                        if country_i:
+                            country_year_set.add((country_i, drug_warn_i['warning_year']))
+                        else:
+                            print(
+                                'WARNING: BADLY FORMATTED COUNTRIES IN DRUG WARNING {}'
+                                .format(drug_warn_i['warning_id']),
+                                file=sys.stderr
+                            )
+
+                if drug_warn_i['warning_year']:
+                    print(
+                        'WARNING: YEAR WITHOUT COUNTRY IN DRUG WARNING {}'.format(drug_warn_i['warning_id']),
+                        file=sys.stderr
+                    )
+
                 for c_id in drug_warn_i.get('_metadata').get('all_molecule_chembl_ids'):
                     all_molecule_chembl_ids.add(c_id)
 
