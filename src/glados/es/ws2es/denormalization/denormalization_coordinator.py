@@ -17,6 +17,7 @@ from glados.es.ws2es.denormalization.document_handler import DocumentDenormaliza
 from glados.es.ws2es.denormalization.document_similarity_handler import DocumentSimilarityHandler
 from glados.es.ws2es.denormalization.drug_handler import DrugDenormalizationHandler
 from glados.es.ws2es.denormalization.drug_indication_handler import DrugIndicationDenormalizationHandler
+from glados.es.ws2es.denormalization.drug_warning_handler import DrugWarningDenormalizationHandler
 from glados.es.ws2es.denormalization.metabolism_handler import MetabolismDenormalizationHandler
 from glados.es.ws2es.denormalization.mechanism_handler import MechanismDenormalizationHandler
 from glados.es.ws2es.denormalization.organism_handler import OrganismDenormalizationHandler
@@ -177,27 +178,21 @@ def denormalize_compound_hierarchy():
     compound_dh.molecule_family_desc.print_tree()
     compound_dh.complete_hierarchy_data()
 
-    mechanism_dh = MechanismDenormalizationHandler(compound_families_dir=compound_dh.molecule_family_desc)
-    mechanism_dh.scan_data_from_es()
 
-    drug_indication_dh = DrugIndicationDenormalizationHandler(compound_families_dir=compound_dh.molecule_family_desc)
-    drug_indication_dh.scan_data_from_es()
-
-
-def denormalize_mechanism_and_drug_indication():
+def denormalize_generated_resources():
     compound_dh = CompoundDenormalizationHandler(analyze_hierarchy=True)
     compound_dh.scan_data_from_es(include_metadata=True)
     compound_dh.molecule_family_desc.print_tree()
 
-    mechanism_dh = MechanismDenormalizationHandler(
-        compound_families_dir=compound_dh.molecule_family_desc
-    )
+    drug_warn_dh = DrugWarningDenormalizationHandler(compound_families_dir=compound_dh.molecule_family_desc)
+    drug_warn_dh.scan_data_from_es(include_metadata=True)
+    drug_warn_dh.save_denormalization()
+
+    mechanism_dh = MechanismDenormalizationHandler(compound_families_dir=compound_dh.molecule_family_desc)
     mechanism_dh.scan_data_from_es(include_metadata=True)
     mechanism_dh.save_denormalization()
 
-    drug_ind_dh = DrugIndicationDenormalizationHandler(
-        compound_families_dir=compound_dh.molecule_family_desc
-    )
+    drug_ind_dh = DrugIndicationDenormalizationHandler(compound_families_dir=compound_dh.molecule_family_desc)
     drug_ind_dh.scan_data_from_es(include_metadata=True)
     drug_ind_dh.save_denormalization()
 
@@ -237,9 +232,9 @@ def main():
                         dest="denormalize_compound_hierarchy",
                         help="If included will denormalize the Compound Hierarchy data.",
                         action="store_true",)
-    parser.add_argument("--mechanism_and_drug_indication",
-                        dest="denormalize_mechanism_and_drug_indication",
-                        help="If included will denormalize the Mechanism and Drug Indication data.",
+    parser.add_argument("--generate_resources",
+                        dest="denormalize_generated_resources",
+                        help="If included will denormalize the Mechanism and Drug Indication and Warnings data.",
                         action="store_true",)
     args = parser.parse_args()
 
@@ -258,9 +253,9 @@ def main():
     elif args.denormalize_unichem:
         denormalize_unichem()
         dn_type = 'UNICHEM'
-    elif args.denormalize_mechanism_and_drug_indication:
-        denormalize_mechanism_and_drug_indication()
-        dn_type = 'MECHANISMS-AND-DRUG-INDICATION'
+    elif args.denormalize_generated_resources:
+        denormalize_generated_resources()
+        dn_type = 'GENERATED-RESOURCES'
     else:
         denormalize_all_but_activity()
         dn_type = 'ALL-NO-ACTIVITY'
