@@ -13,48 +13,45 @@ mappings = \
         {
             'level1': 'TEXT',
             # EXAMPLES:
-            # 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P' , 'P'
+            # 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A' , 'A'
             'level1_description': 'TEXT',
             # EXAMPLES:
-            # 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLEN
-            # TS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND RE
-            # PELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES 
-            # AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTI
-            # CIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS' , 'ANTIPARASITIC PRODUCTS, I
-            # NSECTICIDES AND REPELLENTS'
+            # 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' 
+            # , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM
+            # ' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLISM' , 'ALIMENTARY TRACT AND METABOLI
+            # SM' , 'ALIMENTARY TRACT AND METABOLISM'
             'level2': 'TEXT',
             # EXAMPLES:
-            # 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01' , 'P01'
+            # 'A01' , 'A01' , 'A01' , 'A01' , 'A01' , 'A01' , 'A01' , 'A01' , 'A01' , 'A01'
             'level2_description': 'TEXT',
             # EXAMPLES:
-            # 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZ
-            # OALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS' , 'ANTIPROTOZOALS'
+            # 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLO
+            # GICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREP
+            # ARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS'
             'level3': 'TEXT',
             # EXAMPLES:
-            # 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A' , 'P01A'
+            # 'A01A' , 'A01A' , 'A01A' , 'A01A' , 'A01A' , 'A01A' , 'A01A' , 'A01A' , 'A01A' , 'A01A'
             'level3_description': 'TEXT',
             # EXAMPLES:
-            # 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL 
-            # DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHE
-            # R PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIA
-            # SIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGA
-            # INST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' , 'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES' ,
-            #  'AGENTS AGAINST AMOEBIASIS AND OTHER PROTOZOAL DISEASES'
+            # 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLO
+            # GICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREP
+            # ARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS' , 'STOMATOLOGICAL PREPARATIONS'
             'level4': 'TEXT',
             # EXAMPLES:
-            # 'P01AA' , 'P01AA' , 'P01AA' , 'P01AA' , 'P01AB' , 'P01AB' , 'P01AB' , 'P01AB' , 'P01AB' , 'P01AB'
+            # 'A01AA' , 'A01AA' , 'A01AA' , 'A01AA' , 'A01AA' , 'A01AA' , 'A01AB' , 'A01AB' , 'A01AB' , 'A01AB'
             'level4_description': 'TEXT',
             # EXAMPLES:
-            # 'Hydroxyquinoline derivatives' , 'Hydroxyquinoline derivatives' , 'Hydroxyquinoline derivatives' , 'Hydrox
-            # yquinoline derivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole de
-            # rivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole derivatives' , 'Nitroimidazole derivatives'
+            # 'Caries prophylactic agents' , 'Caries prophylactic agents' , 'Caries prophylactic agents' , 'Caries proph
+            # ylactic agents' , 'Caries prophylactic agents' , 'Caries prophylactic agents' , 'Antiinfectives and antise
+            # ptics for local oral treatment' , 'Antiinfectives and antiseptics for local oral treatment' , 'Antiinfecti
+            # ves and antiseptics for local oral treatment' , 'Antiinfectives and antiseptics for local oral treatment'
             'level5': 'TEXT',
             # EXAMPLES:
-            # 'P01AA02' , 'P01AA04' , 'P01AA05' , 'P01AA52' , 'P01AB01' , 'P01AB02' , 'P01AB03' , 'P01AB04' , 'P01AB05' 
-            # , 'P01AB06'
+            # 'A01AA01' , 'A01AA02' , 'A01AA03' , 'A01AA04' , 'A01AA30' , 'A01AA51' , 'A01AB02' , 'A01AB03' , 'A01AB04' 
+            # , 'A01AB05'
             'who_name': 'TEXT',
             # EXAMPLES:
-            # 'clioquinol' , 'chlorquinaldol' , 'tilbroquinol' , 'clioquinol, combinations' , 'metronidazole' , 'tinidaz
-            # ole' , 'ornidazole' , 'azanidazole' , 'propenidazole' , 'nimorazole'
+            # 'sodium fluoride' , 'sodium monofluorophosphate' , 'olaflur' , 'stannous fluoride' , 'combinations' , 'sod
+            # ium fluoride, combinations' , 'hydrogen peroxide' , 'chlorhexidine' , 'amphotericin B' , 'polynoxylin'
         }
     }

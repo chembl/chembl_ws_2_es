@@ -17,11 +17,11 @@ mappings = \
                 {
                     'es_completion': 'TEXT',
                     # EXAMPLES:
-                    # '{'input': 'TS-0134', 'weight': 10}' , '{'input': 'TS-2037', 'weight': 10}' , '{'input': 'TS-0741'
-                    # , 'weight': 10}' , '{'input': 'TS-0798', 'weight': 10}' , '{'input': 'BTO:0002107', 'weight': 10}'
-                    #  , '{'input': 'Zone of skin', 'weight': 100}' , '{'input': 'EFO:0000885', 'weight': 10}' , '{'inpu
-                    # t': 'Tube', 'weight': 100}' , '{'input': 'BTO:0000784', 'weight': 10}' , '{'input': 'CHEMBL3987795
-                    # ', 'weight': 10}'
+                    # '{'input': 'BTO:0001421', 'weight': 10}' , '{'input': 'TS-2037', 'weight': 10}' , '{'input': 'CHEM
+                    # BL4296343', 'weight': 10}' , '{'input': 'BTO:0001073', 'weight': 10}' , '{'input': 'Submucosa', 'w
+                    # eight': 100}' , '{'input': 'UBERON:0000014', 'weight': 10}' , '{'input': 'CHEMBL3988049', 'weight'
+                    # : 10}' , '{'input': 'Tube', 'weight': 100}' , '{'input': 'UBERON:0000029', 'weight': 10}' , '{'inp
+                    # ut': 'Lamina propria', 'weight': 100}'
                 }
             },
             'bto_id': 'TEXT',

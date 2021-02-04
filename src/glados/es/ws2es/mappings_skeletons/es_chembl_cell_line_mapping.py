@@ -17,11 +17,11 @@ mappings = \
                 {
                     'es_completion': 'TEXT',
                     # EXAMPLES:
-                    # '{'input': 'DC3F', 'weight': 100}' , '{'input': 'CHEMBL3307242', 'weight': 10}' , '{'input': 'CVCL
-                    # _N513', 'weight': 10}' , '{'input': 'Carcinoma', 'weight': 30}' , '{'input': 'CVCL_1783', 'weight'
-                    # : 10}' , '{'input': 'Lung', 'weight': 30}' , '{'input': 'Leukaemia', 'weight': 30}' , '{'input': '
-                    # Rattus norvegicus', 'weight': 30}' , '{'input': 'CVCL_3620', 'weight': 10}' , '{'input': 'Colon Ad
-                    # enocarcinoma', 'weight': 30}'
+                    # '{'input': 'CHEMBL3307241', 'weight': 10}' , '{'input': 'Homo sapiens', 'weight': 30}' , '{'input'
+                    # : 'Homo sapiens', 'weight': 30}' , '{'input': 'Homo sapiens', 'weight': 30}' , '{'input': 'Homo sa
+                    # piens', 'weight': 30}' , '{'input': 'V79-4', 'weight': 100}' , '{'input': 'Mus musculus', 'weight'
+                    # : 30}' , '{'input': 'Rattus norvegicus', 'weight': 30}' , '{'input': 'CHEMBL3307249', 'weight': 10
+                    # }' , '{'input': 'Homo sapiens', 'weight': 30}'
                 }
             },
             'cell_chembl_id': 'TEXT',

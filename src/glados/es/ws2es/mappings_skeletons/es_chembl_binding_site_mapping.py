@@ -17,41 +17,42 @@ mappings = \
                 {
                     'component_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '26' , '8527' , '8527' , '8527' , '8527' , '8527' , '8527' , '8527' , '8527' , '8527'
+                    # '4909' , '5575' , '118' , '397' , '218' , '1835' , '2632' , '873' , '970' , '3106'
                     'domain': 
                     {
                         'properties': 
                         {
                             'domain_id': 'NUMERIC',
                             # EXAMPLES:
-                            # '3658' , '3119' , '3119' , '3119' , '3119' , '3119' , '3119' , '3119' , '3119' , '3119'
+                            # '2781' , '2683' , '2922' , '2627' , '2788' , '3719' , '2627' , '2683' , '4003' , '2776'
                             'domain_name': 'TEXT',
                             # EXAMPLES:
-                            # 'Neur_chan_LBD' , 'ASC' , 'ASC' , 'ASC' , 'ASC' , 'ASC' , 'ASC' , 'ASC' , 'ASC' , 'ASC'
+                            # 'UDPGT' , 'Pkinase' , 'IMPDH' , '7tm_1' , 'SNF' , 'PAF-AH_p_II' , '7tm_1' , 'Pkinase' , 'P
+                            # kinase_Tyr' , 'Carb_anhydrase'
                             'domain_type': 'TEXT',
                             # EXAMPLES:
                             # 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'P
                             # fam-A' , 'Pfam-A'
                             'source_domain_id': 'TEXT',
                             # EXAMPLES:
-                            # 'PF02931' , 'PF00858' , 'PF00858' , 'PF00858' , 'PF00858' , 'PF00858' , 'PF00858' , 'PF008
-                            # 58' , 'PF00858' , 'PF00858'
+                            # 'PF00201' , 'PF00069' , 'PF00478' , 'PF00001' , 'PF00209' , 'PF03403' , 'PF00001' , 'PF000
+                            # 69' , 'PF07714' , 'PF00194'
                         }
                     },
                     'sitecomp_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '7067' , '28309' , '30253' , '25293' , '23850' , '33439' , '26112' , '30478' , '24026' , '33842'
+                    # '4' , '1503' , '1077' , '432' , '654' , '435' , '438' , '226' , '229' , '232'
                 }
             },
             'site_id': 'NUMERIC',
             # EXAMPLES:
-            # '6275' , '21851' , '21852' , '21853' , '21854' , '21855' , '21856' , '21857' , '21858' , '21859'
+            # '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9' , '10' , '11'
             'site_name': 'TEXT',
             # EXAMPLES:
-            # 'Nicotinic acetylcholine receptor alpha2/beta4, Neur_chan_LBD domain' , 'Acid-sensing ion channel 2, ASC d
-            # omain' , 'Acid-sensing ion channel 1/2, ASC domain' , 'Acid-sensing ion channel 2, ASC domain' , 'Acid-sen
-            # sing ion channel 1/2, ASC domain' , 'Acid-sensing ion channel 2, ASC domain' , 'Acid-sensing ion channel 1
-            # /2, ASC domain' , 'Acid-sensing ion channel 2, ASC domain' , 'Acid-sensing ion channel 1/2, ASC domain' , 
-            # 'Acid-sensing ion channel 2, ASC domain'
+            # 'UDP-glucuronosyltransferase 1-10, UDPGT domain' , 'Mitogen-activated protein kinase 8, Pkinase domain' , 
+            # 'Inosine-5'-monophosphate dehydrogenase 1, IMPDH domain' , 'Dopamine D1 receptor, 7tm_1 domain' , 'GABA tr
+            # ansporter 1, SNF domain' , 'LDL-associated phospholipase A2, PAF-AH_p_II domain' , 'Purinergic receptor P2
+            # Y1, 7tm_1 domain' , '3-phosphoinositide dependent protein kinase-1, Pkinase domain' , 'Tyrosine-protein ki
+            # nase CSK, Pkinase_Tyr domain' , 'Carbonic anhydrase VA, Carb_anhydrase domain'
         }
     }

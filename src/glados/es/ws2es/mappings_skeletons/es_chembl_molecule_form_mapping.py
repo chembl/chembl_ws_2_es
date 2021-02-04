@@ -16,11 +16,11 @@ mappings = \
             # 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True'
             'molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL16832' , 'CHEMBL13266' , 'CHEMBL13267' , 'CHEMBL13368' , 'CHEMBL273428' , 'CHEMBL16590' , 'CHEMBL12
-            # 867' , 'CHEMBL276589' , 'CHEMBL13316' , 'CHEMBL273372'
+            # 'CHEMBL13223' , 'CHEMBL6819' , 'CHEMBL10584' , 'CHEMBL10698' , 'CHEMBL13372' , 'CHEMBL7060' , 'CHEMBL9932'
+            #  , 'CHEMBL13399' , 'CHEMBL20341' , 'CHEMBL416156'
             'parent_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL16832' , 'CHEMBL13266' , 'CHEMBL13267' , 'CHEMBL13368' , 'CHEMBL273428' , 'CHEMBL16590' , 'CHEMBL12
-            # 867' , 'CHEMBL276589' , 'CHEMBL13316' , 'CHEMBL273372'
+            # 'CHEMBL13223' , 'CHEMBL6819' , 'CHEMBL10584' , 'CHEMBL10698' , 'CHEMBL13372' , 'CHEMBL7060' , 'CHEMBL9932'
+            #  , 'CHEMBL13399' , 'CHEMBL20341' , 'CHEMBL416156'
         }
     }

@@ -13,15 +13,15 @@ mappings = \
         {
             'related_target_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL4296064' , 'CHEMBL4106151' , 'CHEMBL2111413' , 'CHEMBL3430899' , 'CHEMBL4106157' , 'CHEMBL2111366' 
-            # , 'CHEMBL4956' , 'CHEMBL2111370' , 'CHEMBL1847' , 'CHEMBL2093872'
+            # 'CHEMBL2095180' , 'CHEMBL3559691' , 'CHEMBL2094127' , 'CHEMBL3038467' , 'CHEMBL3885551' , 'CHEMBL3038468' 
+            # , 'CHEMBL4296066' , 'CHEMBL4296065' , 'CHEMBL1907602' , 'CHEMBL4523683'
             'relationship': 'TEXT',
             # EXAMPLES:
-            # 'SUPERSET OF' , 'OVERLAPS WITH' , 'OVERLAPS WITH' , 'OVERLAPS WITH' , 'OVERLAPS WITH' , 'OVERLAPS WITH' , 
-            # 'SUPERSET OF' , 'OVERLAPS WITH' , 'SUPERSET OF' , 'SUBSET OF'
+            # 'SUBSET OF' , 'SUBSET OF' , 'SUBSET OF' , 'SUBSET OF' , 'SUBSET OF' , 'SUBSET OF' , 'SUBSET OF' , 'SUBSET 
+            # OF' , 'SUBSET OF' , 'SUBSET OF'
             'target_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL2094130' , 'CHEMBL2094130' , 'CHEMBL2094130' , 'CHEMBL2094130' , 'CHEMBL2094130' , 'CHEMBL2094130' 
-            # , 'CHEMBL2094130' , 'CHEMBL2094130' , 'CHEMBL2094130' , 'CHEMBL2094130'
+            # 'CHEMBL261' , 'CHEMBL308' , 'CHEMBL308' , 'CHEMBL308' , 'CHEMBL308' , 'CHEMBL308' , 'CHEMBL308' , 'CHEMBL3
+            # 08' , 'CHEMBL308' , 'CHEMBL308'
         }
     }

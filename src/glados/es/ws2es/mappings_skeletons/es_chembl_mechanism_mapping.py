@@ -13,14 +13,15 @@ mappings = \
         {
             'action_type': 'TEXT',
             # EXAMPLES:
-            # 'CHELATING AGENT' , 'INHIBITOR' , 'CHELATING AGENT' , 'INHIBITOR' , 'INHIBITOR' , 'OPENER' , 'HYDROLYTIC E
-            # NZYME' , 'HYDROLYTIC ENZYME' , 'HYDROLYTIC ENZYME' , 'HYDROLYTIC ENZYME'
+            # 'INHIBITOR' , 'INHIBITOR' , 'INHIBITOR' , 'RELEASING AGENT' , 'RELEASING AGENT' , 'RELEASING AGENT' , 'INH
+            # IBITOR' , 'INHIBITOR' , 'INHIBITOR' , 'RELEASING AGENT'
             'binding_site_comment': 'TEXT',
             # EXAMPLES:
-            # 'Binds to a cysteine residue in the BTK active site' , 'Alpha subunit is likely binding site' , '23S RRNA'
-            #  , 'Beta-5 subunit' , 'Binds to LBD (ligand binding domain) of GRIA2.' , 'ATP-binding site' , 'Binds to if
-            # enprodil site on N-terminal domain.' , 'Binds to ifenprodil site on N-terminal domain.' , 'Partial agonist
-            #  of the glycin-site on GRIN1-subunits.' , 'Binds to ifenprodil site on N-terminal domain.'
+            # '23s rRNA (interacts with the A- and P-sites).' , 'Box B' , 'Hydrophobic cavity in the HA trimer stem at t
+            # he interface between two protomers. ' , '3′ untranslated region at base position 489-508' , 'Effects poten
+            # tially mediated by beta subunit.' , 'gp120 subunit' , 'Binds to both dihydropyridine and nondihydropyridin
+            # e binding sites.' , 'Binds dihydropyridine and nondihydropyridine binding sites.' , 'gp120 subunit' , 'Ben
+            # zodiazepine site'
             'direct_interaction': 'BOOLEAN',
             # EXAMPLES:
             # 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True'
@@ -32,45 +33,47 @@ mappings = \
             # '4' , '4' , '4' , '4' , '4' , '4' , '4' , '4' , '4' , '4'
             'mec_id': 'NUMERIC',
             # EXAMPLES:
-            # '2201' , '2202' , '2203' , '2204' , '2205' , '2206' , '2207' , '2209' , '2210' , '2211'
+            # '683' , '684' , '685' , '686' , '687' , '688' , '689' , '690' , '691' , '692'
             'mechanism_comment': 'TEXT',
             # EXAMPLES:
-            # 'Scavenge of radioactive and non-radioactive cesium and thalium' , 'Inhibition of protein synthesis indepe
-            # ndent of direct BCR-ABL binding' , 'Mode of action not fully understood; it seems to interact with GABA A 
-            # receptors as other carbinol hypnotic drugs' , 'Iodine seems to lead to protein precipitation' , 'Photodyna
-            # mic therapy' , 'Mode of action not fully understood; it seems to interact with IKKB, which may play a role
-            #  in its anti-rheumatic effects' , 'Antitussive drug; probable action in the CNS cough centre' , 'Trivalent
-            #  metal cations chelating agent; inhibition of the metal-dependent enzymes that are responsible for the deg
-            # radation of peroxides within the fungal cell' , 'Nitogen mustard component is DNA alkylating agent' , 'FAA
-            # H converts acetaminophen into the active metabolite AM404, but this conversion also competes with degradat
-            # ion of anandamide increasing its concentration and effects'
+            # 'Expressed in eye' , 'Role in regulating gastric secretion, M3 likely involved' , 'Role in regulating gast
+            # ric secretion, M3 likely involved' , 'Role in regulating gastric secretion, M3 likely involved' , 'Role in
+            #  regulating gastric secretion, M3 likely involved' , 'Indicated in irritable bowel, M3 likely involved' , 
+            # 'Role in regulating gastric secretion, M3 likely involved' , 'May be mixed agonist/antagonist' , 'Substitu
+            # tes for deficient phenylalanine hydroxylase. Hydrolyses phenylalanine to reduce blood concentrations.' , '
+            # Hydrolyses L-asparagine which is required by leukemic cells which have low level expression of L-asparagin
+            # e synthetase.'
             'mechanism_of_action': 'TEXT',
             # EXAMPLES:
-            # 'Unknown' , 'Unknown' , 'Radioactive metals chelating agent' , 'Unknown' , 'Unknown' , 'Unknown' , 'Unknow
-            # n' , 'Unknown' , 'Unknown' , 'Unknown'
+            # 'Tyrosine-protein kinase SRC inhibitor' , 'Dopamine transporter inhibitor' , 'Dopamine transporter inhibit
+            # or' , 'Dopamine transporter releasing agent' , 'Dopamine transporter releasing agent' , 'Dopamine transpor
+            # ter releasing agent' , 'Dopamine transporter inhibitor' , 'Dopamine transporter inhibitor' , 'Dopamine tra
+            # nsporter inhibitor' , 'Dopamine transporter releasing agent'
             'mechanism_refs': 
             {
                 'properties': 
                 {
                     'ref_id': 'TEXT',
                     # EXAMPLES:
-                    # 'nda/2002/20-855_Mesnex_Prntlbl.pdf' , 'label/2008/021626s007lbl.pdf' , 'label/2000/21214lbl.pdf' 
-                    # , 'label/2012/022372s004lbledt.pdf' , 'anda/2000/75-271_Cromolyn%20Sodium_prntlbl.pdf' , '428168' 
-                    # , 'setid=7b74f590-e698-02da-9878-5dc80902dbb4' , '2009/07/new-drug-approvals-part-x-benzyl.html' ,
-                    #  '10515429' , 'label/2006/013217s046lbl.pdf'
+                    # 'setid=4dc7f0af-77fb-4eec-46b9-dd1c2dcb4525#section-13' , 'setid=2c824d4c-2309-4e2a-bc74-aa8d80a5c
+                    # 454#nlm34090-1' , 'setid=2c824d4c-2309-4e2a-bc74-aa8d80a5c454' , 'D07445' , 'D07445' , 'D07445' , 
+                    # 'setid=5cb7fd36-ae36-409b-af79-9c432e1cf5d9#nlm34090-1' , 'setid=5cb7fd36-ae36-409b-af79-9c432e1cf
+                    # 5d9#nlm34090-1' , 'setid=d334e2f1-7497-4131-a5c0-7ac30d4741cb#nlm34090-1' , 'D07445'
                     'ref_type': 'TEXT',
                     # EXAMPLES:
-                    # 'FDA' , 'FDA' , 'FDA' , 'FDA' , 'FDA' , 'PubMed' , 'DailyMed' , 'Expert' , 'PubMed' , 'FDA'
+                    # 'DailyMed' , 'DailyMed' , 'DailyMed' , 'KEGG' , 'KEGG' , 'KEGG' , 'DailyMed' , 'DailyMed' , 'Daily
+                    # Med' , 'KEGG'
                     'ref_url': 'TEXT',
                     # EXAMPLES:
-                    # 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2002/20-855_Mesnex_Prntlbl.pdf' , 'http://www.a
-                    # ccessdata.fda.gov/drugsatfda_docs/label/2008/021626s007lbl.pdf' , 'http://www.accessdata.fda.gov/d
-                    # rugsatfda_docs/label/2000/21214lbl.pdf' , 'http://www.accessdata.fda.gov/drugsatfda_docs/label/201
-                    # 2/022372s004lbledt.pdf' , 'http://www.accessdata.fda.gov/drugsatfda_docs/anda/2000/75-271_Cromolyn
-                    # %20Sodium_prntlbl.pdf' , 'http://europepmc.org/abstract/MED/428168' , 'http://dailymed.nlm.nih.gov
-                    # /dailymed/lookup.cfm?setid=7b74f590-e698-02da-9878-5dc80902dbb4' , 'http://chembl.blogspot.co.uk/2
-                    # 009/07/new-drug-approvals-part-x-benzyl.html' , 'http://europepmc.org/abstract/MED/10515429' , 'ht
-                    # tp://www.accessdata.fda.gov/drugsatfda_docs/label/2006/013217s046lbl.pdf'
+                    # 'http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=4dc7f0af-77fb-4eec-46b9-dd1c2dcb4525#sectio
+                    # n-13' , 'http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2c824d4c-2309-4e2a-bc74-aa8d80a5c45
+                    # 4#nlm34090-1' , 'http://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2c824d4c-2309-4e2a-bc74-aa8
+                    # d80a5c454' , 'http://www.kegg.jp/dbget-bin/www_bget?dr:D07445' , 'http://www.kegg.jp/dbget-bin/www
+                    # _bget?dr:D07445' , 'http://www.kegg.jp/dbget-bin/www_bget?dr:D07445' , 'http://dailymed.nlm.nih.go
+                    # v/dailymed/lookup.cfm?setid=5cb7fd36-ae36-409b-af79-9c432e1cf5d9#nlm34090-1' , 'http://dailymed.nl
+                    # m.nih.gov/dailymed/lookup.cfm?setid=5cb7fd36-ae36-409b-af79-9c432e1cf5d9#nlm34090-1' , 'http://dai
+                    # lymed.nlm.nih.gov/dailymed/lookup.cfm?setid=d334e2f1-7497-4131-a5c0-7ac30d4741cb#nlm34090-1' , 'ht
+                    # tp://www.kegg.jp/dbget-bin/www_bget?dr:D07445'
                 }
             },
             'molecular_mechanism': 'BOOLEAN',
@@ -78,50 +81,95 @@ mappings = \
             # 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True' , 'True'
             'molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL975' , 'CHEMBL361497' , 'CHEMBL2096629' , 'CHEMBL1200661' , 'CHEMBL2021424' , 'CHEMBL74' , 'CHEMBL2
-            # 107525' , 'CHEMBL1200625' , 'CHEMBL1239' , 'CHEMBL980'
+            # 'CHEMBL24828' , 'CHEMBL1373' , 'CHEMBL1201192' , 'CHEMBL1200377' , 'CHEMBL405' , 'CHEMBL501' , 'CHEMBL1201
+            # 735' , 'CHEMBL1698' , 'CHEMBL904' , 'CHEMBL1200387'
             'parent_molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1098319' , 'CHEMBL361497' , 'CHEMBL2096629' , 'CHEMBL1200661' , 'CHEMBL2021424' , 'CHEMBL428880' , 
-            # 'CHEMBL1060' , 'CHEMBL2219640' , 'CHEMBL1239' , 'CHEMBL980'
+            # 'CHEMBL24828' , 'CHEMBL1373' , 'CHEMBL1201192' , 'CHEMBL405' , 'CHEMBL405' , 'CHEMBL405' , 'CHEMBL894' , '
+            # CHEMBL894' , 'CHEMBL827' , 'CHEMBL405'
             'record_id': 'NUMERIC',
             # EXAMPLES:
-            # '1344110' , '1641027' , '1343347' , '1343190' , '1344046' , '1344901' , '1344128' , '1343168' , '1343700' 
-            # , '1344867'
+            # '1343277' , '1343811' , '1343365' , '1344287' , '1344593' , '1344804' , '1344610' , '1343619' , '1344109' 
+            # , '1344586'
             'selectivity_comment': 'TEXT',
             # EXAMPLES:
-            # 'Selective' , 'FGFR 1, 2 + 3' , 'HCN4 is predominant form in sinoatrial node and atrioventricular node' , 
-            # 'High selectivity for CXCR2 over CXCR1' , 'Inhibits multiple receptor tyrosine kinases. Active against FLT
-            # 3 and certain FLT3 variants.' , 'Binding affinity is high at GABAAa1, a2 and a3 (Ki of 0.5, 0.3 and 1.3 nM
-            # , respectively), but not GA' , 'Binding affinity is high at GABAAa1, a2 and a3 (Ki of 0.5, 0.3 and 1.3 nM,
-            #  respectively), but not GA' , 'GRIN2B selective.' , 'GRIN2B selective.' , 'Partial agonist of the glycin-s
-            # ite on GRIN1-subunits, preferentially modulates NR2B-containing NMDAR'
+            # 'Inhibits serine beta lactamases (SHV, TEM, CTX-M type and Enterobacter cloacae P99, Pseudomonase derived 
+            # cephalosporinase PDC and Klebsiella pneumoniae carbapenemase KPC). Not active against MBLs, some oxacillin
+            # ases and certain GES allelles. Can restore the activity of imipenem/cilastatin combinations against KPC-pr
+            # oducing Enterobacteriaceae and PDC-producing Pseudomonas aeruginosa.' , 'Inhibits serine beta lactamases (
+            # SHV, TEM, CTX-M type and Enterobacter cloacae P99, Pseudomonase derived cephalosporinase PDC and Klebsiell
+            # a pneumoniae carbapenemase KPC). Not active against MBLs, some oxacillinases and certain GES allelles. Can
+            #  restore the activity of imipenem/cilastatin combinations against KPC-producing Enterobacteriaceae and PDC
+            # -producing Pseudomonas aeruginosa.' , 'Inhibits serine beta lactamases (SHV, TEM, CTX-M type and Enterobac
+            # ter cloacae P99, Pseudomonase derived cephalosporinase PDC and Klebsiella pneumoniae carbapenemase KPC). N
+            # ot active against MBLs, some oxacillinases and certain GES allelles. Can restore the activity of imipenem/
+            # cilastatin combinations against KPC-producing Enterobacteriaceae and PDC-producing Pseudomonas aeruginosa.
+            # ' , 'High selectivity for CXCR2 over CXCR1' , 'IC(50) inhibition PARP2 (2.1 nM)' , 'IC(50) inhibition PARP
+            # 1 (3.8 nM) ' , 'Non-selective but type 5 receptor is overexpressed in Cushing's disease' , 'Selective' , '
+            # Binds predominantly to MCR-1.' , 'Most active at the gamma subtype, > 20-fold selectivity over RAR alpha a
+            # nd RAR beta.'
             'site_id': 'NUMERIC',
             # EXAMPLES:
-            # '248' , '2651' , '2621' , '1744' , '2150' , '2633' , '2617' , '2617' , '2617' , '2649'
+            # '2621' , '2627' , '2617' , '2627' , '2627' , '2627' , '2627' , '2627' , '2627' , '2627'
             'target_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL2366037' , 'CHEMBL2311221' , 'CHEMBL2366381' , 'CHEMBL2311221' , 'CHEMBL2243' , 'CHEMBL4794' , 'CHE
-            # MBL2364706' , 'CHEMBL2364711' , 'CHEMBL2364180' , 'CHEMBL2364181'
+            # 'CHEMBL267' , 'CHEMBL238' , 'CHEMBL238' , 'CHEMBL238' , 'CHEMBL238' , 'CHEMBL238' , 'CHEMBL238' , 'CHEMBL2
+            # 38' , 'CHEMBL238' , 'CHEMBL238'
             'variant_sequence': 
             {
                 'properties': 
                 {
                     'accession': 'TEXT',
                     # EXAMPLES:
-                    # 'P00533' , 'P00533' , 'P00533' , 'P15056' , 'P15056' , 'P15056'
+                    # 'P15056' , 'P15056' , 'P15056' , 'P00533' , 'P00533' , 'P00533'
                     'isoform': 'NUMERIC',
                     # EXAMPLES:
                     # '1' , '1' , '1'
                     'mutation': 'TEXT',
                     # EXAMPLES:
-                    # 'T790M' , 'T790M' , 'T790M' , 'V600E' , 'V600E' , 'V600E'
+                    # 'V600E' , 'V600E' , 'V600E' , 'T790M' , 'T790M' , 'T790M'
                     'organism': 'TEXT',
                     # EXAMPLES:
                     # 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens
                     # '
                     'sequence': 'TEXT',
                     # EXAMPLES:
+                    # 'MAALSGGGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDALQQREQ
+                    # QLLESLGNGTDFSVSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRGLIPECC
+                    # AVYRIQDGEKKPIGWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLDLLFVSK
+                    # FFEHHPIPQEEASLAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRDQGFRGD
+                    # GGSTTGLSATPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTA
+                    # PTPQQLQAFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHED
+                    # LTVKIGDFGLATEKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNC
+                    # PKAMKRLMAECLKKKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH' , 'MAALSGGGGGGA
+                    # EPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDALQQREQQLLESLGNGTDFS
+                    # VSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRGLIPECCAVYRIQDGEKKPI
+                    # GWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLDLLFVSKFFEHHPIPQEEAS
+                    # LAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRDQGFRGDGGSTTGLSATPPA
+                    # SLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTAPTPQQLQAFKNEV
+                    # GVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHEDLTVKIGDFGLATE
+                    # KSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNCPKAMKRLMAECLK
+                    # KKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH' , 'MAALSGGGGGGAEPGQALFNGDMEP
+                    # EAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDALQQREQQLLESLGNGTDFSVSSSASMDTVTSS
+                    # SSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRGLIPECCAVYRIQDGEKKPIGWDTDISWLTGEE
+                    # LHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLDLLFVSKFFEHHPIPQEEASLAETALTSGSSPS
+                    # APASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRDQGFRGDGGSTTGLSATPPASLPGSLTNVKALQ
+                    # KSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTAPTPQQLQAFKNEVGVLRKTRHVNILL
+                    # FMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHEDLTVKIGDFGLATEKSRWSGSHQFEQL
+                    # SGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNCPKAMKRLMAECLKKKRDERPLFPQIL
+                    # ASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH' , 'MRPSGTAGAALLALLAALCPASRALEEKKVCQGTSNKL
+                    # TQLGTFEDHFLSLQRMFNNCEVVLGNLEITYVQRNYDLSFLKTIQEVAGYVLIALNTVERIPLENLQIIRGNMYYENSYALAVLSNYDANKTGLKELP
+                    # MRNLQEILHGAVRFSNNPALCNVESIQWRDIVSSDFLSNMSMDFQNHLGSCQKCDPSCPNGSCWGAGEENCQKLTKIICAQQCSGRCRGKSPSDCCHN
+                    # QCAAGCTGPRESDCLVCRKFRDEATCKDTCPPLMLYNPTTYQMDVNPEGKYSFGATCVKKCPRNYVVTDHGSCVRACGADSYEMEEDGVRKCKKCEGP
+                    # CRKVCNGIGIGEFKDSLSINATNIKHFKNCTSISGDLHILPVAFRGDSFTHTPPLDPQELDILKTVKEITGFLLIQAWPENRTDLHAFENLEIIRGRT
+                    # KQHGQFSLAVVSLNITSLGLRSLKEISDGDVIISGNKNLCYANTINWKKLFGTSGQKTKIISNRGENSCKATGQVCHALCSPEGCWGPEPRDCVSCRN
+                    # VSRGRECVDKCNLLEGEPREFVENSECIQCHPECLPQAMNITCTGRGPDNCIQCAHYIDGPHCVKTCPAGVMGENNTLVWKYADAGHVCHLCHPNCTY
+                    # GCTGPGLEGCPTNGPKIPSIATGMVGALLLLLVVALGIGLFMRRRHIVRKRTLRRLLQERELVEPLTPSGEAPNQALLRILKETEFKKIKVLGSGAFG
+                    # TVYKGLWIPEGEKVKIPVAIKELREATSPKANKEILDEAYVMASVDNPHVCRLLGICLTSTVQLIMQLMPFGCLLDYVREHKDNIGSQYLLNWCVQIA
+                    # KGMNYLEDRRLVHRDLAARNVLVKTPQHVKITDFGLAKLLGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPA
+                    # SEISSILEKGERLPQPPICTIDVYMIMVKCWMIDADSRPKFRELIIEFSKMARDPQRYLVIQGDERMHLPSPTDSNFYRALMDEEDMDDVVDADEYLI
+                    # PQQGFFSSPSTSRTPLLSSLSATSNNSTVACIDRNGLQSCPIKEDSFLQRYSSDPTGALTEDSIDDTFLPVPEYINQSVPKRPAGSVQNPVYHNQPLN
+                    # PAPSRDPHYQDPHSTAVGNPEYLNTVQPTCVNSTFDSPAHWAQKGSHQISLDNPDYQQDFFPKEAKPNGIFKGSTAENAEYLRVAPQSSEFIGA' , 
                     # 'MRPSGTAGAALLALLAALCPASRALEEKKVCQGTSNKLTQLGTFEDHFLSLQRMFNNCEVVLGNLEITYVQRNYDLSFLKTIQEVAGYVLIALNTVE
                     # RIPLENLQIIRGNMYYENSYALAVLSNYDANKTGLKELPMRNLQEILHGAVRFSNNPALCNVESIQWRDIVSSDFLSNMSMDFQNHLGSCQKCDPSCP
                     # NGSCWGAGEENCQKLTKIICAQQCSGRCRGKSPSDCCHNQCAAGCTGPRESDCLVCRKFRDEATCKDTCPPLMLYNPTTYQMDVNPEGKYSFGATCVK
@@ -146,49 +194,13 @@ mappings = \
                     # VLVKTPQHVKITDFGLAKLLGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPASEISSILEKGERLPQPPICT
                     # IDVYMIMVKCWMIDADSRPKFRELIIEFSKMARDPQRYLVIQGDERMHLPSPTDSNFYRALMDEEDMDDVVDADEYLIPQQGFFSSPSTSRTPLLSSL
                     # SATSNNSTVACIDRNGLQSCPIKEDSFLQRYSSDPTGALTEDSIDDTFLPVPEYINQSVPKRPAGSVQNPVYHNQPLNPAPSRDPHYQDPHSTAVGNP
-                    # EYLNTVQPTCVNSTFDSPAHWAQKGSHQISLDNPDYQQDFFPKEAKPNGIFKGSTAENAEYLRVAPQSSEFIGA' , 'MRPSGTAGAALLALLAALC
-                    # PASRALEEKKVCQGTSNKLTQLGTFEDHFLSLQRMFNNCEVVLGNLEITYVQRNYDLSFLKTIQEVAGYVLIALNTVERIPLENLQIIRGNMYYENSY
-                    # ALAVLSNYDANKTGLKELPMRNLQEILHGAVRFSNNPALCNVESIQWRDIVSSDFLSNMSMDFQNHLGSCQKCDPSCPNGSCWGAGEENCQKLTKIIC
-                    # AQQCSGRCRGKSPSDCCHNQCAAGCTGPRESDCLVCRKFRDEATCKDTCPPLMLYNPTTYQMDVNPEGKYSFGATCVKKCPRNYVVTDHGSCVRACGA
-                    # DSYEMEEDGVRKCKKCEGPCRKVCNGIGIGEFKDSLSINATNIKHFKNCTSISGDLHILPVAFRGDSFTHTPPLDPQELDILKTVKEITGFLLIQAWP
-                    # ENRTDLHAFENLEIIRGRTKQHGQFSLAVVSLNITSLGLRSLKEISDGDVIISGNKNLCYANTINWKKLFGTSGQKTKIISNRGENSCKATGQVCHAL
-                    # CSPEGCWGPEPRDCVSCRNVSRGRECVDKCNLLEGEPREFVENSECIQCHPECLPQAMNITCTGRGPDNCIQCAHYIDGPHCVKTCPAGVMGENNTLV
-                    # WKYADAGHVCHLCHPNCTYGCTGPGLEGCPTNGPKIPSIATGMVGALLLLLVVALGIGLFMRRRHIVRKRTLRRLLQERELVEPLTPSGEAPNQALLR
-                    # ILKETEFKKIKVLGSGAFGTVYKGLWIPEGEKVKIPVAIKELREATSPKANKEILDEAYVMASVDNPHVCRLLGICLTSTVQLIMQLMPFGCLLDYVR
-                    # EHKDNIGSQYLLNWCVQIAKGMNYLEDRRLVHRDLAARNVLVKTPQHVKITDFGLAKLLGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYG
-                    # VTVWELMTFGSKPYDGIPASEISSILEKGERLPQPPICTIDVYMIMVKCWMIDADSRPKFRELIIEFSKMARDPQRYLVIQGDERMHLPSPTDSNFYR
-                    # ALMDEEDMDDVVDADEYLIPQQGFFSSPSTSRTPLLSSLSATSNNSTVACIDRNGLQSCPIKEDSFLQRYSSDPTGALTEDSIDDTFLPVPEYINQSV
-                    # PKRPAGSVQNPVYHNQPLNPAPSRDPHYQDPHSTAVGNPEYLNTVQPTCVNSTFDSPAHWAQKGSHQISLDNPDYQQDFFPKEAKPNGIFKGSTAENA
-                    # EYLRVAPQSSEFIGA' , 'MAALSGGGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIY
-                    # LEAYEEYTSKLDALQQREQQLLESLGNGTDFSVSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVT
-                    # VRDSLKKALMMRGLIPECCAVYRIQDGEKKPIGWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCST
-                    # EVPLMCVNYDQLDLLFVSKFFEHHPIPQEEASLAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHIN
-                    # TIEPVNIDDLIRDQGFRGDGGSTTGLSATPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGT
-                    # VYKGKWHGDVAVKMLNVTAPTPQQLQAFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLH
-                    # AKSIIHRDLKSNNIFLHEDLTVKIGDFGLATEKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQII
-                    # FMVGRGYLSPDLSKVRSNCPKAMKRLMAECLKKKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFP
-                    # VH' , 'MAALSGGGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDA
-                    # LQQREQQLLESLGNGTDFSVSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRG
-                    # LIPECCAVYRIQDGEKKPIGWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLD
-                    # LLFVSKFFEHHPIPQEEASLAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRD
-                    # QGFRGDGGSTTGLSATPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVK
-                    # MLNVTAPTPQQLQAFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNN
-                    # IFLHEDLTVKIGDFGLATEKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLS
-                    # KVRSNCPKAMKRLMAECLKKKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH' , 'MAALSG
-                    # GGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDALQQREQQLLESLG
-                    # NGTDFSVSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRGLIPECCAVYRIQD
-                    # GEKKPIGWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLDLLFVSKFFEHHPI
-                    # PQEEASLAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRDQGFRGDGGSTTGL
-                    # SATPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTAPTPQQLQ
-                    # AFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHEDLTVKIGD
-                    # FGLATEKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNCPKAMKRL
-                    # MAECLKKKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH'
+                    # EYLNTVQPTCVNSTFDSPAHWAQKGSHQISLDNPDYQQDFFPKEAKPNGIFKGSTAENAEYLRVAPQSSEFIGA'
                     'tax_id': 'NUMERIC',
                     # EXAMPLES:
                     # '9606' , '9606' , '9606' , '9606' , '9606' , '9606'
                     'version': 'NUMERIC',
                     # EXAMPLES:
-                    # '2' , '2' , '2' , '4' , '4' , '4'
+                    # '4' , '4' , '4' , '2' , '2' , '2'
                 }
             }
         }

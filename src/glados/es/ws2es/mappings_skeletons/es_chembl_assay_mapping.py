@@ -17,11 +17,12 @@ mappings = \
                 {
                     'es_completion': 'TEXT',
                     # EXAMPLES:
-                    # '{'input': 'CHEMBL1125695', 'weight': 10}' , '{'input': 'CHEMBL1125695', 'weight': 10}' , '{'input
-                    # ': 'CHEMBL1125695', 'weight': 10}' , '{'input': 'CHEMBL1125695', 'weight': 10}' , '{'input': 'CHEM
-                    # BL1125695', 'weight': 10}' , '{'input': 'CHEMBL1125695', 'weight': 10}' , '{'input': 'CHEMBL112569
-                    # 5', 'weight': 10}' , '{'input': 'CHEMBL1125695', 'weight': 10}' , '{'input': 'CHEMBL1126449', 'wei
-                    # ght': 10}' , '{'input': 'BAO_0000019', 'weight': 10}'
+                    # '{'input': 'BAO_0000019', 'weight': 10}' , '{'input': 'CHEMBL615129', 'weight': 10}' , '{'input': 
+                    # 'BAO_0000357', 'weight': 10}' , '{'input': 'Inhibitory activity against 15-lipoxygenase in rat pol
+                    # ymorphonuclear leukocytes', 'weight': 80}' , '{'input': 'Glycine max', 'weight': 30}' , '{'input':
+                    #  'CHEMBL1125500', 'weight': 10}' , '{'input': 'Dissociation constant towards 16S rRNA construct B'
+                    # , 'weight': 80}' , '{'input': 'BAO_0000225', 'weight': 10}' , '{'input': 'Homo sapiens', 'weight':
+                    #  30}' , '{'input': 'CHEMBL1124902', 'weight': 10}'
                 }
             },
             'assay_category': 'TEXT',
@@ -30,19 +31,19 @@ mappings = \
             # firmatory' , 'confirmatory' , 'confirmatory' , 'confirmatory'
             'assay_cell_type': 'TEXT',
             # EXAMPLES:
-            # 'ATH-8 cell line' , 'ATH-8 cell line' , 'ATH-8 cell line' , 'ATH-8 cell line' , 'ATH-8 cell line' , 'ATH-8
-            #  cell line' , 'ATH-8 cell line' , 'ATH-8 cell line' , 'CHO' , 'ATH-8 cell line'
+            # '1A9' , '1A9' , '1A9' , '1A9' , 'SCLC' , 'HepG2' , 'HepG2' , 'HepG2 2.2.15' , 'HepG2 2.2.15' , 'HepG2 2.2.
+            # 15'
             'assay_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL645191' , 'CHEMBL645192' , 'CHEMBL645193' , 'CHEMBL645194' , 'CHEMBL641996' , 'CHEMBL641997' , 'CHE
-            # MBL642665' , 'CHEMBL642666' , 'CHEMBL642834' , 'CHEMBL642837'
+            # 'CHEMBL615119' , 'CHEMBL615129' , 'CHEMBL615138' , 'CHEMBL615141' , 'CHEMBL615147' , 'CHEMBL615148' , 'CHE
+            # MBL615152' , 'CHEMBL615153' , 'CHEMBL615158' , 'CHEMBL615159'
             'assay_classifications': 
             {
                 'properties': 
                 {
                     'assay_class_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '114' , '267' , '267' , '267' , '267' , '267' , '140' , '91' , '91' , '115'
+                    # '84' , '115' , '322' , '322' , '322' , '115' , '259' , '82' , '82' , '91'
                     'class_type': 'TEXT',
                     # EXAMPLES:
                     # 'In vivo efficacy' , 'In vivo efficacy' , 'In vivo efficacy' , 'In vivo efficacy' , 'In vivo effic
@@ -50,33 +51,30 @@ mappings = \
                     # o efficacy'
                     'l1': 'TEXT',
                     # EXAMPLES:
-                    # 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS' , 'GENITO URINARY SYSTEM AND SEX HORMONES' , 'GENITO 
-                    # URINARY SYSTEM AND SEX HORMONES' , 'GENITO URINARY SYSTEM AND SEX HORMONES' , 'GENITO URINARY SYST
-                    # EM AND SEX HORMONES' , 'GENITO URINARY SYSTEM AND SEX HORMONES' , 'CARDIOVASCULAR SYSTEM' , 'ANTIN
-                    # EOPLASTIC AND IMMUNOMODULATING AGENTS' , 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS' , 'ANTINEOPL
-                    # ASTIC AND IMMUNOMODULATING AGENTS'
+                    # 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS' , 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS' , 'NER
+                    # VOUS SYSTEM' , 'NERVOUS SYSTEM' , 'NERVOUS SYSTEM' , 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS' 
+                    # , 'GENITO URINARY SYSTEM AND SEX HORMONES' , 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS' , 'ANTIN
+                    # EOPLASTIC AND IMMUNOMODULATING AGENTS' , 'ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS'
                     'l2': 'TEXT',
                     # EXAMPLES:
-                    # 'Methods for Testing Immunological Factors' , 'Diuretic and Saluretic Activity' , 'Diuretic and Sa
-                    # luretic Activity' , 'Diuretic and Saluretic Activity' , 'Diuretic and Saluretic Activity' , 'Diure
-                    # tic and Saluretic Activity' , 'Anti-Arrhythmic Activity' , 'Melanoma Oncology Models' , 'Melanoma 
-                    # Oncology Models' , 'Neoplasm Oncology Models'
+                    # 'Carcinoma Oncology Models' , 'Neoplasm Oncology Models' , 'Anti-Depressant Activity' , 'Anti-Depr
+                    # essant Activity' , 'Anti-Depressant Activity' , 'Neoplasm Oncology Models' , 'Assessment of Renal 
+                    # Function' , 'Carcinoma Oncology Models' , 'Carcinoma Oncology Models' , 'Melanoma Oncology Models'
                     'l3': 'TEXT',
                     # EXAMPLES:
-                    # 'Spontaneous Autoimmune Diseases In Animals' , 'Saluretic Activity in Rats' , 'Saluretic Activity 
-                    # in Rats' , 'Saluretic Activity in Rats' , 'Saluretic Activity in Rats' , 'Saluretic Activity in Ra
-                    # ts' , 'General Anti-Arrhythmic Activity' , 'Experimental Melanoma' , 'Experimental Melanoma' , 'Ne
-                    # oplasms'
+                    # 'Lewis Lung Carcinoma' , 'Neoplasms' , 'General Hypothermia' , 'General Hypothermia' , 'General Hy
+                    # pothermia' , 'Neoplasms' , 'Fractional Excretion Methods' , 'Carcinoma' , 'Carcinoma' , 'Experimen
+                    # tal Melanoma'
                     'source': 'TEXT',
                     # EXAMPLES:
-                    # 'Vogel_2008' , 'Vogel_2008' , 'Vogel_2008' , 'Vogel_2008' , 'Vogel_2008' , 'Vogel_2008' , 'phenoty
-                    # pe' , 'phenotype' , 'phenotype' , 'phenotype'
+                    # 'phenotype' , 'phenotype' , 'phenotype' , 'phenotype' , 'phenotype' , 'phenotype' , 'Hock_2016' , 
+                    # 'phenotype' , 'phenotype' , 'phenotype'
                 }
             },
             'assay_organism': 'TEXT',
             # EXAMPLES:
-            # 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Hom
-            # o sapiens' , 'Homo sapiens' , 'Rattus norvegicus' , 'Rattus norvegicus'
+            # 'Staphylococcus aureus' , 'Glycine max' , 'Rattus norvegicus' , 'Escherichia coli' , 'Homo sapiens' , 'Rat
+            # tus norvegicus' , 'Rattus norvegicus' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens'
             'assay_parameters': 
             {
                 'properties': 
@@ -102,11 +100,11 @@ mappings = \
                     # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
                     'standard_text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'Oral' , 'Oral' , 'Oral' , 'Oral' , 'Oral' , 'Oral' , 'Subcutaneous' , 'Subcutaneous' , 'Intraperi
-                    # toneal' , 'Oral'
+                    # 'Intraperitoneal' , 'Intraperitoneal' , 'Intraperitoneal' , 'Oral' , 'Oral' , 'Intravenous' , 'Ora
+                    # l' , 'Oral' , 'Oral' , 'Oral'
                     'standard_type': 'TEXT',
                     # EXAMPLES:
-                    # 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'ROUTE' , 'ROUTE' , 'ROUTE' , 'DOSE' , 'DOSE'
+                    # 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE'
                     'standard_type_fixed': 'NUMERIC',
                     # EXAMPLES:
                     # '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0'
@@ -116,174 +114,170 @@ mappings = \
                     # g.kg-1' , 'mg.kg-1'
                     'standard_value': 'NUMERIC',
                     # EXAMPLES:
-                    # '10.0' , '10.0' , '60.0' , '20.0' , '200.0' , '50.0' , '0.0625' , '1.0' , '0.0' , '10.0'
+                    # '128.0' , '100.0' , '100.0' , '100.0' , '10.0' , '10.0' , '1.0' , '10.0' , '5.0' , '15.0'
                     'text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'Oral' , 'Oral' , 'Oral' , 'Oral' , 'Oral' , 'Oral' , 'Subcutaneous' , 'Subcutaneous' , 'Intraperi
-                    # toneal' , 'Oral'
+                    # 'Intraperitoneal' , 'Intraperitoneal' , 'Intraperitoneal' , 'Oral' , 'Oral' , 'Intravenous' , 'Ora
+                    # l' , 'Oral' , 'Oral' , 'Oral'
                     'type': 'TEXT',
                     # EXAMPLES:
-                    # 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'ROUTE' , 'ROUTE' , 'ROUTE' , 'DOSE' , 'DOSE'
+                    # 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE' , 'DOSE'
                     'units': 'TEXT',
                     # EXAMPLES:
                     # 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg'
                     'value': 'NUMERIC',
                     # EXAMPLES:
-                    # '10.0' , '10.0' , '60.0' , '20.0' , '200.0' , '50.0' , '0.0625' , '1.0' , '0.0' , '10.0'
+                    # '128.0' , '100.0' , '100.0' , '100.0' , '10.0' , '10.0' , '1.0' , '10.0' , '5.0' , '15.0'
                 }
             },
             'assay_strain': 'TEXT',
             # EXAMPLES:
-            # 'nigeriensis' , 'nigeriensis' , 'nigeriensis' , 'nigeriensis' , 'nigeriensis' , 'WRL CN 375' , 'Sprague-Da
-            # wley' , 'beagle' , 'SR3637' , 'SR26840'
+            # 'beagle' , 'Sprague-Dawley' , 'nigeriensis' , 'nigeriensis' , 'nigeriensis' , 'nigeriensis' , 'WRL CN 375'
+            #  , 'nigeriensis' , 'T9/94RC17' , 'TM91C235'
             'assay_subcellular_fraction': 'TEXT',
             # EXAMPLES:
-            # 'Brain membranes' , 'Brain membranes' , 'Membrane' , 'Brain membranes' , 'Membrane' , 'Membrane' , 'Brain 
-            # membranes' , 'Membrane' , 'Membrane' , 'Membrane'
+            # 'Microsome' , 'Microsome' , 'Membrane' , 'Membrane' , 'Membrane' , 'Membrane' , 'Microsome' , 'Microsome' 
+            # , 'Microsome' , 'Brain membranes'
             'assay_tax_id': 'NUMERIC',
             # EXAMPLES:
-            # '9606' , '9606' , '9606' , '9606' , '9606' , '9606' , '9606' , '9606' , '10116' , '10116'
+            # '1280' , '3847' , '10116' , '562' , '9606' , '10116' , '10116' , '9606' , '9606' , '9606'
             'assay_test_type': 'TEXT',
             # EXAMPLES:
-            # 'In vitro' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo'
-            #  , 'In vivo'
+            # 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' , 'In vivo' 
+            # , 'In vivo'
             'assay_tissue': 'TEXT',
             # EXAMPLES:
-            # 'Brain' , 'Brain' , 'Brain' , 'Ileum' , 'Brain' , 'Brain' , 'Brain' , 'Cardiac atrium' , 'Lung' , 'Liver'
+            # 'Testis' , 'Plasma' , 'Ileum' , 'Frontal cortex' , 'Hippocampus' , 'Ileum' , 'Ileum' , 'Heart' , 'Liver' ,
+            #  'Liver'
             'assay_type': 'TEXT',
             # EXAMPLES:
-            # 'F' , 'F' , 'F' , 'F' , 'F' , 'F' , 'A' , 'A' , 'B' , 'B'
+            # 'B' , 'F' , 'B' , 'B' , 'B' , 'A' , 'B' , 'B' , 'B' , 'B'
             'assay_type_description': 'TEXT',
             # EXAMPLES:
-            # 'Functional' , 'Functional' , 'Functional' , 'Functional' , 'Functional' , 'Functional' , 'ADME' , 'ADME' 
-            # , 'Binding' , 'Binding'
+            # 'Binding' , 'Functional' , 'Binding' , 'Binding' , 'Binding' , 'ADME' , 'Binding' , 'Binding' , 'Binding' 
+            # , 'Binding'
             'bao_format': 'TEXT',
             # EXAMPLES:
-            # 'BAO_0000219' , 'BAO_0000219' , 'BAO_0000219' , 'BAO_0000219' , 'BAO_0000219' , 'BAO_0000219' , 'BAO_00002
-            # 19' , 'BAO_0000219' , 'BAO_0000218' , 'BAO_0000019'
+            # 'BAO_0000019' , 'BAO_0000218' , 'BAO_0000357' , 'BAO_0000219' , 'BAO_0000357' , 'BAO_0000019' , 'BAO_00002
+            # 25' , 'BAO_0000225' , 'BAO_0000019' , 'BAO_0000221'
             'bao_label': 'TEXT',
             # EXAMPLES:
-            # 'cell-based format' , 'cell-based format' , 'cell-based format' , 'cell-based format' , 'cell-based format
-            # ' , 'cell-based format' , 'cell-based format' , 'cell-based format' , 'organism-based format' , 'assay for
-            # mat'
+            # 'assay format' , 'organism-based format' , 'single protein format' , 'cell-based format' , 'single protein
+            #  format' , 'assay format' , 'nucleic acid format' , 'nucleic acid format' , 'assay format' , 'tissue-based
+            #  format'
             'cell_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL3307903' , 'CHEMBL3307903' , 'CHEMBL3307903' , 'CHEMBL3307903' , 'CHEMBL3307903' , 'CHEMBL3307903' 
-            # , 'CHEMBL3307903' , 'CHEMBL3307903' , 'CHEMBL3308072' , 'CHEMBL3307903'
+            # 'CHEMBL3307529' , 'CHEMBL3307529' , 'CHEMBL3307529' , 'CHEMBL3307529' , 'CHEMBL3307967' , 'CHEMBL3307718' 
+            # , 'CHEMBL3307718' , 'CHEMBL3833241' , 'CHEMBL3833241' , 'CHEMBL3833241'
             'confidence_description': 'TEXT',
             # EXAMPLES:
-            # 'Default value - Target unknown or has yet to be assigned' , 'Default value - Target unknown or has yet to
-            #  be assigned' , 'Default value - Target unknown or has yet to be assigned' , 'Default value - Target unkno
-            # wn or has yet to be assigned' , 'Default value - Target unknown or has yet to be assigned' , 'Default valu
-            # e - Target unknown or has yet to be assigned' , 'Default value - Target unknown or has yet to be assigned'
-            #  , 'Default value - Target unknown or has yet to be assigned' , 'Homologous single protein target assigned
-            # ' , 'Homologous single protein target assigned'
+            # 'Default value - Target unknown or has yet to be assigned' , 'Target assigned is non-molecular' , 'Homolog
+            # ous single protein target assigned' , 'Homologous single protein target assigned' , 'Homologous single pro
+            # tein target assigned' , 'Default value - Target unknown or has yet to be assigned' , 'Target assigned is m
+            # olecular non-protein target' , 'Target assigned is molecular non-protein target' , 'Homologous single prot
+            # ein target assigned' , 'Direct single protein target assigned'
             'confidence_score': 'NUMERIC',
             # EXAMPLES:
-            # '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0' , '8' , '8'
+            # '0' , '1' , '8' , '8' , '8' , '0' , '3' , '3' , '8' , '9'
             'description': 'TEXT',
             # EXAMPLES:
-            # 'Anti-HIV activity (% protection) in ATH-8 cells at 5 uM in presence of 2'-deoxycoformycin at 50 uM' , 'An
-            # ti-HIV activity (% protection) in ATH-8 cells at 5 uM in absence of 2'-deoxycoformycin at 0 uM' , 'Anti-HI
-            # V activity (% protection) in ATH-8 cells at 5 uM in absence of 2'-deoxycoformycin at 20 uM' , 'Anti-HIV ac
-            # tivity (% protection) in ATH-8 cells at 5 uM in absence of 2'-deoxycoformycin at 50 uM' , 'Anti-HIV activi
-            # ty (%protection) in ATH-8 cells at 5 uM in absence of 2''-deoxycoformycin at 100 uM' , 'Anti-HIV activity 
-            # (%protection) in ATH-8 cells at 5 uM in absence of 2''-deoxycoformycin at 50 uM' , 'Anti-HIV activity (% t
-            # oxicity) in ATH-8 cells at 5 uM in absence of 2'-deoxycoformycin at 10 uM' , 'Anti-HIV activity (% toxicit
-            # y) in ATH-8 cells at 5 uM in absence of 2'-deoxycoformycin at 100 uM' , 'Acetylcholinesterase (AChE) enzym
-            # e was inhibited after oral administration of 10 mg/kg of compound in rat brain ex vivo assay; NI means no 
-            # inhibition' , 'Percent activity of rat brain acetylcholinesterase on 5 hours incubation with 5 uM of compo
-            # und at 25 degree C followed by reactivation with 0.5 mM 2-PAM after 20h'
+            # 'The compound was tested for minimum inhibitory concentration in Staphylococcus aureus,147N penicillin sen
+            # sitive Staphylococcus aureus' , 'Inhibitory activity against human reticulocyte 15-lipoxygenase (15-HLO); 
+            # NI is no inhibition' , 'Inhibitory activity against 15-lipoxygenase in rat polymorphonuclear leukocytes' ,
+            #  'Compound at 100 uM was tested in vitro for inhibition of 15-lipoxygenase soybean' , 'Inhibition of cytoc
+            # hrome P450 progesterone 16-alpha hydroxylase' , 'Dissociation constant towards 16S rRNA construct B' , 'Bi
+            # nding affinity of aminoglycoside to 16S ribosomal RNA A-site in Escherichia coli' , 'The compound was test
+            # ed at a concentration of 1 uM for inhibitory activity against 17 beta-hydroxysteroid dehydrogenase from hu
+            # man placental microsomes' , 'Inhibition of 17-alpha-hydroxylase/17,20 lyase from rat testes microsomal pre
+            # paration' , 'Percent inhibition of 17-alpha-hydroxylase/17,20 lyase of rat testes microsomes at 100 uM'
             'document_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1125695' , 'CHEMBL1125695' , 'CHEMBL1125695' , 'CHEMBL1125695' , 'CHEMBL1125695' , 'CHEMBL1125695' 
-            # , 'CHEMBL1125695' , 'CHEMBL1125695' , 'CHEMBL1126449' , 'CHEMBL1122429'
+            # 'CHEMBL1133101' , 'CHEMBL1126299' , 'CHEMBL1135472' , 'CHEMBL1125679' , 'CHEMBL1129426' , 'CHEMBL1125500' 
+            # , 'CHEMBL1133237' , 'CHEMBL1133989' , 'CHEMBL1128186' , 'CHEMBL1124902'
             'relationship_description': 'TEXT',
             # EXAMPLES:
-            # 'Default value - Target has yet to be curated' , 'Default value - Target has yet to be curated' , 'Default
-            #  value - Target has yet to be curated' , 'Default value - Target has yet to be curated' , 'Default value -
-            #  Target has yet to be curated' , 'Default value - Target has yet to be curated' , 'Default value - Target 
-            # has yet to be curated' , 'Default value - Target has yet to be curated' , 'Homologous protein target assig
-            # ned' , 'Homologous protein target assigned'
+            # 'Default value - Target has yet to be curated' , 'Non-molecular target assigned' , 'Homologous protein tar
+            # get assigned' , 'Homologous protein target assigned' , 'Homologous protein target assigned' , 'Default val
+            # ue - Target has yet to be curated' , 'Molecular target other than protein assigned' , 'Molecular target ot
+            # her than protein assigned' , 'Homologous protein target assigned' , 'Direct protein target assigned'
             'relationship_type': 'TEXT',
             # EXAMPLES:
-            # 'U' , 'U' , 'U' , 'U' , 'U' , 'U' , 'U' , 'U' , 'H' , 'H'
+            # 'U' , 'N' , 'H' , 'H' , 'H' , 'U' , 'M' , 'M' , 'H' , 'D'
             'src_assay_id': 'NUMERIC',
             # EXAMPLES:
-            # '566219' , '566216' , '567033' , '566896' , '566888' , '566887' , '566886' , '566878' , '566876' , '566874
-            # '
+            # '1771' , '987' , '961' , '2511' , '715' , '2487' , '928' , '1396' , '1454' , '463214'
             'src_id': 'NUMERIC',
             # EXAMPLES:
             # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1'
             'target_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL612558' , 'CHEMBL612558' , 'CHEMBL612558' , 'CHEMBL612558' , 'CHEMBL612558' , 'CHEMBL612558' , 'CHE
-            # MBL612558' , 'CHEMBL612558' , 'CHEMBL3199' , 'CHEMBL3199'
+            # 'CHEMBL2362975' , 'CHEMBL352' , 'CHEMBL2903' , 'CHEMBL3289' , 'CHEMBL2903' , 'CHEMBL612558' , 'CHEMBL345' 
+            # , 'CHEMBL614640' , 'CHEMBL3925' , 'CHEMBL4430'
             'tissue_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL3638188' , 'CHEMBL3638188' , 'CHEMBL3638188' , 'CHEMBL3638244' , 'CHEMBL3638188' , 'CHEMBL3638188' 
-            # , 'CHEMBL3638188' , 'CHEMBL3638237' , 'CHEMBL3638235' , 'CHEMBL3559723'
+            # 'CHEMBL3638183' , 'CHEMBL3559721' , 'CHEMBL3638244' , 'CHEMBL3638220' , 'CHEMBL3638273' , 'CHEMBL3638244' 
+            # , 'CHEMBL3638244' , 'CHEMBL3638187' , 'CHEMBL3559723' , 'CHEMBL3559723'
             'variant_sequence': 
             {
                 'properties': 
                 {
                     'accession': 'TEXT',
                     # EXAMPLES:
-                    # 'P12931' , 'Q72874' , 'Q72874' , 'P41597' , 'P0DMS8' , 'P29274' , 'P29274' , 'P29274' , 'P41597' ,
+                    # 'P29274' , 'P29274' , 'P0DMS8' , 'P41597' , 'P41597' , 'Q72874' , 'P29274' , 'P12931' , 'Q72874' ,
                     #  'P16455'
                     'isoform': 'NUMERIC',
                     # EXAMPLES:
                     # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1'
                     'mutation': 'TEXT',
                     # EXAMPLES:
-                    # 'C188A' , 'G48V' , 'V82F' , 'D284A' , 'H95A' , 'H278D' , 'H278E' , 'T88E' , 'H121A' , 'G160R'
+                    # 'H278D' , 'H278E' , 'H95A' , 'D284A' , 'H121A' , 'G48V' , 'T88E' , 'C188A' , 'V82F' , 'G160R'
                     'organism': 'TEXT',
                     # EXAMPLES:
-                    # 'Homo sapiens' , 'Human immunodeficiency virus 1' , 'Human immunodeficiency virus 1' , 'Homo sapie
-                    # ns' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo s
+                    # 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Human immuno
+                    # deficiency virus 1' , 'Homo sapiens' , 'Homo sapiens' , 'Human immunodeficiency virus 1' , 'Homo s
                     # apiens'
                     'sequence': 'TEXT',
                     # EXAMPLES:
-                    # 'MGSNKSKPKDASQRRRSLEPAENVHGAGGGAFPASQTPSKPASADGHRGPSAAFAPAAAEPKLFGGFNSSDTVTSPQRAGPLAGGVTTFVALYDYES
-                    # RTETDLSFKKGERLQIVNNTEGDWWLAHSLSTGQTGYIPSNYVAPSDSIQAEEWYFGKITRRESERLLLNAENPRGTFLVRESETTKGAYALSVSDFD
-                    # NAKGLNVKHYKIRKLDSGGFYITSRTQFNSLQQLVAYYSKHADGLCHRLTTVCPTSKPQTQGLAKDAWEIPRESLRLEVKLGQGCFGEVWMGTWNGTT
-                    # RVAIKTLKPGTMSPEAFLQEAQVMKKLRHEKLVQLYAVVSEEPIYIVTEYMSKGSLLDFLKGETGKYLRLPQLVDMAAQIASGMAYVERMNYVHRDLR
-                    # AANILVGENLVCKVADFGLARLIEDNEYTARQGAKFPIKWTAPEAALYGRFTIKSDVWSFGILLTELTTKGRVPYPGMVNREVLDQVERGYRMPCPPE
-                    # CPESLHDLMCQCWRKEPEERPTFEYLQAFLEDYFTSTEPQYQPGENL' , 'PQVTLWQRPLVTIKIGGQLKEALLDTGADDTVLEEMSLPGRWKPKM
-                    # IVGIGGFIKVRQYDQILIEICGHKAIGTVLVGPTPVNIIGRNLLTQIGCTLNF' , 'PQVTLWQRPLVTIKIGGQLKEALLDTGADDTVLEEMSLPG
-                    # RWKPKMIGGIGGFIKVRQYDQILIEICGHKAIGTVLVGPTPFNIIGRNLLTQIGCTLNF' , 'MLSTSRSRFIRNTNESGEEVTTFFDYDYGAPCHK
-                    # FDVKQIGAQLLPPLYSLVFIFGFVGNMLVVLILINCKKLKCLTDIYLLNLAISDLLFLITLPLWAHSAANEWVFGNAMCKLFTGLYHIGYFGGIFFII
-                    # LLTIDRYLAIVHAVFALKARTVTFGVVTSVITWLVAVFASVPGIIFTKCQKEDSVYVCGPYFPRGWNNFHTIMRNILGLVLPLLIMVICYSGILKTLL
-                    # RCRNEKKRHRAVRVIFTIMIVYFLFWTPYNIVILLNTFQEFFGLSNCESTSQLAQATQVTETLGMTHCCINPIIYAFVGEKFRSLFHIALGCRIAPLQ
-                    # KPVCGGPGVRPGKNVKVTTQGLLDGRGKGKSIGRAPEASLQDKEGA' , 'MPNNSTALSLANVTYITMEIFIGLCAIVGNVLVICVVKLNPSLQTTT
+                    # 'MPIMGSSVYITVELAIAVLAILGNVLVCWAVWLNSNLQNVTNYFVVSLAAADIAVGVLAIPFAITISTGFCAACHGCLFIACFVLVLTQSSIFSLLA
+                    # IAIDRYIAIRIPLRYNGLVTGTRAKGIIAICWVLSFAIGLTPMLGWNNCGQPKEGKNHSQGCGEGQVACLFEDVVPMNYMVYFNFFACVLVPLLLMLG
+                    # VYLRIFLAARRQLKQMESQPLPGERARSTLQKEVHAAKSLAIIVGLFALCWLPLHIINCFTFFCPDCSHAPLWLMYLAIVLSDTNSVVNPFIYAYRIR
+                    # EFRQTFRKIIRSHVLRQQEPFKAAGTSARVLAAHGSDGEQVSLRLNGHPPGVWANGSAPHPERRPNGYALGLVSGGSAQESQGNTGLPDVELLSHELK
+                    # GVCPEPPGLDDPLAQDGAGVS' , 'MPIMGSSVYITVELAIAVLAILGNVLVCWAVWLNSNLQNVTNYFVVSLAAADIAVGVLAIPFAITISTGFCA
+                    # ACHGCLFIACFVLVLTQSSIFSLLAIAIDRYIAIRIPLRYNGLVTGTRAKGIIAICWVLSFAIGLTPMLGWNNCGQPKEGKNHSQGCGEGQVACLFED
+                    # VVPMNYMVYFNFFACVLVPLLLMLGVYLRIFLAARRQLKQMESQPLPGERARSTLQKEVHAAKSLAIIVGLFALCWLPLHIINCFTFFCPDCSHAPLW
+                    # LMYLAIVLSETNSVVNPFIYAYRIREFRQTFRKIIRSHVLRQQEPFKAAGTSARVLAAHGSDGEQVSLRLNGHPPGVWANGSAPHPERRPNGYALGLV
+                    # SGGSAQESQGNTGLPDVELLSHELKGVCPEPPGLDDPLAQDGAGVS' , 'MPNNSTALSLANVTYITMEIFIGLCAIVGNVLVICVVKLNPSLQTTT
                     # FYFIVSLALADIAVGVLVMPLAIVVSLGITIHFYSCLFMTCLLLIFTAASIMSLLAIAVDRYLRVKLTVRYKRVTTHRRIWLALGLCWLVSFLVGLTP
                     # MFGWNMKLTSEYHRNVTFLSCQFVSVMRMDYMVYFSFLTWIFIPLVVMCAIYLDIFYIIRNKLSLNLSNSKETGAFYGREFKTAKSLFLVLFLFALSW
-                    # LPLSIINCIIYFNGEVPQLVLYMGILLSHANSMMNPIVYAYKIKKFKETYLLILKACVVCHPSDSLDTSIEKNSE' , 'MPIMGSSVYITVELAIAV
-                    # LAILGNVLVCWAVWLNSNLQNVTNYFVVSLAAADIAVGVLAIPFAITISTGFCAACHGCLFIACFVLVLTQSSIFSLLAIAIDRYIAIRIPLRYNGLV
-                    # TGTRAKGIIAICWVLSFAIGLTPMLGWNNCGQPKEGKNHSQGCGEGQVACLFEDVVPMNYMVYFNFFACVLVPLLLMLGVYLRIFLAARRQLKQMESQ
-                    # PLPGERARSTLQKEVHAAKSLAIIVGLFALCWLPLHIINCFTFFCPDCSHAPLWLMYLAIVLSDTNSVVNPFIYAYRIREFRQTFRKIIRSHVLRQQE
-                    # PFKAAGTSARVLAAHGSDGEQVSLRLNGHPPGVWANGSAPHPERRPNGYALGLVSGGSAQESQGNTGLPDVELLSHELKGVCPEPPGLDDPLAQDGAG
-                    # VS' , 'MPIMGSSVYITVELAIAVLAILGNVLVCWAVWLNSNLQNVTNYFVVSLAAADIAVGVLAIPFAITISTGFCAACHGCLFIACFVLVLTQSS
-                    # IFSLLAIAIDRYIAIRIPLRYNGLVTGTRAKGIIAICWVLSFAIGLTPMLGWNNCGQPKEGKNHSQGCGEGQVACLFEDVVPMNYMVYFNFFACVLVP
-                    # LLLMLGVYLRIFLAARRQLKQMESQPLPGERARSTLQKEVHAAKSLAIIVGLFALCWLPLHIINCFTFFCPDCSHAPLWLMYLAIVLSETNSVVNPFI
-                    # YAYRIREFRQTFRKIIRSHVLRQQEPFKAAGTSARVLAAHGSDGEQVSLRLNGHPPGVWANGSAPHPERRPNGYALGLVSGGSAQESQGNTGLPDVEL
-                    # LSHELKGVCPEPPGLDDPLAQDGAGVS' , 'MPIMGSSVYITVELAIAVLAILGNVLVCWAVWLNSNLQNVTNYFVVSLAAADIAVGVLAIPFAITI
-                    # STGFCAACHGCLFIACFVLVLEQSSIFSLLAIAIDRYIAIRIPLRYNGLVTGTRAKGIIAICWVLSFAIGLTPMLGWNNCGQPKEGKNHSQGCGEGQV
-                    # ACLFEDVVPMNYMVYFNFFACVLVPLLLMLGVYLRIFLAARRQLKQMESQPLPGERARSTLQKEVHAAKSLAIIVGLFALCWLPLHIINCFTFFCPDC
-                    # SHAPLWLMYLAIVLSHTNSVVNPFIYAYRIREFRQTFRKIIRSHVLRQQEPFKAAGTSARVLAAHGSDGEQVSLRLNGHPPGVWANGSAPHPERRPNG
-                    # YALGLVSGGSAQESQGNTGLPDVELLSHELKGVCPEPPGLDDPLAQDGAGVS' , 'MLSTSRSRFIRNTNESGEEVTTFFDYDYGAPCHKFDVKQIG
-                    # AQLLPPLYSLVFIFGFVGNMLVVLILINCKKLKCLTDIYLLNLAISDLLFLITLPLWAHSAANEWVFGNAMCKLFTGLYAIGYFGGIFFIILLTIDRY
-                    # LAIVHAVFALKARTVTFGVVTSVITWLVAVFASVPGIIFTKCQKEDSVYVCGPYFPRGWNNFHTIMRNILGLVLPLLIMVICYSGILKTLLRCRNEKK
-                    # RHRAVRVIFTIMIVYFLFWTPYNIVILLNTFQEFFGLSNCESTSQLDQATQVTETLGMTHCCINPIIYAFVGEKFRSLFHIALGCRIAPLQKPVCGGP
-                    # GVRPGKNVKVTTQGLLDGRGKGKSIGRAPEASLQDKEGA' , 'MDKDCEMKRTTLDSPLGKLELSGCEQGLHEIKLLGKGTSAADAVEVPAPAAVLG
+                    # LPLSIINCIIYFNGEVPQLVLYMGILLSHANSMMNPIVYAYKIKKFKETYLLILKACVVCHPSDSLDTSIEKNSE' , 'MLSTSRSRFIRNTNESGE
+                    # EVTTFFDYDYGAPCHKFDVKQIGAQLLPPLYSLVFIFGFVGNMLVVLILINCKKLKCLTDIYLLNLAISDLLFLITLPLWAHSAANEWVFGNAMCKLF
+                    # TGLYHIGYFGGIFFIILLTIDRYLAIVHAVFALKARTVTFGVVTSVITWLVAVFASVPGIIFTKCQKEDSVYVCGPYFPRGWNNFHTIMRNILGLVLP
+                    # LLIMVICYSGILKTLLRCRNEKKRHRAVRVIFTIMIVYFLFWTPYNIVILLNTFQEFFGLSNCESTSQLAQATQVTETLGMTHCCINPIIYAFVGEKF
+                    # RSLFHIALGCRIAPLQKPVCGGPGVRPGKNVKVTTQGLLDGRGKGKSIGRAPEASLQDKEGA' , 'MLSTSRSRFIRNTNESGEEVTTFFDYDYGAP
+                    # CHKFDVKQIGAQLLPPLYSLVFIFGFVGNMLVVLILINCKKLKCLTDIYLLNLAISDLLFLITLPLWAHSAANEWVFGNAMCKLFTGLYAIGYFGGIF
+                    # FIILLTIDRYLAIVHAVFALKARTVTFGVVTSVITWLVAVFASVPGIIFTKCQKEDSVYVCGPYFPRGWNNFHTIMRNILGLVLPLLIMVICYSGILK
+                    # TLLRCRNEKKRHRAVRVIFTIMIVYFLFWTPYNIVILLNTFQEFFGLSNCESTSQLDQATQVTETLGMTHCCINPIIYAFVGEKFRSLFHIALGCRIA
+                    # PLQKPVCGGPGVRPGKNVKVTTQGLLDGRGKGKSIGRAPEASLQDKEGA' , 'PQVTLWQRPLVTIKIGGQLKEALLDTGADDTVLEEMSLPGRWKP
+                    # KMIVGIGGFIKVRQYDQILIEICGHKAIGTVLVGPTPVNIIGRNLLTQIGCTLNF' , 'MPIMGSSVYITVELAIAVLAILGNVLVCWAVWLNSNLQ
+                    # NVTNYFVVSLAAADIAVGVLAIPFAITISTGFCAACHGCLFIACFVLVLEQSSIFSLLAIAIDRYIAIRIPLRYNGLVTGTRAKGIIAICWVLSFAIG
+                    # LTPMLGWNNCGQPKEGKNHSQGCGEGQVACLFEDVVPMNYMVYFNFFACVLVPLLLMLGVYLRIFLAARRQLKQMESQPLPGERARSTLQKEVHAAKS
+                    # LAIIVGLFALCWLPLHIINCFTFFCPDCSHAPLWLMYLAIVLSHTNSVVNPFIYAYRIREFRQTFRKIIRSHVLRQQEPFKAAGTSARVLAAHGSDGE
+                    # QVSLRLNGHPPGVWANGSAPHPERRPNGYALGLVSGGSAQESQGNTGLPDVELLSHELKGVCPEPPGLDDPLAQDGAGVS' , 'MGSNKSKPKDASQ
+                    # RRRSLEPAENVHGAGGGAFPASQTPSKPASADGHRGPSAAFAPAAAEPKLFGGFNSSDTVTSPQRAGPLAGGVTTFVALYDYESRTETDLSFKKGERL
+                    # QIVNNTEGDWWLAHSLSTGQTGYIPSNYVAPSDSIQAEEWYFGKITRRESERLLLNAENPRGTFLVRESETTKGAYALSVSDFDNAKGLNVKHYKIRK
+                    # LDSGGFYITSRTQFNSLQQLVAYYSKHADGLCHRLTTVCPTSKPQTQGLAKDAWEIPRESLRLEVKLGQGCFGEVWMGTWNGTTRVAIKTLKPGTMSP
+                    # EAFLQEAQVMKKLRHEKLVQLYAVVSEEPIYIVTEYMSKGSLLDFLKGETGKYLRLPQLVDMAAQIASGMAYVERMNYVHRDLRAANILVGENLVCKV
+                    # ADFGLARLIEDNEYTARQGAKFPIKWTAPEAALYGRFTIKSDVWSFGILLTELTTKGRVPYPGMVNREVLDQVERGYRMPCPPECPESLHDLMCQCWR
+                    # KEPEERPTFEYLQAFLEDYFTSTEPQYQPGENL' , 'PQVTLWQRPLVTIKIGGQLKEALLDTGADDTVLEEMSLPGRWKPKMIGGIGGFIKVRQYD
+                    # QILIEICGHKAIGTVLVGPTPFNIIGRNLLTQIGCTLNF' , 'MDKDCEMKRTTLDSPLGKLELSGCEQGLHEIKLLGKGTSAADAVEVPAPAAVLG
                     # GPEPLMQCTAWLNAYFHQPEAIEEFPVPALHHPVFQQESFTRQVLWKLLKVVKFGEVISYQQLAALAGNPKAARAVGGAMRGNPVPILIPCHRVVCSS
                     # GAVGNYSRGLAVKEWLLAHEGHRLGKPGLGGSSGLAGAWLKGAGATSGSPPAGRN'
                     'tax_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '9606' , '11676' , '11676' , '9606' , '9606' , '9606' , '9606' , '9606' , '9606' , '9606'
+                    # '9606' , '9606' , '9606' , '9606' , '9606' , '11676' , '9606' , '9606' , '11676' , '9606'
                     'version': 'NUMERIC',
                     # EXAMPLES:
-                    # '3' , '1' , '1' , '1' , '1' , '2' , '2' , '2' , '1' , '1'
+                    # '2' , '2' , '1' , '1' , '1' , '1' , '2' , '3' , '1' , '1'
                 }
             }
         }

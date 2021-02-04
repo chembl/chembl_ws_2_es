@@ -20,8 +20,8 @@ mappings = \
             # l Animal Data' , 'See Activity_Supp For Individual Animal Data'
             'activity_id': 'NUMERIC',
             # EXAMPLES:
-            # '17161621' , '17161624' , '17166666' , '17161627' , '17166673' , '17161631' , '17166677' , '17166679' , '1
-            # 7166680' , '17166681'
+            # '17126237' , '17126238' , '17126241' , '17126244' , '17126245' , '17126246' , '17126248' , '17126250' , '1
+            # 7126254' , '17126255'
             'activity_properties': 
             {
                 'properties': 
@@ -37,9 +37,9 @@ mappings = \
                     # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
                     'standard_text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'PLAT (Platelets)' , 'EOSLE (Eosinophils/Leukocytes)' , 'MCV (Ery. Mean Corpuscular Volume)' , 'LY
-                    # MLE (Lymphocytes/Leukocytes)' , 'EOSLE (Eosinophils/Leukocytes)' , 'RBC (Erythrocytes)' , 'PT (Pro
-                    # thrombin Time)' , 'FIBRINO (Fibrinogen)' , 'RBC (Erythrocytes)' , 'HGB (Hemoglobin)'
+                    # 'RBC (Erythrocytes)' , 'HGB (Hemoglobin)' , 'MCH (Ery. Mean Corpuscular Hemoglobin)' , 'PLAT (Plat
+                    # elets)' , 'WBC (Leukocytes)' , 'NEUTLE (Neutrophils/Leukocytes)' , 'BASOLE (Basophils/Leukocytes)'
+                    #  , 'LYMLE (Lymphocytes/Leukocytes)' , 'RBC (Erythrocytes)' , 'HGB (Hemoglobin)'
                     'standard_type': 'TEXT',
                     # EXAMPLES:
                     # 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVIT
@@ -50,12 +50,12 @@ mappings = \
                     # g.kg-1' , 'mg.kg-1'
                     'standard_value': 'NUMERIC',
                     # EXAMPLES:
-                    # '0.0' , '0.0' , '300.0' , '0.0' , '300.0' , '0.0' , '300.0' , '300.0' , '300.0' , '300.0'
+                    # '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0'
                     'text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'PLAT (Platelets)' , 'EOSLE (Eosinophils/Leukocytes)' , 'MCV (Ery. Mean Corpuscular Volume)' , 'LY
-                    # MLE (Lymphocytes/Leukocytes)' , 'EOSLE (Eosinophils/Leukocytes)' , 'RBC (Erythrocytes)' , 'PT (Pro
-                    # thrombin Time)' , 'FIBRINO (Fibrinogen)' , 'RBC (Erythrocytes)' , 'HGB (Hemoglobin)'
+                    # 'RBC (Erythrocytes)' , 'HGB (Hemoglobin)' , 'MCH (Ery. Mean Corpuscular Hemoglobin)' , 'PLAT (Plat
+                    # elets)' , 'WBC (Leukocytes)' , 'NEUTLE (Neutrophils/Leukocytes)' , 'BASOLE (Basophils/Leukocytes)'
+                    #  , 'LYMLE (Lymphocytes/Leukocytes)' , 'RBC (Erythrocytes)' , 'HGB (Hemoglobin)'
                     'type': 'TEXT',
                     # EXAMPLES:
                     # 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVIT
@@ -65,7 +65,7 @@ mappings = \
                     # 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg'
                     'value': 'NUMERIC',
                     # EXAMPLES:
-                    # '0.0' , '0.0' , '300.0' , '0.0' , '300.0' , '0.0' , '300.0' , '300.0' , '300.0' , '300.0'
+                    # '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0' , '0.0'
                 }
             },
             'assay_chembl_id': 'TEXT',
@@ -96,23 +96,9 @@ mappings = \
             # anism-based format' , 'organism-based format'
             'canonical_smiles': 'TEXT',
             # EXAMPLES:
-            # 'NC(N)=Nc1nc(CSCC/C(N)=N/S(N)(=O)=O)cs1' , 'NC(N)=Nc1nc(CSCC/C(N)=N/S(N)(=O)=O)cs1' , 'O=C(OC[C@H]1O[C@@H]
-            # (OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H](
-            # OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H]1OC(=O)c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1)c1cc(O)
-            # c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1' , 'NC(N)=Nc1nc(CSCC/C(N)=N/S(N)(=O)=O)cs1' , 'O=C(OC[C@H]1O[C@@H](OC(=O)
-            # c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H](OC(=O)c
-            # 2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H]1OC(=O)c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1)c1cc(O)c(O)c(O
-            # C(=O)c2cc(O)c(O)c(O)c2)c1' , 'NC(N)=Nc1nc(CSCC/C(N)=N/S(N)(=O)=O)cs1' , 'O=C(OC[C@H]1O[C@@H](OC(=O)c2cc(O)
-            # c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H](OC(=O)c2cc(O)c
-            # (O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H]1OC(=O)c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1)c1cc(O)c(O)c(OC(=O)c2
-            # cc(O)c(O)c(O)c2)c1' , 'O=C(OC[C@H]1O[C@@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@H](OC(=O)c2cc(
-            # O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H]1OC(=O)c1cc(
-            # O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1)c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1' , 'O=C(OC[C@H]1O[C@@H](OC(=O)c
-            # 2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H](OC(=O)c2
-            # cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H]1OC(=O)c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1)c1cc(O)c(O)c(OC
-            # (=O)c2cc(O)c(O)c(O)c2)c1' , 'O=C(OC[C@H]1O[C@@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@H](OC(=O
-            # )c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H](OC(=O)c2cc(O)c(O)c(OC(=O)c3cc(O)c(O)c(O)c3)c2)[C@@H]1OC(=O
-            # )c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1)c1cc(O)c(O)c(OC(=O)c2cc(O)c(O)c(O)c2)c1'
+            # 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(
+            # O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=O)Nc1ccc(O)cc1' , 'CC(=
+            # O)Nc1ccc(O)cc1'
             'data_validity_comment': 'TEXT',
             # EXAMPLES:
             # 'Non standard unit for type' , 'Non standard unit for type' , 'Non standard unit for type' , 'Non standard
@@ -145,30 +131,30 @@ mappings = \
             },
             'molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL902' , 'CHEMBL902' , 'CHEMBL506247' , 'CHEMBL902' , 'CHEMBL506247' , 'CHEMBL902' , 'CHEMBL506247' ,
-            #  'CHEMBL506247' , 'CHEMBL506247' , 'CHEMBL506247'
+            # 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL1
+            # 12' , 'CHEMBL112' , 'CHEMBL112'
             'molecule_pref_name': 'TEXT',
             # EXAMPLES:
-            # 'FAMOTIDINE' , 'FAMOTIDINE' , 'TANNIC ACID' , 'FAMOTIDINE' , 'TANNIC ACID' , 'FAMOTIDINE' , 'TANNIC ACID' 
-            # , 'TANNIC ACID' , 'TANNIC ACID' , 'TANNIC ACID'
+            # 'ACETAMINOPHEN' , 'ACETAMINOPHEN' , 'ACETAMINOPHEN' , 'ACETAMINOPHEN' , 'ACETAMINOPHEN' , 'ACETAMINOPHEN' 
+            # , 'ACETAMINOPHEN' , 'ACETAMINOPHEN' , 'ACETAMINOPHEN' , 'ACETAMINOPHEN'
             'parent_molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL902' , 'CHEMBL902' , 'CHEMBL506247' , 'CHEMBL902' , 'CHEMBL506247' , 'CHEMBL902' , 'CHEMBL506247' ,
-            #  'CHEMBL506247' , 'CHEMBL506247' , 'CHEMBL506247'
+            # 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL112' , 'CHEMBL1
+            # 12' , 'CHEMBL112' , 'CHEMBL112'
             'potential_duplicate': 'BOOLEAN',
             # EXAMPLES:
             # 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False'
             'qudt_units': 'TEXT',
             # EXAMPLES:
-            # 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#
-            # Percent' , 'http://qudt.org/vocab/unit#SecondTime' , 'http://www.openphacts.org/units/MicrogramPerMillilit
-            # er' , 'http://www.openphacts.org/units/MicrogramPerMilliliter' , 'http://qudt.org/vocab/unit#Percent' , 'h
-            # ttp://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Se
-            # condTime'
+            # 'http://www.openphacts.org/units/MicrogramPerMilliliter' , 'http://qudt.org/vocab/unit#Percent' , 'http://
+            # qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent' , 'http://www.openphacts.org/units/Mic
+            # rogramPerMilliliter' , 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent' , 'http
+            # ://www.openphacts.org/units/MicrogramPerMilliliter' , 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.
+            # org/vocab/unit#Percent'
             'record_id': 'NUMERIC',
             # EXAMPLES:
-            # '2834522' , '2834522' , '2834593' , '2834522' , '2834593' , '2834522' , '2834593' , '2834593' , '2834593' 
-            # , '2834593'
+            # '2834460' , '2834460' , '2834460' , '2834460' , '2834460' , '2834460' , '2834460' , '2834460' , '2834460' 
+            # , '2834460'
             'relation': 'TEXT',
             # EXAMPLES:
             # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
@@ -183,62 +169,61 @@ mappings = \
             # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
             'standard_type': 'TEXT',
             # EXAMPLES:
-            # 'PLAT' , 'EOSLE' , 'MCV' , 'LYMLE' , 'EOSLE' , 'RBC' , 'PT' , 'FIBRINO' , 'RBC' , 'HGB'
+            # 'RBC' , 'HGB' , 'MCH' , 'PLAT' , 'WBC' , 'NEUTLE' , 'BASOLE' , 'LYMLE' , 'RBC' , 'HGB'
             'standard_units': 'TEXT',
             # EXAMPLES:
-            # 'cells.uL-1' , '%' , 'fL' , '%' , '%' , 'cells.uL-1' , 's' , 'ug.mL-1' , 'cells.uL-1' , 'ug.mL-1'
+            # 'cells.uL-1' , 'ug.mL-1' , 'pg' , 'cells.uL-1' , 'cells.uL-1' , '%' , '%' , '%' , 'cells.uL-1' , 'ug.mL-1'
             'standard_value': 'NUMERIC',
             # EXAMPLES:
-            # '1196000.0' , '0.8' , '65.9' , '79.4' , '1.0' , '5808000.0' , '12.1' , '2198.0' , '5916000.0' , '130000.0'
+            # '5554000.0' , '123000.0' , '22.2' , '1230000.0' , '2340.0' , '16.0' , '0.2' , '63.2' , '5406000.0' , '1190
+            # 00.0'
             'supplementary_data': 
             {
                 'properties': 
                 {
                     'as_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '188155' , '188192' , '213311' , '188144' , '213267' , '188267' , '213254' , '213324' , '213325' ,
-                    #  '213377'
+                    # '12856' , '12840' , '12860' , '12897' , '12847' , '12865' , '12833' , '12835' , '12941' , '12976'
                     'comments': 'TEXT',
                     # EXAMPLES:
-                    # 'SAMPLE_ID: 0379022' , 'SAMPLE_ID: 0379024' , 'SAMPLE_ID: 0418115' , 'SAMPLE_ID: 0379021' , 'SAMPL
-                    # E_ID: 0418112' , 'SAMPLE_ID: 0379034' , 'SAMPLE_ID: 0418111' , 'SAMPLE_ID: 0418115' , 'SAMPLE_ID: 
-                    # 0418121' , 'SAMPLE_ID: 0418124'
+                    # 'SAMPLE_ID: 0040013' , 'SAMPLE_ID: 0040012' , 'SAMPLE_ID: 0040013' , 'SAMPLE_ID: 0040015' , 'SAMPL
+                    # E_ID: 0040012' , 'SAMPLE_ID: 0040013' , 'SAMPLE_ID: 0040011' , 'SAMPLE_ID: 0040011' , 'SAMPLE_ID: 
+                    # 0040023' , 'SAMPLE_ID: 0040025'
                     'relation': 'TEXT',
                     # EXAMPLES:
                     # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
                     'rgid': 'NUMERIC',
                     # EXAMPLES:
-                    # '14090' , '14092' , '6252' , '14089' , '6254' , '14097' , '15323' , '6252' , '6255' , '6256'
+                    # '6820' , '6819' , '6820' , '6822' , '6819' , '6820' , '6818' , '6818' , '6825' , '6827'
                     'standard_relation': 'TEXT',
                     # EXAMPLES:
                     # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
                     'standard_text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'slight' , 'minimal' , 'minimal' , 'minimal' , 'minimal' , 'minimal' , 'slight' , 'P' , 'minimal' 
-                    # , 'slight'
+                    # 'minimal' , 'slight' , 'minimal' , 'moderate' , 'P' , 'slight' , 'P' , 'minimal' , 'P' , 'minimal'
                     'standard_type': 'TEXT',
                     # EXAMPLES:
-                    # 'PLAT' , 'EOSLE' , 'MCV' , 'LYMLE' , 'EOSLE' , 'RBC' , 'PT' , 'FIBRINO' , 'RBC' , 'HGB'
+                    # 'RBC' , 'HGB' , 'MCH' , 'PLAT' , 'WBC' , 'NEUTLE' , 'BASOLE' , 'LYMLE' , 'RBC' , 'HGB'
                     'standard_units': 'TEXT',
                     # EXAMPLES:
-                    # 'cells.uL-1' , '%' , 'fL' , '%' , '%' , 'cells.uL-1' , 's' , 'ug.mL-1' , 'cells.uL-1' , 'ug.mL-1'
+                    # 'cells.uL-1' , 'ug.mL-1' , 'pg' , 'cells.uL-1' , 'cells.uL-1' , '%' , '%' , '%' , 'cells.uL-1' , '
+                    # ug.mL-1'
                     'standard_value': 'NUMERIC',
                     # EXAMPLES:
-                    # '1343000.0' , '1.0' , '65.6' , '74.0' , '1.0' , '5800000.0' , '11.9' , '2240.0' , '6250000.0' , '1
-                    # 29000.0'
+                    # '5780000.0' , '126000.0' , '21.3' , '1101000.0' , '1780.0' , '25.0' , '1.0' , '63.0' , '5400000.0'
+                    #  , '107000.0'
                     'text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'slight' , 'minimal' , 'minimal' , 'minimal' , 'minimal' , 'minimal' , 'slight' , 'P' , 'minimal' 
-                    # , 'slight'
+                    # 'minimal' , 'slight' , 'minimal' , 'moderate' , 'P' , 'slight' , 'P' , 'minimal' , 'P' , 'minimal'
                     'type': 'TEXT',
                     # EXAMPLES:
-                    # 'Plat' , 'Eos' , 'MCV' , 'Lym' , 'Eos' , 'RBC' , 'PT' , 'Fbg' , 'RBC' , 'Hb'
+                    # 'RBC' , 'Hb' , 'MCH' , 'Plat' , 'WBC' , 'Neu' , 'Bas' , 'Lym' , 'RBC' , 'Hb'
                     'units': 'TEXT',
                     # EXAMPLES:
-                    # 'x10_4/uL' , '%' , 'fL' , '%' , '%' , 'x10_4/ul' , 's' , 'mg/dL' , 'x10_4/ul' , 'g/dL'
+                    # 'x10_4/ul' , 'g/dL' , 'pg' , 'x10_4/uL' , 'x10_2/uL' , '%' , '%' , '%' , 'x10_4/ul' , 'g/dL'
                     'value': 'NUMERIC',
                     # EXAMPLES:
-                    # '134.3' , '1.0' , '65.6' , '74.0' , '1.0' , '580.0' , '11.9' , '224.0' , '625.0' , '12.9'
+                    # '578.0' , '12.6' , '21.3' , '110.1' , '17.8' , '25.0' , '1.0' , '63.0' , '540.0' , '10.7'
                 }
             },
             'target_chembl_id': 'TEXT',
@@ -260,19 +245,19 @@ mappings = \
             # '10116' , '10116' , '10116' , '10116' , '10116' , '10116' , '10116' , '10116' , '10116' , '10116'
             'toid': 'NUMERIC',
             # EXAMPLES:
-            # '6862' , '6862' , '7159' , '6862' , '7159' , '6863' , '7159' , '7159' , '7160' , '7160'
+            # '4781' , '4781' , '4781' , '4781' , '4781' , '4781' , '4781' , '4781' , '4782' , '4782'
             'type': 'TEXT',
             # EXAMPLES:
-            # 'Plat' , 'Eos' , 'MCV' , 'Lym' , 'Eos' , 'RBC' , 'PT' , 'Fbg' , 'RBC' , 'Hb'
+            # 'RBC' , 'Hb' , 'MCH' , 'Plat' , 'WBC' , 'Neu' , 'Bas' , 'Lym' , 'RBC' , 'Hb'
             'units': 'TEXT',
             # EXAMPLES:
-            # 'x10_4/uL' , '%' , 'fL' , '%' , '%' , 'x10_4/ul' , 's' , 'mg/dL' , 'x10_4/ul' , 'g/dL'
+            # 'x10_4/ul' , 'g/dL' , 'pg' , 'x10_4/uL' , 'x10_2/uL' , '%' , '%' , '%' , 'x10_4/ul' , 'g/dL'
             'uo_units': 'TEXT',
             # EXAMPLES:
-            # 'UO_0000187' , 'UO_0000187' , 'UO_0000187' , 'UO_0000010' , 'UO_0000274' , 'UO_0000274' , 'UO_0000187' , '
-            # UO_0000187' , 'UO_0000187' , 'UO_0000010'
+            # 'UO_0000274' , 'UO_0000025' , 'UO_0000187' , 'UO_0000187' , 'UO_0000187' , 'UO_0000274' , 'UO_0000187' , '
+            # UO_0000187' , 'UO_0000274' , 'UO_0000187'
             'value': 'NUMERIC',
             # EXAMPLES:
-            # '119.6' , '0.8' , '65.9' , '79.4' , '1.0' , '580.8' , '12.1' , '219.8' , '591.6' , '13.0'
+            # '555.4' , '12.3' , '22.2' , '123.0' , '23.4' , '16.0' , '0.2' , '63.2' , '540.6' , '11.9'
         }
     }
