@@ -232,7 +232,7 @@ def main():
                         dest="denormalize_compound_hierarchy",
                         help="If included will denormalize the Compound Hierarchy data.",
                         action="store_true",)
-    parser.add_argument("--generate_resources",
+    parser.add_argument("--generated_resources",
                         dest="denormalize_generated_resources",
                         help="If included will denormalize the Mechanism and Drug Indication and Warnings data.",
                         action="store_true",)
