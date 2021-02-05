@@ -112,10 +112,12 @@ class DrugWarningDenormalizationHandler(DenormalizationHandler):
             warning_refs = []
             all_molecule_chembl_ids = set()
             country_year_set = set()
+            multi_where_found = 0
             for drug_warn_i in group_drug_warns:
                 warning_refs += drug_warn_i.get('warning_refs', [])
                 if drug_warn_i['warning_country']:
                     countries = drug_warn_i['warning_country'].split(';')
+                    multi_where_found += 1
                     for country_i in countries:
                         country_i = country_i.strip()
                         if country_i:
@@ -129,6 +131,13 @@ class DrugWarningDenormalizationHandler(DenormalizationHandler):
                 elif drug_warn_i['warning_year']:
                     print(
                         'WARNING: YEAR WITHOUT COUNTRY IN DRUG WARNING {}'.format(drug_warn_i['warning_id']),
+                        file=sys.stderr
+                    )
+
+                if multi_where_found > 1:
+                    print(
+                        'INFO: DRUG WARNING PARENT WITH MULTI COUNTRY-YEAR {}'
+                        .format(drug_warn_i['parent_molecule_chembl_id']),
                         file=sys.stderr
                     )
 
