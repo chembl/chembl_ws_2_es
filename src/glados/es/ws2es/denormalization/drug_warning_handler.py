@@ -126,8 +126,7 @@ class DrugWarningDenormalizationHandler(DenormalizationHandler):
                                 .format(drug_warn_i['warning_id']),
                                 file=sys.stderr
                             )
-
-                if drug_warn_i['warning_year']:
+                elif drug_warn_i['warning_year']:
                     print(
                         'WARNING: YEAR WITHOUT COUNTRY IN DRUG WARNING {}'.format(drug_warn_i['warning_id']),
                         file=sys.stderr
