@@ -111,6 +111,14 @@ def load_all_chembl_unichem_data():
         if src_id_i == 1 or src_id_i == '1':
             continue
         req_i = requests.get(url=UNICHEM_FTP_URL.format(src_id_i), stream=True, verify=False)
+        if req_i.status_code != 200:
+            print(
+                'WARNING: SRC ID {0} FAILED WITH STATUS CODE {1} - URL:{2}'.format(
+                    src_id_i,
+                    req_i.status_code,
+                    UNICHEM_FTP_URL.format(src_id_i)
+                ), file=sys.stderr)
+            continue
         decoder = zlib.decompressobj(16 + zlib.MAX_WBITS)
         last_row_in_last_chunk = None
         for chunk in req_i.iter_content(chunk_size=1024, decode_unicode=False):
