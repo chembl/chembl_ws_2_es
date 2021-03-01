@@ -185,7 +185,7 @@ def main():
     parser.add_argument("--unichem",
                         dest="unichem",
                         help="Replicate UniChem data.",
-                        default=9200)
+                        action="store_true",)
     args = parser.parse_args()
 
     try:
