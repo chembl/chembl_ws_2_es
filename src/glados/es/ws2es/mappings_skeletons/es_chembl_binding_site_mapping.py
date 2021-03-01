@@ -17,42 +17,44 @@ mappings = \
                 {
                     'component_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '4909' , '5575' , '118' , '397' , '218' , '1835' , '2632' , '873' , '970' , '3106'
+                    # '4262' , '47' , '5624' , '47' , '47' , '18307' , '41' , '17307' , '5624' , '47'
                     'domain': 
                     {
                         'properties': 
                         {
                             'domain_id': 'NUMERIC',
                             # EXAMPLES:
-                            # '2781' , '2683' , '2922' , '2627' , '2788' , '3719' , '2627' , '2683' , '4003' , '2776'
+                            # '2640' , '3658' , '2712' , '3658' , '3658' , '2683' , '3658' , '3173' , '2712' , '3658'
                             'domain_name': 'TEXT',
                             # EXAMPLES:
-                            # 'UDPGT' , 'Pkinase' , 'IMPDH' , '7tm_1' , 'SNF' , 'PAF-AH_p_II' , '7tm_1' , 'Pkinase' , 'P
-                            # kinase_Tyr' , 'Carb_anhydrase'
+                            # 'SH2' , 'Neur_chan_LBD' , 'Hormone_recep' , 'Neur_chan_LBD' , 'Neur_chan_LBD' , 'Pkinase' 
+                            # , 'Neur_chan_LBD' , 'Na_H_Exchanger' , 'Hormone_recep' , 'Neur_chan_LBD'
                             'domain_type': 'TEXT',
                             # EXAMPLES:
                             # 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'Pfam-A' , 'P
                             # fam-A' , 'Pfam-A'
                             'source_domain_id': 'TEXT',
                             # EXAMPLES:
-                            # 'PF00201' , 'PF00069' , 'PF00478' , 'PF00001' , 'PF00209' , 'PF03403' , 'PF00001' , 'PF000
-                            # 69' , 'PF07714' , 'PF00194'
+                            # 'PF00017' , 'PF02931' , 'PF00104' , 'PF02931' , 'PF02931' , 'PF00069' , 'PF02931' , 'PF009
+                            # 99' , 'PF00104' , 'PF02931'
                         }
                     },
                     'sitecomp_id': 'NUMERIC',
                     # EXAMPLES:
-                    # '4' , '1503' , '1077' , '432' , '654' , '435' , '438' , '226' , '229' , '232'
+                    # '3085' , '29571' , '8963' , '33167' , '32581' , '21264' , '20208' , '12880' , '4345' , '33166'
                 }
             },
             'site_id': 'NUMERIC',
             # EXAMPLES:
-            # '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9' , '10' , '11'
+            # '3012' , '17416' , '3836' , '17675' , '18149' , '13430' , '12417' , '8218' , '3838' , '17676'
             'site_name': 'TEXT',
             # EXAMPLES:
-            # 'UDP-glucuronosyltransferase 1-10, UDPGT domain' , 'Mitogen-activated protein kinase 8, Pkinase domain' , 
-            # 'Inosine-5'-monophosphate dehydrogenase 1, IMPDH domain' , 'Dopamine D1 receptor, 7tm_1 domain' , 'GABA tr
-            # ansporter 1, SNF domain' , 'LDL-associated phospholipase A2, PAF-AH_p_II domain' , 'Purinergic receptor P2
-            # Y1, 7tm_1 domain' , '3-phosphoinositide dependent protein kinase-1, Pkinase domain' , 'Tyrosine-protein ki
-            # nase CSK, Pkinase_Tyr domain' , 'Carbonic anhydrase VA, Carb_anhydrase domain'
+            # 'Signal transducer and activator of transcription 5B, SH2 domain' , 'Gamma-aminobutyric acid receptor subu
+            # nit alpha-2/beta-2, Neur_chan_LBD domain' , 'COUP transcription factor 2, Hormone_recep domain' , 'GABA A 
+            # receptor alpha-2/beta-2/gamma-2, Neur_chan_LBD domain' , 'GABA A receptor alpha-4/beta-3/gamma-2, Neur_cha
+            # n_LBD domain' , 'Calcium/calmodulin-dependent protein kinase kinase 2, Pkinase domain' , 'GABA A receptor 
+            # alpha-6/beta-2/gamma-2, Neur_chan_LBD domain' , 'Sodium/hydrogen exchanger 2, Na_H_Exchanger domain' , 'CO
+            # UP transcription factor 2, Hormone_recep domain' , 'GABA-A receptor; agonist GABA site, Neur_chan_LBD doma
+            # in'
         }
     }

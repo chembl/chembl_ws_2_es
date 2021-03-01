@@ -13,21 +13,21 @@ mappings = \
         {
             'chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1024100' , 'CHEMBL1010384' , 'CHEMBL1029193' , 'CHEMBL103739' , 'CHEMBL1042014' , 'CHEMBL1005898' ,
-            #  'CHEMBL1037390' , 'CHEMBL1024102' , 'CHEMBL103336' , 'CHEMBL1033204'
+            # 'CHEMBL1024208' , 'CHEMBL1005814' , 'CHEMBL1037331' , 'CHEMBL100582' , 'CHEMBL1033293' , 'CHEMBL100584' , 
+            # 'CHEMBL1041939' , 'CHEMBL102421' , 'CHEMBL1024191' , 'CHEMBL1005840'
             'chembl_id_number': 'NUMERIC',
             # EXAMPLES:
-            # '1024100' , '1010384' , '1029193' , '103739' , '1042014' , '1005898' , '1037390' , '1024102' , '103336' , 
-            # '1033204'
+            # '1024208' , '1005814' , '1037331' , '100582' , '1033293' , '100584' , '1041939' , '102421' , '1024191' , '
+            # 1005840'
             'entity_type': 'TEXT',
             # EXAMPLES:
-            # 'ASSAY' , 'ASSAY' , 'ASSAY' , 'COMPOUND' , 'ASSAY' , 'ASSAY' , 'ASSAY' , 'ASSAY' , 'COMPOUND' , 'ASSAY'
+            # 'ASSAY' , 'ASSAY' , 'ASSAY' , 'COMPOUND' , 'ASSAY' , 'COMPOUND' , 'ASSAY' , 'COMPOUND' , 'ASSAY' , 'ASSAY'
             'resource_url': 'TEXT',
             # EXAMPLES:
-            # '/chembl/api/data/assay/CHEMBL1024100' , '/chembl/api/data/assay/CHEMBL1010384' , '/chembl/api/data/assay/
-            # CHEMBL1029193' , '/chembl/api/data/molecule/CHEMBL103739' , '/chembl/api/data/assay/CHEMBL1042014' , '/che
-            # mbl/api/data/assay/CHEMBL1005898' , '/chembl/api/data/assay/CHEMBL1037390' , '/chembl/api/data/assay/CHEMB
-            # L1024102' , '/chembl/api/data/molecule/CHEMBL103336' , '/chembl/api/data/assay/CHEMBL1033204'
+            # '/chembl/api/data/assay/CHEMBL1024208' , '/chembl/api/data/assay/CHEMBL1005814' , '/chembl/api/data/assay/
+            # CHEMBL1037331' , '/chembl/api/data/molecule/CHEMBL100582' , '/chembl/api/data/assay/CHEMBL1033293' , '/che
+            # mbl/api/data/molecule/CHEMBL100584' , '/chembl/api/data/assay/CHEMBL1041939' , '/chembl/api/data/molecule/
+            # CHEMBL102421' , '/chembl/api/data/assay/CHEMBL1024191' , '/chembl/api/data/assay/CHEMBL1005840'
             'status': 'TEXT',
             # EXAMPLES:
             # 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE' , 'ACTIVE

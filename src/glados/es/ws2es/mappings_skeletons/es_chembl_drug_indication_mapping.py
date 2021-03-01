@@ -11,82 +11,77 @@ mappings = \
     {
         'properties': 
         {
+            '_metadata': 
+            {
+                'properties': 
+                {
+                    'all_molecule_chembl_ids': 'TEXT',
+                    # EXAMPLES:
+                    # 'CHEMBL4297840' , 'CHEMBL655' , 'CHEMBL1200796' , 'CHEMBL161' , 'CHEMBL236297' , 'CHEMBL4297318' ,
+                    #  'CHEMBL538943' , 'CHEMBL1200523' , 'CHEMBL161' , 'CHEMBL1201631'
+                }
+            },
             'drugind_id': 'NUMERIC',
             # EXAMPLES:
-            # '22606' , '22607' , '22608' , '22609' , '22610' , '22612' , '22613' , '22614' , '22615' , '22617'
+            # '115692' , '69600' , '63241' , '69045' , '58251' , '125520' , '58126' , '41794' , '69046' , '49396'
             'efo_id': 'TEXT',
             # EXAMPLES:
-            # 'EFO:0000404' , 'EFO:0000685' , 'EFO:0002690' , 'EFO:0000612' , 'EFO:0001663' , 'EFO:0000400' , 'EFO:00001
-            # 95' , 'EFO:0003095' , 'EFO:0001360' , 'HP:0001945'
+            # 'EFO:0000182' , 'EFO:0003047' , 'EFO:0002617' , 'EFO:1001312' , 'EFO:0003876' , 'EFO:0004616' , 'EFO:00038
+            # 69' , 'EFO:0003830' , 'EFO:1001388' , 'EFO:0001073'
             'efo_term': 'TEXT',
             # EXAMPLES:
-            # 'diffuse scleroderma' , 'rheumatoid arthritis' , 'systemic lupus erythematosus' , 'myocardial infarction' 
-            # , 'prostate carcinoma' , 'diabetes mellitus' , 'metabolic syndrome' , 'non-alcoholic fatty liver disease' 
-            # , 'type II diabetes mellitus' , 'Fever'
+            # 'hepatocellular carcinoma' , 'hepatitis C virus infection' , 'metastatic melanoma' , 'Endometritis' , 'int
+            # ermittent vascular claudication' , 'osteoarthritis, knee' , 'breast neoplasm' , 'prostatitis' , 'Pelvic In
+            # flammatory Disease' , 'obesity'
             'indication_refs': 
             {
                 'properties': 
                 {
                     'ref_id': 'TEXT',
                     # EXAMPLES:
-                    # 'NCT00442611,NCT02161406' , 'NCT00048568,NCT00048581,NCT00048932,NCT00095147,NCT00122382,NCT001244
-                    # 49,NCT00124982,NCT00162201,NCT00162266,NCT00162279,NCT00254293,NCT00279734,NCT00279760,NCT00345748
-                    # ,NCT00409838,NCT00420199,NCT00484289,NCT00533897,NCT00547521,NCT00559585,NCT00663702,NCT00767325,N
-                    # CT00929864,NCT00989235,NCT01001832,NCT01142726,NCT01221636,NCT01299961,NCT01333878,NCT01350804,NCT
-                    # 01351480,NCT01439204,NCT01844895,NCT01890473,NCT02504268,NCT02722694,NCT02805010,NCT03086343,NCT03
-                    # 784261,NCT04120831' , 'NCT00119678,NCT00430677,NCT00774852,NCT02270957' , 'NCT00046228,NCT00299377
-                    # ,NCT00426751,NCT00638638,NCT02181985' , 'NCT00473746,NCT00474383,NCT00544440,NCT00600535,NCT009107
-                    # 54,NCT01017939,NCT01217697,NCT01400555,NCT01576172,NCT01664728,NCT01695135,NCT01715285,NCT01834209
-                    # ,NCT02160353,NCT03902951' , 'A10BF01' , 'NCT00629213' , 'NCT00677521' , 'NCT00000620,NCT00551954,N
-                    # CT01177384,NCT01245166,NCT01316861,NCT01388153,NCT01514838,NCT01554631,NCT01728740,NCT01839344,NCT
-                    # 02315495,NCT03349684,NCT04065581' , 'N02BE01'
+                    # 'NCT03412773,NCT03419897,NCT04183088' , 'NCT00996879' , 'NCT00314106,NCT00610311,NCT00612222,NCT01
+                    # 236573,NCT01319565,NCT01369875,NCT01369888,NCT01468818,NCT01495572,NCT01542255,NCT01740557,NCT0183
+                    # 3767,NCT01955460,NCT01993719,NCT01995344,NCT02062359,NCT02278887,NCT02379195,NCT02489266,NCT025005
+                    # 76,NCT02650986,NCT03475134,NCT03773744' , 'NCT02742948' , 'NCT00251849' , 'NCT00041756' , 'NCT0248
+                    # 9409' , '06091653-e568-4e82-acc7-aefbce16de17' , 'NCT01160640' , 'NCT02237053,NCT02642523'
                     'ref_type': 'TEXT',
                     # EXAMPLES:
-                    # 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'AT
-                    # C' , 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'ATC'
+                    # 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'ClinicalTrials' , 'Cl
+                    # inicalTrials' , 'ClinicalTrials' , 'DailyMed' , 'ClinicalTrials' , 'ClinicalTrials'
                     'ref_url': 'TEXT',
                     # EXAMPLES:
-                    # 'https://clinicaltrials.gov/search?id=%22NCT00442611%22OR%22NCT02161406%22' , 'https://clinicaltri
-                    # als.gov/search?id=%22NCT00048568%22OR%22NCT00048581%22OR%22NCT00048932%22OR%22NCT00095147%22OR%22N
-                    # CT00122382%22OR%22NCT00124449%22OR%22NCT00124982%22OR%22NCT00162201%22OR%22NCT00162266%22OR%22NCT0
-                    # 0162279%22OR%22NCT00254293%22OR%22NCT00279734%22OR%22NCT00279760%22OR%22NCT00345748%22OR%22NCT0040
-                    # 9838%22OR%22NCT00420199%22OR%22NCT00484289%22OR%22NCT00533897%22OR%22NCT00547521%22OR%22NCT0055958
-                    # 5%22OR%22NCT00663702%22OR%22NCT00767325%22OR%22NCT00929864%22OR%22NCT00989235%22OR%22NCT01001832%2
-                    # 2OR%22NCT01142726%22OR%22NCT01221636%22OR%22NCT01299961%22OR%22NCT01333878%22OR%22NCT01350804%22OR
-                    # %22NCT01351480%22OR%22NCT01439204%22OR%22NCT01844895%22OR%22NCT01890473%22OR%22NCT02504268%22OR%22
-                    # NCT02722694%22OR%22NCT02805010%22OR%22NCT03086343%22OR%22NCT03784261%22OR%22NCT04120831%22' , 'htt
-                    # ps://clinicaltrials.gov/search?id=%22NCT00119678%22OR%22NCT00430677%22OR%22NCT00774852%22OR%22NCT0
-                    # 2270957%22' , 'https://clinicaltrials.gov/search?id=%22NCT00046228%22OR%22NCT00299377%22OR%22NCT00
-                    # 426751%22OR%22NCT00638638%22OR%22NCT02181985%22' , 'https://clinicaltrials.gov/search?id=%22NCT004
-                    # 73746%22OR%22NCT00474383%22OR%22NCT00544440%22OR%22NCT00600535%22OR%22NCT00910754%22OR%22NCT010179
-                    # 39%22OR%22NCT01217697%22OR%22NCT01400555%22OR%22NCT01576172%22OR%22NCT01664728%22OR%22NCT01695135%
-                    # 22OR%22NCT01715285%22OR%22NCT01834209%22OR%22NCT02160353%22OR%22NCT03902951%22' , 'http://www.whoc
-                    # c.no/atc_ddd_index/?code=A10BF01' , 'https://clinicaltrials.gov/search?id=%22NCT00629213%22' , 'ht
-                    # tps://clinicaltrials.gov/search?id=%22NCT00677521%22' , 'https://clinicaltrials.gov/search?id=%22N
-                    # CT00000620%22OR%22NCT00551954%22OR%22NCT01177384%22OR%22NCT01245166%22OR%22NCT01316861%22OR%22NCT0
-                    # 1388153%22OR%22NCT01514838%22OR%22NCT01554631%22OR%22NCT01728740%22OR%22NCT01839344%22OR%22NCT0231
-                    # 5495%22OR%22NCT03349684%22OR%22NCT04065581%22' , 'http://www.whocc.no/atc_ddd_index/?code=N02BE01'
+                    # 'https://clinicaltrials.gov/search?id=%22NCT03412773%22OR%22NCT03419897%22OR%22NCT04183088%22' , '
+                    # https://clinicaltrials.gov/search?id=%22NCT00996879%22' , 'https://clinicaltrials.gov/search?id=%2
+                    # 2NCT00314106%22OR%22NCT00610311%22OR%22NCT00612222%22OR%22NCT01236573%22OR%22NCT01319565%22OR%22NC
+                    # T01369875%22OR%22NCT01369888%22OR%22NCT01468818%22OR%22NCT01495572%22OR%22NCT01542255%22OR%22NCT01
+                    # 740557%22OR%22NCT01833767%22OR%22NCT01955460%22OR%22NCT01993719%22OR%22NCT01995344%22OR%22NCT02062
+                    # 359%22OR%22NCT02278887%22OR%22NCT02379195%22OR%22NCT02489266%22OR%22NCT02500576%22OR%22NCT02650986
+                    # %22OR%22NCT03475134%22OR%22NCT03773744%22' , 'https://clinicaltrials.gov/search?id=%22NCT02742948%
+                    # 22' , 'https://clinicaltrials.gov/search?id=%22NCT00251849%22' , 'https://clinicaltrials.gov/searc
+                    # h?id=%22NCT00041756%22' , 'https://clinicaltrials.gov/search?id=%22NCT02489409%22' , 'http://daily
+                    # med.nlm.nih.gov/dailymed/drugInfo.cfm?setid=06091653-e568-4e82-acc7-aefbce16de17' , 'https://clini
+                    # caltrials.gov/search?id=%22NCT01160640%22' , 'https://clinicaltrials.gov/search?id=%22NCT02237053%
+                    # 22OR%22NCT02642523%22'
                 }
             },
             'max_phase_for_ind': 'NUMERIC',
             # EXAMPLES:
-            # '2' , '4' , '2' , '3' , '4' , '4' , '3' , '2' , '4' , '4'
+            # '3' , '1' , '3' , '2' , '3' , '2' , '3' , '4' , '2' , '1'
             'mesh_heading': 'TEXT',
             # EXAMPLES:
-            # 'Scleroderma, Diffuse' , 'Arthritis, Rheumatoid' , 'Lupus Erythematosus, Systemic' , 'Myocardial Infarctio
-            # n' , 'Prostatic Neoplasms' , 'Diabetes Mellitus' , 'Metabolic Syndrome' , 'Non-alcoholic Fatty Liver Disea
-            # se' , 'Diabetes Mellitus, Type 2' , 'Fever'
+            # 'Carcinoma, Hepatocellular' , 'Hepatitis C' , 'Melanoma' , 'Endometritis' , 'Intermittent Claudication' , 
+            # 'Osteoarthritis, Knee' , 'Breast Neoplasms' , 'Prostatitis' , 'Pelvic Inflammatory Disease' , 'Obesity'
             'mesh_id': 'TEXT',
             # EXAMPLES:
-            # 'D045743' , 'D001172' , 'D008180' , 'D009203' , 'D011471' , 'D003920' , 'D024821' , 'D065626' , 'D003924' 
-            # , 'D005334'
+            # 'D006528' , 'D006526' , 'D008545' , 'D004716' , 'D007383' , 'D020370' , 'D001943' , 'D011472' , 'D000292' 
+            # , 'D009765'
             'molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1201823' , 'CHEMBL1201823' , 'CHEMBL1201823' , 'CHEMBL1201584' , 'CHEMBL271227' , 'CHEMBL1566' , 'C
-            # HEMBL1566' , 'CHEMBL1566' , 'CHEMBL1566' , 'CHEMBL112'
+            # 'CHEMBL4297840' , 'CHEMBL655' , 'CHEMBL1200796' , 'CHEMBL161' , 'CHEMBL236297' , 'CHEMBL4297318' , 'CHEMBL
+            # 538943' , 'CHEMBL1200523' , 'CHEMBL161' , 'CHEMBL1201631'
             'parent_molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1201823' , 'CHEMBL1201823' , 'CHEMBL1201823' , 'CHEMBL1201584' , 'CHEMBL271227' , 'CHEMBL1566' , 'C
-            # HEMBL1566' , 'CHEMBL1566' , 'CHEMBL1566' , 'CHEMBL112'
+            # 'CHEMBL4297840' , 'CHEMBL655' , 'CHEMBL88' , 'CHEMBL161' , 'CHEMBL236297' , 'CHEMBL4297318' , 'CHEMBL55302
+            # 5' , 'CHEMBL1435' , 'CHEMBL161' , 'CHEMBL1201631'
         }
     }

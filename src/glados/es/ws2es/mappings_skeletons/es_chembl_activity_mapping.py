@@ -11,14 +11,288 @@ mappings = \
     {
         'properties': 
         {
+            '_metadata': 
+            {
+                'properties': 
+                {
+                    'activity_generated': 
+                    {
+                        'properties': 
+                        {
+                        }
+                    },
+                    'assay_data': 
+                    {
+                        'properties': 
+                        {
+                            'assay_cell_type': 'TEXT',
+                            # EXAMPLES:
+                            # 'LOX IMVI ' , 'MCF7' , 'MCF7' , 'K562' , 'MDA-MB-231' , 'HRCE' , 'MDA-MB-435' , 'PC-3' , '
+                            # Caco-2' , 'HRCE'
+                            'assay_organism': 'TEXT',
+                            # EXAMPLES:
+                            # 'Homo sapiens' , 'Mus musculus' , 'Homo sapiens' , 'Homo sapiens' , 'Pseudomonas aeruginos
+                            # a' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens'
+                            'assay_parameters': 
+                            {
+                                'properties': 
+                                {
+                                    'active': 'NUMERIC',
+                                    # EXAMPLES:
+                                    # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1'
+                                    'comments': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'Is the measured interaction considered due to direct binding to target?' , 'Is th
+                                    # e measured interaction considered due to direct binding to target?' , 'Is the meas
+                                    # ured interaction considered due to direct binding to target?' , 'Is the measured i
+                                    # nteraction considered due to direct binding to target?' , 'Is the measured interac
+                                    # tion considered due to direct binding to target?' , 'Is the measured interaction c
+                                    # onsidered due to direct binding to target?' , 'Is the measured interaction conside
+                                    # red due to direct binding to target?' , 'Is the measured interaction considered du
+                                    # e to direct binding to target?' , 'Is the measured interaction considered due to d
+                                    # irect binding to target?' , 'Is the measured interaction considered due to direct 
+                                    # binding to target?'
+                                    'relation': 'TEXT',
+                                    # EXAMPLES:
+                                    # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
+                                    'standard_relation': 'TEXT',
+                                    # EXAMPLES:
+                                    # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
+                                    'standard_text_value': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'Inhibition of Bacterial Growth' , 'Inhibition of Bacterial Growth' , 'Inhibition 
+                                    # of Fungal Growth' , 'Inhibition of Bacterial Growth' , 'Inhibition of Bacterial Gr
+                                    # owth' , 'Inhibition of Bacterial Growth' , 'Inhibition of Fungal Growth' , 'Inhibi
+                                    # tion of Fungal Growth' , 'Inhibition of Bacterial Growth' , 'Inhibition of Fungal 
+                                    # Growth'
+                                    'standard_type': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_
+                                    # TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST'
+                                    'standard_type_fixed': 'NUMERIC',
+                                    # EXAMPLES:
+                                    # '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0' , '0'
+                                    'standard_units': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr'
+                                    'standard_value': 'NUMERIC',
+                                    # EXAMPLES:
+                                    # '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '
+                                    # 18.0'
+                                    'text_value': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'Inhibition of Bacterial Growth' , 'Inhibition of Bacterial Growth' , 'Inhibition 
+                                    # of Fungal Growth' , 'Inhibition of Bacterial Growth' , 'Inhibition of Bacterial Gr
+                                    # owth' , 'Inhibition of Bacterial Growth' , 'Inhibition of Fungal Growth' , 'Inhibi
+                                    # tion of Fungal Growth' , 'Inhibition of Bacterial Growth' , 'Inhibition of Fungal 
+                                    # Growth'
+                                    'type': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_
+                                    # TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST' , 'ASSAY_TEST'
+                                    'units': 'TEXT',
+                                    # EXAMPLES:
+                                    # 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr' , 'hr'
+                                    'value': 'NUMERIC',
+                                    # EXAMPLES:
+                                    # '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '18.0' , '
+                                    # 18.0'
+                                }
+                            },
+                            'assay_strain': 'TEXT',
+                            # EXAMPLES:
+                            # 'Kunming' , 'ATCC 27853' , 'Kunming' , 'H37Rv' , 'ATCC 27853' , 'K1' , 'ATCC 9950' , 'ATCC
+                            #  25922' , 'ATCC 25923' , 'Kunming'
+                            'assay_subcellular_fraction': 'TEXT',
+                            # EXAMPLES:
+                            # 'Cell membrane' , 'Microsomes' , 'Microsomes' , 'Microsome' , 'Microsomes' , 'Microsome' ,
+                            #  'Microsome' , 'Mitochondria' , 'Cytosol' , 'S9'
+                            'assay_tax_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '9606' , '10090' , '9606' , '9606' , '287' , '9606' , '9606' , '9606' , '9606' , '9606'
+                            'assay_tissue': 'TEXT',
+                            # EXAMPLES:
+                            # 'Brain' , 'Liver' , 'Liver' , 'Liver' , 'Liver' , 'Plasma' , 'Brain' , 'Liver' , 'Liver' ,
+                            #  'Plasma'
+                            'assay_type': 'TEXT',
+                            # EXAMPLES:
+                            # 'B' , 'F' , 'F' , 'F' , 'F' , 'B' , 'B' , 'F' , 'P' , 'B'
+                            'cell_chembl_id': 'TEXT',
+                            # EXAMPLES:
+                            # 'CHEMBL3307535' , 'CHEMBL3308403' , 'CHEMBL3308403' , 'CHEMBL3308378' , 'CHEMBL3307960' , 
+                            # 'CHEMBL4303839' , 'CHEMBL3307686' , 'CHEMBL3307570' , 'CHEMBL3307519' , 'CHEMBL4303839'
+                            'src_desc': 'TEXT',
+                            # EXAMPLES:
+                            # 'Scientific Literature' , 'Scientific Literature' , 'Scientific Literature' , 'Scientific 
+                            # Literature' , 'Scientific Literature' , 'Scientific Literature' , 'Scientific Literature' 
+                            # , 'Scientific Literature' , 'Scientific Literature' , 'Scientific Literature'
+                            'src_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1'
+                            'tissue_chembl_id': 'TEXT',
+                            # EXAMPLES:
+                            # 'CHEMBL3638188' , 'CHEMBL3559723' , 'CHEMBL3559723' , 'CHEMBL3559723' , 'CHEMBL3559723' , 
+                            # 'CHEMBL3559721' , 'CHEMBL3638188' , 'CHEMBL3559723' , 'CHEMBL3559723' , 'CHEMBL3559721'
+                            'type_label': 'TEXT',
+                            # EXAMPLES:
+                            # 'B - Binding' , 'F - Functional' , 'F - Functional' , 'F - Functional' , 'F - Functional' 
+                            # , 'B - Binding' , 'B - Binding' , 'F - Functional' , 'P - Physicochemical' , 'B - Binding'
+                        }
+                    },
+                    'document_data': 
+                    {
+                        'properties': 
+                        {
+                            'first_page': 'NUMERIC',
+                            # EXAMPLES:
+                            # '1205' , '111650' , '230' , '230' , '376' , '744' , '6876' , '230' , '1159' , '285'
+                            'pubmed_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '31413806' , '31539780' , '30006168' , '30006168' , '31260891' , '31284084' , '31282155' ,
+                            #  '30006168' , '31413800' , '30553624'
+                            'volume': 'NUMERIC',
+                            # EXAMPLES:
+                            # '10' , '183' , '156' , '156' , '179' , '179' , '62' , '156' , '10' , '27'
+                            'year': 'NUMERIC',
+                            # EXAMPLES:
+                            # '2019' , '2019' , '2018' , '2018' , '2019' , '2019' , '2019' , '2018' , '2019' , '2019'
+                        }
+                    },
+                    'organism_taxonomy': 
+                    {
+                        'properties': 
+                        {
+                            'l1': 'TEXT',
+                            # EXAMPLES:
+                            # 'Eukaryotes' , 'Eukaryotes' , 'Eukaryotes' , 'Bacteria' , 'Eukaryotes' , 'Eukaryotes' , 'E
+                            # ukaryotes' , 'Eukaryotes' , 'Eukaryotes' , 'Viruses'
+                            'l2': 'TEXT',
+                            # EXAMPLES:
+                            # 'Mammalia' , 'Mammalia' , 'Mammalia' , 'Gram-Negative' , 'Mammalia' , 'Mammalia' , 'Mammal
+                            # ia' , 'Mammalia' , 'Mammalia' , 'ssRNA'
+                            'l3': 'TEXT',
+                            # EXAMPLES:
+                            # 'Rodentia' , 'Primates' , 'Primates' , 'Pseudomonas' , 'Primates' , 'Primates' , 'Primates
+                            # ' , 'Primates' , 'Primates' , 'ssRNA negative-strand viruses'
+                            'oc_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '35' , '7' , '7' , '396' , '7' , '7' , '7' , '7' , '7' , '765'
+                            'tax_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '10090' , '9606' , '9606' , '287' , '9606' , '9606' , '9606' , '9606' , '9606' , '211044'
+                        }
+                    },
+                    'parent_molecule_data': 
+                    {
+                        'properties': 
+                        {
+                            'alogp': 'NUMERIC',
+                            # EXAMPLES:
+                            # '3.58' , '8.21' , '8.28' , '6.25' , '4.84' , '3.29' , '8.25' , '1.57' , '5.56' , '5.10'
+                            'compound_key': 'TEXT',
+                            # EXAMPLES:
+                            # '2b' , '86' , '1b' , '1i' , '51n' , '14; C130-0049' , '2; PT2977' , '2j' , '35' , '59a'
+                            'full_mwt': 'NUMERIC',
+                            # EXAMPLES:
+                            # '379.97' , '443.50' , '564.86' , '584.39' , '626.07' , '335.35' , '383.35' , '602.92' , '3
+                            # 90.38' , '313.32'
+                            'image_file': 'TEXT',
+                            # EXAMPLES:
+                            # 'unknown.svg' , 'unknown.svg' , 'unknown.svg' , 'unknown.svg' , 'unknown.svg' , 'unknown.s
+                            # vg' , 'unknown.svg' , 'unknown.svg' , 'unknown.svg' , 'unknown.svg'
+                            'max_phase': 'NUMERIC',
+                            # EXAMPLES:
+                            # '0' , '0' , '0' , '0' , '0' , '0' , '2' , '0' , '0' , '0'
+                            'num_ro5_violations': 'NUMERIC',
+                            # EXAMPLES:
+                            # '0' , '2' , '2' , '2' , '0' , '0' , '2' , '0' , '1' , '1'
+                            'psa': 'NUMERIC',
+                            # EXAMPLES:
+                            # '84.48' , '81.07' , '92.07' , '124.91' , '37.81' , '87.39' , '80.04' , '134.87' , '78.97' 
+                            # , '78.01'
+                        }
+                    },
+                    'protein_classification': 
+                    {
+                        'properties': 
+                        {
+                            'l1': 'TEXT',
+                            # EXAMPLES:
+                            # 'Membrane receptor' , 'Enzyme' , 'Enzyme' , 'Ion channel' , 'Enzyme' , 'Enzyme' , 'Epigene
+                            # tic regulator' , 'Ion channel' , 'Enzyme' , 'Enzyme'
+                            'l2': 'TEXT',
+                            # EXAMPLES:
+                            # 'Toll-like and Il-1 receptors' , 'Kinase' , 'Cytochrome P450' , 'Voltage-gated ion channel
+                            # ' , 'Hydrolase' , 'Cytochrome P450' , 'Eraser' , 'Voltage-gated ion channel' , 'Oxidoreduc
+                            # tase' , 'Oxidoreductase'
+                            'l3': 'TEXT',
+                            # EXAMPLES:
+                            # 'Protein Kinase' , 'Cytochrome P450 family 1' , 'Potassium channels' , 'Cytochrome P450 fa
+                            # mily 1' , 'Histone deacetylase' , 'Transient receptor potential channel' , 'Small molecule
+                            #  receptor (family A GPCR)' , 'Protein Kinase' , 'Protein Kinase' , 'Small molecule recepto
+                            # r (family A GPCR)'
+                            'l4': 'TEXT',
+                            # EXAMPLES:
+                            # 'CAMK protein kinase group' , 'Cytochrome P450 family 1B' , 'Voltage-gated potassium chann
+                            # el' , 'Cytochrome P450 family 1B' , 'HDAC class III' , 'Lipid-like ligand receptor (family
+                            #  A GPCR)' , 'TK protein kinase group' , 'TK protein kinase group' , 'Lipid-like ligand rec
+                            # eptor (family A GPCR)' , 'Nuclear hormone receptor subfamily 1 group F'
+                            'l5': 'TEXT',
+                            # EXAMPLES:
+                            # 'CAMK protein kinase CAMK1 family' , 'Cytochrome P450 1B1' , 'Cytochrome P450 1B1' , 'Free
+                            #  fatty acid receptor' , 'Tyrosine protein kinase Axl family' , 'Tyrosine protein kinase PD
+                            # GFR family' , 'Free fatty acid receptor' , 'Nuclear hormone receptor subfamily 1 group F m
+                            # ember 3' , 'Tyrosine protein kinase Axl family' , 'AGC protein kinase AKT family'
+                            'l6': 'TEXT',
+                            # EXAMPLES:
+                            # 'TKL protein kinase STKR Type 1 subfamily' , 'CMGC protein kinase p38 subfamily' , 'CMGC p
+                            # rotein kinase p38 subfamily' , 'STE protein kinase MEKK2' , 'CMGC protein kinase CDC2 subf
+                            # amily' , 'AGC protein kinase PKC delta subfamily' , 'CAMK protein kinase MARK subfamily' ,
+                            #  'CMGC protein kinase p38 subfamily' , 'CMGC protein kinase p38 subfamily' , 'CMGC protein
+                            #  kinase Dyrk1 subfamily'
+                            'protein_class_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '649' , '1702' , '169' , '118' , '646' , '169' , '844' , '1018' , '10' , '10'
+                        }
+                    },
+                    'source': 
+                    {
+                        'properties': 
+                        {
+                            'src_description': 'TEXT',
+                            # EXAMPLES:
+                            # 'Scientific Literature' , 'Scientific Literature' , 'Scientific Literature' , 'Scientific 
+                            # Literature' , 'Scientific Literature' , 'Scientific Literature' , 'Scientific Literature' 
+                            # , 'Scientific Literature' , 'Scientific Literature' , 'Scientific Literature'
+                            'src_id': 'NUMERIC',
+                            # EXAMPLES:
+                            # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1'
+                            'src_short_name': 'TEXT',
+                            # EXAMPLES:
+                            # 'LITERATURE' , 'LITERATURE' , 'LITERATURE' , 'LITERATURE' , 'LITERATURE' , 'LITERATURE' , 
+                            # 'LITERATURE' , 'LITERATURE' , 'LITERATURE' , 'LITERATURE'
+                        }
+                    },
+                    'target_data': 
+                    {
+                        'properties': 
+                        {
+                            'target_type': 'TEXT',
+                            # EXAMPLES:
+                            # 'UNCHECKED' , 'ORGANISM' , 'CELL-LINE' , 'CELL-LINE' , 'ORGANISM' , 'SINGLE PROTEIN' , 'SI
+                            # NGLE PROTEIN' , 'CELL-LINE' , 'NO TARGET' , 'SINGLE PROTEIN'
+                        }
+                    }
+                }
+            },
             'activity_comment': 'TEXT',
             # EXAMPLES:
-            # 'Not Active' , 'Inactive at solubility limit' , 'Not Determined' , 'Not Active' , 'Not Determined' , 'Not 
-            # Determined' , 'Not Determined' , 'Not Determined' , 'Not Active' , 'Not Determined'
+            # 'Active' , 'Not Active' , 'Not Active' , 'Active' , 'Active' , 'Not Active' , 'Not Active' , 'Not Active' 
+            # , 'Active' , 'Not Active'
             'activity_id': 'NUMERIC',
             # EXAMPLES:
-            # '342722' , '335647' , '342724' , '335935' , '335652' , '343013' , '342732' , '338108' , '338378' , '342734
-            # '
+            # '18855735' , '18887885' , '18865140' , '18869888' , '18853789' , '18853954' , '18883561' , '18869892' , '1
+            # 8855620' , '18878595'
             'activity_properties': 
             {
                 'properties': 
@@ -34,225 +308,230 @@ mappings = \
                     # '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '=' , '='
                     'standard_text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'CHOL (Cholesterol)' , 'WEIGHT (Total Kidney Weight)' , 'TERMBW (Terminal Body Weight)' , 'CHLORID
-                    # E (Chloride)' , 'WEIGHT (Total Kidney Weight)' , 'WEIGHT (Liver Weight)' , 'WEIGHT (Right Kidney W
-                    # eight)' , 'GGT (Gamma Glutamyl Transferase)' , 'WEIGHT (Liver Weight)' , 'TERMBW (Terminal Body We
-                    # ight)'
+                    # 'HEPATOCYTE, PERIPORTAL, CYTOPLASM, EOSINOPHILIA' , 'MCHC (Ery. Mean Corpuscular HGB Concentration
+                    # )' , 'HEPATOCYTE, CENTRILOBULAR, LIPID ACCUMULATION, MACROVESICULAR' , 'CAPSULE, INFLAMMATORY CELL
+                    #  INFILTRATE, MIXED CELL' , 'HEPATOCYTE, CENTRILOBULAR, GLYCOGEN ACCUMULATION' , 'HEPATOCYTE, CENTR
+                    # ILOBULAR, CYTOPLASM, EOSINOPHILIA' , 'INTRAMYOCARDIAL ARTERIES, DEGENERATION' , 'BILE DUCT, NECROS
+                    # IS, ONCOCYTIC' , 'TUBULE, REGENERATION' , 'HEPATOCYTE, CENTRILOBULAR, LIPID ACCUMULATION, MICROVES
+                    # ICULAR'
                     'standard_type': 'TEXT',
                     # EXAMPLES:
-                    # 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVIT
-                    # Y_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST'
+                    # 'Concentration' , 'Concentration' , 'Concentration' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'P
+                    # BLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOP
+                    # E'
                     'standard_units': 'TEXT',
                     # EXAMPLES:
-                    # 'mg.kg-1' , 'mg.kg-1' , 'mg.kg-1' , 'mg.kg-1' , 'mg.kg-1' , 'mg.kg-1' , 'mg.kg-1' , 'mg.kg-1' , 'm
-                    # g.kg-1' , 'mg.kg-1'
+                    # 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM'
                     'standard_value': 'NUMERIC',
                     # EXAMPLES:
-                    # '2000.0' , '300.0' , '300.0' , '450.0' , '300.0' , '300.0' , '0.0' , '450.0' , '5.0' , '300.0'
+                    # '20.0' , '20.0' , '20.0' , '2.74' , '27.4' , '20.8' , '16.3' , '10.1' , '10.2' , '0.525'
                     'text_value': 'TEXT',
                     # EXAMPLES:
-                    # 'CHOL (Cholesterol)' , 'WEIGHT (Total Kidney Weight)' , 'TERMBW (Terminal Body Weight)' , 'CHLORID
-                    # E (Chloride)' , 'WEIGHT (Total Kidney Weight)' , 'WEIGHT (Liver Weight)' , 'WEIGHT (Right Kidney W
-                    # eight)' , 'GGT (Gamma Glutamyl Transferase)' , 'WEIGHT (Liver Weight)' , 'TERMBW (Terminal Body We
-                    # ight)'
+                    # 'HEPATOCYTE, PERIPORTAL, CYTOPLASM, EOSINOPHILIA' , 'MCHC (Ery. Mean Corpuscular HGB Concentration
+                    # )' , 'HEPATOCYTE, CENTRILOBULAR, LIPID ACCUMULATION, MACROVESICULAR' , 'CAPSULE, INFLAMMATORY CELL
+                    #  INFILTRATE, MIXED CELL' , 'HEPATOCYTE, CENTRILOBULAR, GLYCOGEN ACCUMULATION' , 'HEPATOCYTE, CENTR
+                    # ILOBULAR, CYTOPLASM, EOSINOPHILIA' , 'INTRAMYOCARDIAL ARTERIES, DEGENERATION' , 'BILE DUCT, NECROS
+                    # IS, ONCOCYTIC' , 'TUBULE, REGENERATION' , 'HEPATOCYTE, CENTRILOBULAR, LIPID ACCUMULATION, MICROVES
+                    # ICULAR'
                     'type': 'TEXT',
                     # EXAMPLES:
-                    # 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVIT
-                    # Y_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST' , 'ACTIVITY_TEST'
+                    # 'Concentration' , 'Concentration' , 'Concentration' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'P
+                    # BLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOPE' , 'PBLUC_HILL_SLOP
+                    # E'
                     'units': 'TEXT',
                     # EXAMPLES:
-                    # 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg' , 'mg/kg'
+                    # 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM' , 'uM'
                     'value': 'NUMERIC',
                     # EXAMPLES:
-                    # '2000.0' , '300.0' , '300.0' , '450.0' , '300.0' , '300.0' , '0.0' , '450.0' , '5.0' , '300.0'
+                    # '20.0' , '20.0' , '20.0' , '2.74' , '27.4' , '20.8' , '16.3' , '10.1' , '10.2' , '0.525'
                 }
             },
             'assay_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL712523' , 'CHEMBL844043' , 'CHEMBL760277' , 'CHEMBL783082' , 'CHEMBL657879' , 'CHEMBL851341' , 'CHE
-            # MBL662561' , 'CHEMBL842068' , 'CHEMBL630163' , 'CHEMBL768069'
+            # 'CHEMBL4307488' , 'CHEMBL4313659' , 'CHEMBL4309541' , 'CHEMBL4309775' , 'CHEMBL4306954' , 'CHEMBL4306978' 
+            # , 'CHEMBL4312661' , 'CHEMBL4309775' , 'CHEMBL4307472' , 'CHEMBL4311585'
             'assay_description': 'TEXT',
             # EXAMPLES:
-            # 'In vitro inhibition of Leishmania donovani parasite' , 'Relative inhibition of PDE11 and PDE5' , 'In vitr
-            # o antiplasmodial activity against chloroquine-sensitive Plasmodium falciparum Haiti 135' , 'Percentage of 
-            # animals failing to escape shock was measured, affording a rough index for nonspecific sedation at 15 mg/kg
-            # (ip)' , 'Compound was tested for inherent antifungal geometric minimum inhibitory concentration (GMMIC) ag
-            # ainst Candida albicans and Candida tropicalis in serial dilution from 64 to 0.0313 ug/mL' , 'Ratio of IC50
-            #  against human plasma renin to that of purified recombinant human renin' , 'Compound was evaluated for fun
-            # ctional activity on Cholecystokinin type B receptor (CCK-B) receptor carried out on guinea pig stomach cel
-            # ls.' , 'Inhibitory activity against p56 Lck tyrosine kinase' , 'Tested for biodistribution of radioactivit
-            # y after 3h of intravenous injection in mice kidneys' , 'In vitro inhibition of ADP-induced platelet aggreg
-            # ation in human platelet rich plasma (hPRP)'
+            # 'Selectivity ratio of Ki for human carbonic anhydrase 2 to Ki for human carbonic anhydrase 12' , 'Anticonv
+            # ulsant activity in Kunming mouse assessed as MES-induced hind limb extension at 100 mg/kg, ip administered
+            #  0. 5 to 2 hrs before MES stimulation' , 'Growth inhibition of human LOXIMVI cells incubated for 48 hrs by
+            #  sulforhodamine B assay' , 'Growth inhibition of human MCF7 cells assessed as cell growth at 1 uM incubate
+            # d for 48 hrs by sulforhodamine B assay relative to control' , 'Antibacterial activity against Pseudomonas 
+            # aeruginosa ATCC 27853 after 24 hrs' , 'Activity at human CAMK4 at 10 uM' , 'Growth inhibition of human MCF
+            # 7 cells assessed as cell growth at 1 uM incubated for 48 hrs by sulforhodamine B assay relative to control
+            # ' , 'Dissociation constant, pKa of compound' , 'Inhibition of human recombinant CYP1B1 using 7-ethoxyresor
+            # ufin as substrate after 30 mins in presence of NADPH by EROD assay' , 'Effect on acetylated-p53 expression
+            #  in human MGHU1 cells after 3 to 24 hrs by Western blot analysis'
             'assay_type': 'TEXT',
             # EXAMPLES:
-            # 'F' , 'B' , 'F' , 'F' , 'F' , 'B' , 'B' , 'B' , 'A' , 'F'
+            # 'B' , 'F' , 'F' , 'F' , 'F' , 'B' , 'B' , 'F' , 'P' , 'B'
             'assay_variant_accession': 'TEXT',
             # EXAMPLES:
-            # 'Q9WKE8' , 'P25103' , 'P25103' , 'Q9WKE8' , 'Q9WKE8' , 'P29274' , 'Q9WKE8' , 'Q9WKE8' , 'Q9WJQ2' , 'Q9WKE8
+            # 'O75874' , 'Q9WKE8' , 'P01116' , 'O75874' , 'P47205' , 'P0A725' , 'Q9WKE8' , 'Q5S007' , 'P36888' , 'P0A725
             # '
             'assay_variant_mutation': 'TEXT',
             # EXAMPLES:
-            # 'K103N' , 'Q165A' , 'Q165A' , 'K103N' , 'K103N' , 'V84L' , 'K103N' , 'K103N' , 'E233V' , 'K103N'
+            # 'R132C' , 'UNDEFINED MUTATION' , 'UNDEFINED MUTATION' , 'UNDEFINED MUTATION' , 'K103N,Y181C' , 'G12D' , 'R
+            # 132C' , 'C40S' , 'C125S' , 'V106M'
             'bao_endpoint': 'TEXT',
             # EXAMPLES:
-            # 'BAO_0000190' , 'BAO_0000179' , 'BAO_0000190' , 'BAO_0000179' , 'BAO_0000179' , 'BAO_0000179' , 'BAO_00001
-            # 90' , 'BAO_0000190' , 'BAO_0000179' , 'BAO_0000190'
+            # 'BAO_0000179' , 'BAO_0000375' , 'BAO_0002145' , 'BAO_0001103' , 'BAO_0002146' , 'BAO_0000201' , 'BAO_00003
+            # 75' , 'BAO_0001103' , 'BAO_0002131' , 'BAO_0000190'
             'bao_format': 'TEXT',
             # EXAMPLES:
-            # 'BAO_0000218' , 'BAO_0000019' , 'BAO_0000218' , 'BAO_0000218' , 'BAO_0000218' , 'BAO_0000357' , 'BAO_00000
-            # 19' , 'BAO_0000357' , 'BAO_0000218' , 'BAO_0000366'
+            # 'BAO_0000019' , 'BAO_0000218' , 'BAO_0000219' , 'BAO_0000219' , 'BAO_0000218' , 'BAO_0000219' , 'BAO_00003
+            # 57' , 'BAO_0000219' , 'BAO_0000100' , 'BAO_0000357'
             'bao_label': 'TEXT',
             # EXAMPLES:
-            # 'organism-based format' , 'assay format' , 'organism-based format' , 'organism-based format' , 'organism-b
-            # ased format' , 'single protein format' , 'assay format' , 'single protein format' , 'organism-based format
-            # ' , 'cell-free format'
+            # 'assay format' , 'organism-based format' , 'cell-based format' , 'cell-based format' , 'organism-based for
+            # mat' , 'cell-based format' , 'single protein format' , 'cell-based format' , 'small-molecule physicochemic
+            # al format' , 'single protein format'
             'canonical_smiles': 'TEXT',
             # EXAMPLES:
-            # 'NS(=O)(=O)c1cc(C(F)(F)F)ccc1Cl' , 'NC(=O)CCN1CC[C@@H](N2CC(=O)N3[C@H](Cc4c([nH]c5ccccc45)[C@H]3c3ccc4c(c3
-            # )OCO4)C2=O)C1' , 'CCN(CC)CCNc1ccnc2cc(I)ccc12' , 'COc1ccccc1N1CCN(Cc2ccc(CN3CCCCC3=O)o2)CC1.O=C(O)CCC(=O)O
-            # ' , 'CCC(CC)n1ncn(-c2ccc(N3CCN(c4ccc(OC[C@H]5CC[C@](Cn6cncn6)(c6ccc(F)cc6F)O5)cc4)CC3)cc2)c1=O' , 'c1ccc(C
-            # OCCCOc2ncc([C@H]3CCNC[C@@H]3OCc3ccc4ccccc4c3)cn2)cc1' , 'CC(C)Oc1cccc(-n2c(NNC(=O)Nc3ccc(Br)cc3)nc3ccccc3c
-            # 2=O)c1' , 'N=c1oc2c(O)c(O)ccc2cc1C(=O)Nc1ccccc1' , 'N[C@@H](CSC1CC(=O)N(CCOC(=O)CNC(=O)c2cccc(I)c2)C1=O)C(
-            # =O)O' , 'N=C(N)c1ccc(C2=NOC(CC(=O)NC(CC(=O)O)CC(=O)O)C2)cc1.O=C(O)C(F)(F)F'
+            # 'O=C(CCC(=O)Nc1ccc2c(c1)B(O)OC2)Nc1ccc2c(c1)B(O)OC2' , 'COc1cc(OC)c(OC)cc1/C=C/CNC(=O)/C=C/c1cc(OC)c(OC)c(
+            # OC)c1' , 'COc1cc(Cl)cc(-c2nn(-c3cccc(NC(=O)Nc4ccc(Cl)c(Cl)c4)c3)cc2-c2ccncc2)c1' , 'O=C(Nc1cccc(-n2cc(-c3c
+            # cncc3)c(-c3cc(O)cc(Cl)c3)n2)c1)Nc1ccc(Cl)c(C(F)(F)F)c1' , 'COc1cc(/C=C(\C#N)n2cc([N+](=O)[O-])nc2C)c2c(c1O
+            # Cc1cccc(Cl)c1)CN1CCc3cc4c(cc3C1C2)OCO4' , 'FC(F)(F)c1cc(-c2ccccc2)nc(NCc2cccs2)n1' , 'CS(=O)(=O)c1ccc(Oc2c
+            # c(F)cc(C#N)c2)c2c1[C@H](O)[C@H](F)[C@@H]2F' , 'O=C(Nc1cccc(-n2cc(-c3ccncc3)c(-c3cc(O)cc(Cl)c3)n2)c1)c1cc(C
+            # (F)(F)F)cc(C(F)(F)F)c1' , 'C[C@@]1(c2cc(NC(=O)c3ccc(C#N)cn3)ccc2F)Cn2cnnc2C(N)=N1' , '[N-]=[N+]=Nc1ccc(-c2
+            # cc(=O)c3ccc4ccccc4c3o2)cc1'
             'data_validity_comment': 'TEXT',
             # EXAMPLES:
             # 'Outside typical range' , 'Outside typical range' , 'Outside typical range' , 'Non standard unit for type'
-            #  , 'Non standard unit for type' , 'Outside typical range' , 'Non standard unit for type' , 'Outside typica
-            # l range' , 'Non standard unit for type' , 'Outside typical range'
+            #  , 'Non standard unit for type' , 'Non standard unit for type' , 'Non standard unit for type' , 'Outside t
+            # ypical range' , 'Non standard unit for type' , 'Non standard unit for type'
             'data_validity_description': 'TEXT',
             # EXAMPLES:
             # 'Values for this activity type are unusually large/small, so may not be accurate' , 'Values for this activ
             # ity type are unusually large/small, so may not be accurate' , 'Values for this activity type are unusually
             #  large/small, so may not be accurate' , 'Units for this activity type are unusual and may be incorrect (or
             #  the standard_type may be incorrect)' , 'Units for this activity type are unusual and may be incorrect (or
+            #  the standard_type may be incorrect)' , 'Units for this activity type are unusual and may be incorrect (or
+            #  the standard_type may be incorrect)' , 'Units for this activity type are unusual and may be incorrect (or
             #  the standard_type may be incorrect)' , 'Values for this activity type are unusually large/small, so may n
             # ot be accurate' , 'Units for this activity type are unusual and may be incorrect (or the standard_type may
-            #  be incorrect)' , 'Values for this activity type are unusually large/small, so may not be accurate' , 'Uni
-            # ts for this activity type are unusual and may be incorrect (or the standard_type may be incorrect)' , 'Val
-            # ues for this activity type are unusually large/small, so may not be accurate'
+            #  be incorrect)' , 'Units for this activity type are unusual and may be incorrect (or the standard_type may
+            #  be incorrect)'
             'document_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL1131410' , 'CHEMBL1136701' , 'CHEMBL1131415' , 'CHEMBL1128321' , 'CHEMBL1135167' , 'CHEMBL1131714' 
-            # , 'CHEMBL1131373' , 'CHEMBL1152042' , 'CHEMBL1127612' , 'CHEMBL1130078'
+            # 'CHEMBL4304795' , 'CHEMBL4311969' , 'CHEMBL4308841' , 'CHEMBL4308841' , 'CHEMBL4304773' , 'CHEMBL4304775' 
+            # , 'CHEMBL4311943' , 'CHEMBL4308841' , 'CHEMBL4304793' , 'CHEMBL4308906'
             'document_journal': 'TEXT',
             # EXAMPLES:
-            # 'J. Med. Chem.' , 'Bioorg. Med. Chem. Lett.' , 'J. Med. Chem.' , 'J. Med. Chem.' , 'Bioorg. Med. Chem. Let
-            # t.' , 'Bioorg. Med. Chem. Lett.' , 'J. Med. Chem.' , 'Bioorg. Med. Chem. Lett.' , 'J. Med. Chem.' , 'J. Me
-            # d. Chem.'
+            # 'ACS Med Chem Lett' , 'Eur J Med Chem' , 'Eur J Med Chem' , 'Eur J Med Chem' , 'Eur J Med Chem' , 'Eur J M
+            # ed Chem' , 'J Med Chem' , 'Eur J Med Chem' , 'ACS Med Chem Lett' , 'Bioorg Med Chem'
             'document_year': 'NUMERIC',
             # EXAMPLES:
-            # '1998' , '2003' , '1998' , '1995' , '2002' , '1999' , '1998' , '1995' , '1994' , '1997'
+            # '2019' , '2019' , '2018' , '2018' , '2019' , '2019' , '2019' , '2018' , '2019' , '2019'
             'ligand_efficiency': 
             {
                 'properties': 
                 {
                     'bei': 'NUMERIC',
                     # EXAMPLES:
-                    # '14.30' , '14.61' , '16.00' , '26.18' , '21.26' , '33.02' , '12.73' , '31.35' , '16.16' , '21.98'
+                    # '27.40' , '12.22' , '15.36' , '14.00' , '15.16' , '15.82' , '15.59' , '13.19' , '21.82' , '11.16'
                     'le': 'NUMERIC',
                     # EXAMPLES:
-                    # '0.30' , '0.27' , '0.30' , '0.49' , '0.39' , '0.64' , '0.24' , '0.59' , '0.30' , '0.45'
+                    # '0.49' , '0.23' , '0.30' , '0.28' , '0.28' , '0.32' , '0.30' , '0.27' , '0.43' , '0.21'
                     'lle': 'NUMERIC',
                     # EXAMPLES:
-                    # '2.19' , '2.01' , '2.56' , '4.65' , '3.68' , '5.43' , '7.17' , '7.14' , '2.85' , '3.92'
+                    # '3.03' , '0.44' , '1.62' , '2.37' , '1.04' , '1.19' , '1.56' , '2.16' , '3.77' , '-0.35'
                     'sei': 'NUMERIC',
                     # EXAMPLES:
-                    # '7.47' , '6.85' , '8.82' , '6.70' , '7.45' , '11.09' , '4.46' , '18.22' , '5.46' , '11.84'
+                    # '10.87' , '10.64' , '7.85' , '6.65' , '7.76' , '13.83' , '7.95' , '16.84' , '20.23' , '7.90'
                 }
             },
             'molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL144456' , 'CHEMBL33147' , 'CHEMBL332186' , 'CHEMBL1161070' , 'CHEMBL298899' , 'CHEMBL277738' , 'CHE
-            # MBL9422' , 'CHEMBL80091' , 'CHEMBL89596' , 'CHEMBL62827'
+            # 'CHEMBL4464046' , 'CHEMBL4591271' , 'CHEMBL4576108' , 'CHEMBL4440394' , 'CHEMBL4577375' , 'CHEMBL1401818' 
+            # , 'CHEMBL4585668' , 'CHEMBL4455749' , 'CHEMBL4473647' , 'CHEMBL4474660'
             'molecule_pref_name': 'TEXT',
             # EXAMPLES:
-            # 'RIFAMPIN' , 'ATROPINE' , '(S)-PIA' , '(S)-PIA' , 'APOMORPHINE' , 'IODOQUINOL' , 'PENCICLOVIR' , 'YM-90K' 
-            # , 'TRETINOIN' , 'MEPRYLCAINE'
+            # 'BELZUTIFAN' , 'AMOXICILLIN SODIUM' , 'AMIFAMPRIDINE' , 'ANIDULAFUNGIN' , 'BUTEIN' , 'PECTOLINARIGENIN' , 
+            # 'SINAPIC ACID METHYL ETHER' , 'N-PHENYLBENZAMIDE' , 'NOR-BETA-LAPACHONE' , 'FASIGLIFAM'
             'parent_molecule_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL144456' , 'CHEMBL33147' , 'CHEMBL332186' , 'CHEMBL1199896' , 'CHEMBL298899' , 'CHEMBL277738' , 'CHE
-            # MBL9422' , 'CHEMBL80091' , 'CHEMBL89596' , 'CHEMBL1179161'
+            # 'CHEMBL4464046' , 'CHEMBL4591271' , 'CHEMBL4576108' , 'CHEMBL4440394' , 'CHEMBL4577375' , 'CHEMBL1401818' 
+            # , 'CHEMBL4585668' , 'CHEMBL4455749' , 'CHEMBL4473647' , 'CHEMBL4474660'
             'pchembl_value': 'NUMERIC',
             # EXAMPLES:
-            # '8.22' , '7.27' , '6.68' , '7.30' , '6.92' , '7.82' , '7.21' , '5.40' , '6.00' , '4.77'
+            # '8.59' , '6.24' , '6.71' , '4.58' , '4.58' , '4.12' , '4.56' , '6.35' , '5.66' , '5.28'
             'potential_duplicate': 'BOOLEAN',
             # EXAMPLES:
             # 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False' , 'False'
             'qudt_units': 'TEXT',
             # EXAMPLES:
-            # 'http://www.openphacts.org/units/Nanomolar' , 'http://www.openphacts.org/units/Nanomolar' , 'http://qudt.o
-            # rg/vocab/unit#Percent' , 'http://www.openphacts.org/units/MicrogramPerMilliliter' , 'http://www.openphacts
-            # .org/units/Nanomolar' , 'http://www.openphacts.org/units/MicrogramPerMilliliter' , 'http://qudt.org/vocab/
-            # unit#Percent' , 'http://www.openphacts.org/units/Nanomolar' , 'http://www.openphacts.org/units/Nanomolar' 
-            # , 'http://www.openphacts.org/units/Nanomolar'
+            # 'http://www.openphacts.org/units/Nanomolar' , 'http://qudt.org/vocab/unit#Percent' , 'http://www.openphact
+            # s.org/units/Nanomolar' , 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent' , 'ht
+            # tp://www.openphacts.org/units/Nanomolar' , 'http://www.openphacts.org/units/Nanomolar' , 'http://qudt.org/
+            # vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent' , 'http://qudt.org/vocab/unit#Percent'
             'record_id': 'NUMERIC',
             # EXAMPLES:
-            # '282421' , '48924' , '283553' , '257307' , '80812' , '46500' , '5461' , '143771' , '160062' , '112765'
+            # '3147475' , '3151533' , '3148972' , '3148977' , '3147106' , '3147154' , '3150918' , '3148983' , '3147467' 
+            # , '3150277'
             'relation': 'TEXT',
             # EXAMPLES:
-            # '>' , '=' , '=' , '=' , '=' , '=' , '=' , '>' , '=' , '='
+            # '=' , '>' , '=' , '=' , '<' , '=' , '=' , '=' , '>' , '='
             'src_id': 'NUMERIC',
             # EXAMPLES:
             # '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1' , '1'
             'standard_flag': 'BOOLEAN',
             # EXAMPLES:
-            # 'True' , 'False' , 'True' , 'False' , 'False' , 'False' , 'True' , 'True' , 'False' , 'True'
+            # 'False' , 'False' , 'True' , 'False' , 'True' , 'True' , 'False' , 'False' , 'False' , 'True'
             'standard_relation': 'TEXT',
             # EXAMPLES:
-            # '>' , '=' , '=' , '=' , '=' , '=' , '=' , '>' , '=' , '='
+            # '=' , '>' , '=' , '=' , '<' , '=' , '=' , '=' , '>' , '='
             'standard_text_value': 'TEXT',
             # EXAMPLES:
-            # 'Active' , 'Active' , 'Not Active' , 'Active' , 'Linear Fit' , 'Not Determined' , 'Not Determined' , 'Acti
-            # ve' , 'Active' , 'Not Active'
+            # 'Active' , 'Not Determined' , 'Active' , 'Not Determined' , 'Linear Fit' , 'Not Active' , 'Active' , 'Acti
+            # ve' , 'Active' , 'Active'
             'standard_type': 'TEXT',
             # EXAMPLES:
-            # 'IC50' , 'Selectivity ratio' , 'IC50' , 'Esc loss' , 'GMMIC' , 'Ratio' , 'IC50' , 'IC50' , 'Dose/organ' , 
-            # 'IC50'
+            # 'Ratio Ki' , 'Activity' , 'LC50' , 'Activity' , 'MIC' , 'Inhibition' , 'Activity' , 'Activity' , 'pKa' , '
+            # IC50'
             'standard_units': 'TEXT',
             # EXAMPLES:
-            # 'nM' , 'nM' , '%' , 'ug ml-1' , 'nM' , 'ug.mL-1' , '%' , 'nM' , 'nM' , 'nM'
+            # 'nM' , '%' , 'nM' , '%' , '%' , 'nM' , 'nM' , '%' , '%' , '%'
             'standard_value': 'NUMERIC',
             # EXAMPLES:
-            # '450000.0' , '5.7' , '6.0' , '0.0' , '0.02' , '10.0' , '54.0' , '20.0' , '5.0' , '210.0'
+            # '0.85' , '100000.0' , '91.0' , '3000.0' , '50.0' , '54.0' , '6.4' , '2.6' , '50000.0' , '7.6'
             'target_chembl_id': 'TEXT',
             # EXAMPLES:
-            # 'CHEMBL367' , 'CHEMBL612545' , 'CHEMBL364' , 'CHEMBL376' , 'CHEMBL612867' , 'CHEMBL286' , 'CHEMBL298' , 'C
-            # HEMBL258' , 'CHEMBL375' , 'CHEMBL2093869'
+            # 'CHEMBL612545' , 'CHEMBL375' , 'CHEMBL614096' , 'CHEMBL387' , 'CHEMBL348' , 'CHEMBL5805' , 'CHEMBL2494' , 
+            # 'CHEMBL387' , 'CHEMBL2362975' , 'CHEMBL4878'
             'target_organism': 'TEXT',
             # EXAMPLES:
-            # 'Leishmania donovani' , 'Plasmodium falciparum' , 'Rattus norvegicus' , 'Candida' , 'Homo sapiens' , 'Homo
-            #  sapiens' , 'Homo sapiens' , 'Mus musculus' , 'Homo sapiens' , 'Homo sapiens'
+            # 'Mus musculus' , 'Homo sapiens' , 'Homo sapiens' , 'Pseudomonas aeruginosa' , 'Homo sapiens' , 'Homo sapie
+            # ns' , 'Homo sapiens' , 'Homo sapiens' , 'Homo sapiens' , 'Influenza A virus (A/Puerto Rico/8/1934(H1N1))'
             'target_pref_name': 'TEXT',
             # EXAMPLES:
-            # 'Leishmania donovani' , 'Unchecked' , 'Plasmodium falciparum' , 'Rattus norvegicus' , 'Candida' , 'Renin' 
-            # , 'Cholecystokinin B receptor' , 'Tyrosine-protein kinase LCK' , 'Mus musculus' , 'Integrin alpha-IIb/beta
-            # -3'
+            # 'Unchecked' , 'Mus musculus' , 'LOX IMVI' , 'MCF7' , 'Pseudomonas aeruginosa' , 'Toll-like receptor 8' , '
+            # CaM kinase IV' , 'MCF7' , 'No relevant target' , 'Cytochrome P450 1B1'
             'target_tax_id': 'NUMERIC',
             # EXAMPLES:
-            # '5661' , '5833' , '10116' , '5475' , '9606' , '9606' , '9606' , '10090' , '9606' , '9606'
+            # '10090' , '9606' , '9606' , '287' , '9606' , '9606' , '9606' , '9606' , '9606' , '211044'
             'text_value': 'TEXT',
             # EXAMPLES:
-            # 'Active' , 'Active' , 'Not Active' , 'Active' , 'Linear Fit' , 'Not Determined' , 'Not Determined' , 'Acti
-            # ve' , 'Active' , 'Not Active'
+            # 'Active' , 'Not Determined' , 'Active' , 'Not Determined' , 'Linear Fit' , 'Not Active' , 'Active' , 'Acti
+            # ve' , 'Active' , 'Active'
             'toid': 'NUMERIC',
             # EXAMPLES:
-            # '9459' , '6070' , '7033' , '9030' , '7033' , '6071' , '8927' , '9030' , '5384' , '7035'
+            # '11551' , '5136' , '12478' , '12478' , '12480' , '11433' , '12586' , '11887' , '12132' , '13608'
             'type': 'TEXT',
             # EXAMPLES:
-            # 'IC50' , 'Selectivity ratio' , 'IC50' , 'Esc loss' , 'GMMIC' , 'Ratio' , 'IC50' , 'IC50' , 'Dose/organ' , 
-            # 'IC50'
+            # 'Ratio Ki' , 'Activity' , 'LC50' , 'Activity' , 'MIC' , 'INH' , 'Activity' , 'Activity' , 'pKa' , 'IC50'
             'units': 'TEXT',
             # EXAMPLES:
-            # 'uM' , 'nM' , '%' , 'ug ml-1' , 'nM' , 'ug ml-1' , '%' , 'uM' , 'uM' , 'nM'
+            # '10'-4M' , '%' , 'uM' , '%' , '%' , 'nM' , 'uM' , '%' , '%' , '%'
             'uo_units': 'TEXT',
             # EXAMPLES:
-            # 'UO_0000065' , 'UO_0000065' , 'UO_0000187' , 'UO_0000274' , 'UO_0000065' , 'UO_0000274' , 'UO_0000187' , '
-            # UO_0000065' , 'UO_0000065' , 'UO_0000065'
+            # 'UO_0000065' , 'UO_0000187' , 'UO_0000065' , 'UO_0000187' , 'UO_0000187' , 'UO_0000065' , 'UO_0000065' , '
+            # UO_0000187' , 'UO_0000187' , 'UO_0000187'
             'upper_value': 'NUMERIC',
             # EXAMPLES:
-            # '13.0' , '2.0' , '40.0' , '37.4' , '64.0' , '50.7' , '55.0' , '3.0' , '10.0' , '50.0'
+            # '1021.0' , '211.0' , '18.0' , '35.0' , '1020.0' , '35.0' , '1021.0' , '85.0' , '32.0' , '32.0'
             'value': 'NUMERIC',
             # EXAMPLES:
-            # '450.0' , '5.7' , '6.0' , '0.0' , '0.02' , '10.0' , '54.0' , '20.0' , '5.0' , '0.21'
+            # '0.85' , '1.0' , '91.0' , '3.0' , '50.0' , '54.0' , '6.4' , '2.6' , '50.0' , '7.6'
         }
     }
