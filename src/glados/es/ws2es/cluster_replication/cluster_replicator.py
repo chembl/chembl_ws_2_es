@@ -83,14 +83,22 @@ class IndexReplicator(Thread):
 def replicate_clusters(
     es_util_origin: ESUtil, es_util_dest: ESUtil,
     resources_to_run=resources_description.ALL_RELEASE_RESOURCES,
-    delete_dest_idx: bool=False, skip_update_mappings: bool=False
+    delete_dest_idx: bool=False, skip_update_mappings: bool=False, unichem: bool=False
 ):
     replicators = []
-    for resource_i in resources_to_run:
-        res_it_i = IndexReplicator(resource_i.idx_name, es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx,
-                                   skip_update_mappings=skip_update_mappings)
-        res_it_i.start()
-        replicators.append(res_it_i)
+    if unichem:
+        unichem_replicator = IndexReplicator(
+            'unichem', es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx,
+            skip_update_mappings=skip_update_mappings
+        )
+        unichem_replicator.start()
+        replicators.append(unichem_replicator)
+    else:
+        for resource_i in resources_to_run:
+            res_it_i = IndexReplicator(resource_i.idx_name, es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx,
+                                       skip_update_mappings=skip_update_mappings)
+            res_it_i.start()
+            replicators.append(res_it_i)
     for res_it_i in replicators:
         res_it_i.join()
 
@@ -174,6 +182,10 @@ def main():
                         dest="es_port_destination",
                         help="Elastic Search port for destination cluster.",
                         default=9200)
+    parser.add_argument("--unichem",
+                        dest="unichem",
+                        help="Replicate UniChem data.",
+                        default=9200)
     args = parser.parse_args()
 
     try:
@@ -246,7 +258,7 @@ def main():
 
     replicate_clusters(
         es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=args.delete_indexes,
-        skip_update_mappings=args.skip_update_mappings
+        skip_update_mappings=args.skip_update_mappings, unichem=args.unichem
     )
 
     es_util_destination.bulk_submitter.finish_current_queues()
