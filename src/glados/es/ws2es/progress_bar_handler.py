@@ -51,6 +51,7 @@ def on_exit(signal, frame):
 
 
 def write_after_progress_bars():
+    global TERM
     if PROGRESS_BAR_REQUESTED:
         print(TERM.move(PROGRESS_BAR_IDX, 0) + '\n')
 
@@ -84,6 +85,7 @@ class Writer(object):
         self.location = location
 
     def write(self, string):
+        global TERM
         with TERM.location(*self.location):
             print(string)
 
