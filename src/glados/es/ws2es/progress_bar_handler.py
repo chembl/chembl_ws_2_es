@@ -74,24 +74,26 @@ def on_exit(signal, frame):
 
 def write_after_progress_bars():
     global TERM
-    if PROGRESS_BAR_REQUESTED:
-        print(TERM.move(PROGRESS_BAR_IDX, 0) + '\n')
+    if TERM is not None:
+        if PROGRESS_BAR_REQUESTED:
+            print(TERM.move(PROGRESS_BAR_IDX, 0) + '\n')
 
 
 ########################################################################################################################
 
 class FilePBWriter(object):
 
-    file_path = None
-
     def __init__(self, file_path):
         self.file_path = file_path
         self.write('--WAITING-FOR-PROGRESSBAR--')
 
     def write(self, string):
+        if string is None or string.strip() == '':
+            return
         with open(self.file_path, 'w') as file:
             file.truncate()
             file.write(string.replace('\n', '').replace('\r', ''))
+            file.flush()
 
 
 class Writer(object):
@@ -108,6 +110,7 @@ class Writer(object):
 
     def write(self, string):
         global TERM
-        with TERM.location(*self.location):
-            print(string)
+        if TERM is not None:
+            with TERM.location(*self.location):
+                print(string)
 
