@@ -63,9 +63,8 @@ def get_new_progressbar(name, max_val=1) -> ProgressBar:
         writer = Writer((0, PROGRESS_BAR_IDX))
     p_bar = ProgressBar(widgets=[name + ': ', Counter(format='%(value)d out of %(max_value)d'), ' ', Percentage(), ' ',
                                  Bar(), ' ', ETA()],
-                        fd=writer, max_value=max_val).start(max_value=max_val)
+                        fd=writer, max_value=max_val, term_width=120).start(max_value=max_val)
     PROGRESS_BAR_IDX += 1
-
     return p_bar
 
 
@@ -92,7 +91,7 @@ class FilePBWriter(object):
     def write(self, string):
         with open(self.file_path, 'w') as file:
             file.truncate()
-            file.write(string)
+            file.write(string.replace('\n', '').replace('\r', ''))
 
 
 class Writer(object):
