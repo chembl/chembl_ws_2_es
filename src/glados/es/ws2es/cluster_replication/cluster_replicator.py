@@ -9,6 +9,8 @@ import glados.es.ws2es.progress_bar_handler as pbh
 from threading import Thread
 from glados.es.ws2es.util import query_yes_no
 import traceback
+import yaml
+import glados.es.ws2es.util as util
 
 __author__ = 'jfmosquera@ebi.ac.uk'
 
@@ -125,116 +127,108 @@ def check_origin_vs_destination_counts(
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-def main():
-    t_ini = time.time()
+def parse_config():
     parser = argparse.ArgumentParser(
-        description="Replicate ChEMBL data existing in Elastic Search from origin to destination."
+        description="Replicate ChEMBL and UniChem data existing in Elastic Search from origin to destination."
     )
-    parser.add_argument("--delete_indexes",
-                        dest="delete_indexes",
-                        help="Delete indexes if they exist already in the elastic cluster.",
-                        action="store_true",)
-    parser.add_argument("--skip-update-mappings",
-                        dest="skip_update_mappings",
-                        help="Does not attempt to update the mappings in the destination cluster.",
-                        action="store_true",)
-    parser.add_argument("--monitoring",
-                        dest="monitoring",
-                        help="Replicate the monitoring indexes.",
-                        action="store_true",)
-    parser.add_argument("--resource",
-                        dest="es_resource",
-                        help="Resource to iterate, if not specified will iterate all the resources.",
-                        default=None)
-    parser.add_argument("--es-major-version-origin",
-                        dest="es_major_version_origin",
-                        help="Elastic Search class to use for origin cluster.",
-                        default=CURRENT_ES_VERSION)
-    parser.add_argument("--host-origin",
-                        dest="es_host_origin",
-                        help="Elastic Search Hostname or IP address for origin cluster.",
-                        default="localhost")
-    parser.add_argument("--user-origin",
-                        dest="es_user_origin",
-                        help="Elastic Search username for origin cluster.",
-                        default=None)
-    parser.add_argument("--password-origin",
-                        dest="es_password_origin",
-                        help="Elastic Search username password for origin cluster.",
-                        default=None)
-    parser.add_argument("--port-origin",
-                        dest="es_port_origin",
-                        help="Elastic Search port for origin cluster.",
-                        default=9200)
-    parser.add_argument("--host-destination",
-                        dest="es_host_destination",
-                        help="Elastic Search Hostname or IP address for destination cluster.",
-                        default="localhost")
-    parser.add_argument("--user-destination",
-                        dest="es_user_destination",
-                        help="Elastic Search username for destination cluster.",
-                        default=None)
-    parser.add_argument("--password-destination",
-                        dest="es_password_destination",
-                        help="Elastic Search username password for destination cluster.",
-                        default=None)
-    parser.add_argument("--port-destination",
-                        dest="es_port_destination",
-                        help="Elastic Search port for destination cluster.",
-                        default=9200)
-    parser.add_argument("--unichem",
-                        dest="unichem",
-                        help="Replicate UniChem data.",
-                        action="store_true",)
+    parser.add_argument("--config",
+                        dest="config_file",
+                        help="Configuration file for the replication process.")
     args = parser.parse_args()
 
+    if not args.config_file:
+        print(
+            'ERROR: a configuration file needs to be specified using --config',
+            file=sys.stderr
+        )
+        sys.exit(1)
     try:
-        args.es_major_version_origin = int(args.es_major_version_origin)
-        assert args.es_major_version_origin <= CURRENT_ES_VERSION
+        config_data = None
+        with open(args.config_file, 'r') as conf_file:
+            config_data = yaml.safe_load(conf_file)
+        return config_data
     except:
         traceback.print_exc()
         print(
-            'ERROR: Major version for elastic "{0}" is not valid, it must be an integer lower than {1}.'
-            .format(args.es_major_version_origin, CURRENT_ES_VERSION),
+            'ERROR: could not parse the config file at {0}'.format(args.config_file),
             file=sys.stderr
         )
         sys.exit(1)
 
-    print('ORIGIN:')
-    print(args.es_host_origin, args.es_port_origin, args.es_user_origin)
-    print('DESTINATION:')
-    print(args.es_host_destination, args.es_port_destination, args.es_user_destination)
+
+def main():
+    t_ini = time.time()
+
+    config = parse_config()
+
+    progress_bar_out = config.get('progress_bar_out', None)
+    pbh.set_progressbar_out_path(progress_bar_out)
+
+    delete_indexes = config.get('delete_indexes', False)
+    skip_update_mappings = config.get('skip_update_mappings', False)
+    unichem = config.get('unichem', False)
+    monitoring = config.get('monitoring', False)
+
+    es_host_origin = util.get_js_path_from_dict(config, 'es_clusters.origin.host')
+    es_port_origin = util.get_js_path_from_dict(config, 'es_clusters.origin.port')
+    es_user_origin = util.get_js_path_from_dict(config, 'es_clusters.origin.user')
+    es_password_origin = util.get_js_path_from_dict(config, 'es_clusters.origin.password')
+
+    es_host_destination = util.get_js_path_from_dict(config, 'es_clusters.destination.host')
+    es_port_destination = util.get_js_path_from_dict(config, 'es_clusters.destination.port')
+    es_user_destination = util.get_js_path_from_dict(config, 'es_clusters.destination.user')
+    es_password_destination = util.get_js_path_from_dict(config, 'es_clusters.destination.password')
+
+    if es_host_origin == es_host_destination and es_port_origin == es_port_destination:
+        print('ERROR: Origin and destination clusters are the same.')
+        sys.exit(1)
+
+    es_major_version_origin = util.get_js_path_from_dict(config, 'es_clusters.origin.es_client_major_version')
+    if es_major_version_origin is not None:
+        try:
+            es_major_version_origin = int(es_major_version_origin)
+            assert es_major_version_origin <= CURRENT_ES_VERSION
+        except:
+            traceback.print_exc()
+            print(
+                'ERROR: Major version for elastic "{0}" is not valid, it must be an integer lower than {1}.'
+                .format(es_major_version_origin, CURRENT_ES_VERSION),
+                file=sys.stderr
+            )
+            sys.exit(1)
 
     selected_resources = None
-    if args.es_resource:
-        selected_resources = args.es_resource.split(',')
-    resources_to_run = resources_description.ALL_MONITORING_RESOURCES if args.monitoring else \
+    resources = config.get('resource', None)
+    if resources is not None:
+        if resources is not isinstance(resources, list):
+            selected_resources = resources.split(',')
+        else:
+            selected_resources = resources
+    resources_to_run = resources_description.ALL_MONITORING_RESOURCES if monitoring else \
         resources_description.ALL_RELEASE_RESOURCES
-    if selected_resources:
-        resources_to_run = []
-        for resource_i_str in selected_resources:
-            resource_i = resources_description.RESOURCES_BY_RES_NAME.get(resource_i_str, None)
-            if resource_i is None:
-                print('Unknown resource {0}'.format(resource_i_str), file=sys.stderr)
-                sys.exit(1)
-            resources_to_run.append(resource_i)
 
-    if args.es_host_origin == args.es_host_destination and args.es_port_origin == args.es_port_destination:
-        print('ERROR: Origin and destination clusters are the same.')
-        return
+    if not unichem:
+        if selected_resources:
+            resources_to_run = []
+            for resource_i_str in selected_resources:
+                resource_i = resources_description.RESOURCES_BY_RES_NAME.get(resource_i_str, None)
+                if resource_i is None:
+                    print('Unknown resource {0}'.format(resource_i_str), file=sys.stderr)
+                    sys.exit(1)
+                resources_to_run.append(resource_i)
 
-    if args.delete_indexes:
-        if not query_yes_no("This procedure will delete and create all indexes again in the destination server.\n"
-                            "Do you want to proceed?", default="no"):
-            return
+    # if args.delete_indexes:
+    #     if not query_yes_no("This procedure will delete and create all indexes again in the destination server.\n"
+    #                         "Do you want to proceed?", default="no"):
+    #         return
 
-    es_util_origin = ESUtil(es_major_version=args.es_major_version_origin)
+    es_util_origin = ESUtil(es_major_version=es_major_version_origin)
     es_util_origin.setup_connection(
-        args.es_host_origin, args.es_port_origin, args.es_user_origin, args.es_password_origin
+        es_host_origin, es_port_origin, es_user_origin, es_password_origin
     )
     es_util_destination = ESUtil()
     es_util_destination.setup_connection(
-        args.es_host_destination, args.es_port_destination, args.es_user_destination, args.es_password_destination
+        es_host_destination, es_port_destination, es_user_destination, es_password_destination
     )
 
     ping_failed = False
@@ -248,7 +242,7 @@ def main():
         ping_failed = True
 
     if ping_failed:
-        return
+        sys.exit(1)
 
     es_util_destination.bulk_submitter.start()
 
@@ -257,8 +251,8 @@ def main():
     signal_handler.add_termination_handler(es_util_destination.bulk_submitter.stop_submitter)
 
     replicate_clusters(
-        es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=args.delete_indexes,
-        skip_update_mappings=args.skip_update_mappings, unichem=args.unichem
+        es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=delete_indexes,
+        skip_update_mappings=skip_update_mappings, unichem=unichem
     )
 
     es_util_destination.bulk_submitter.finish_current_queues()
@@ -282,4 +276,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
