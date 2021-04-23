@@ -11,6 +11,9 @@ from glados.es.ws2es.util import query_yes_no
 import traceback
 import yaml
 import glados.es.ws2es.util as util
+import os
+import os.path
+import datetime
 
 __author__ = 'jfmosquera@ebi.ac.uk'
 
@@ -22,14 +25,15 @@ __author__ = 'jfmosquera@ebi.ac.uk'
 
 class IndexReplicator(Thread):
 
-    def __init__(self, idx_name: str, es_util_origin: ESUtil, es_util_dest: ESUtil, delete_dest_idx: bool=False,
-                 skip_update_mappings: bool=False):
+    def __init__(self, idx_name: str, es_util_origin: ESUtil, es_util_dest: ESUtil, delete_dest_idx: bool = False,
+                 skip_update_mappings: bool = False, es_query=None):
         super().__init__()
         self.idx_name = idx_name
         self.es_util_origin = es_util_origin
         self.es_util_dest = es_util_dest
         self.delete_dest_idx = delete_dest_idx
         self.update_mappings = not skip_update_mappings
+        self.es_query = es_query
 
     def replicate_idx(self):
         origin_count = self.es_util_origin.get_idx_count(self.idx_name)
@@ -73,7 +77,7 @@ class IndexReplicator(Thread):
             else:
                 self.es_util_dest.index_doc_bulk(self.idx_name, scan_doc_id, scan_doc)
 
-        self.es_util_origin.scan_index(self.idx_name, index_doc_on_doc)
+        self.es_util_origin.scan_index(self.idx_name, index_doc_on_doc, query=self.es_query)
 
     def run(self):
         try:
@@ -85,13 +89,43 @@ class IndexReplicator(Thread):
 def replicate_clusters(
     es_util_origin: ESUtil, es_util_dest: ESUtil,
     resources_to_run=resources_description.ALL_RELEASE_RESOURCES,
-    delete_dest_idx: bool=False, skip_update_mappings: bool=False, unichem: bool=False
+    delete_dest_idx: bool = False, skip_update_mappings: bool = False, unichem: bool = False,
+    unichem_cron_update: bool = False
 ):
     replicators = []
     if unichem:
+        scan_query = None
+        if unichem_cron_update:
+            max_dates_result = es_util_origin.run_yaml_query(
+                os.path.join(os.path.abspath(os.path.dirname(__file__)), './unichem_max_dates_query.yaml'),
+                'unichem', return_all=True
+            )
+            max_created_date = util.get_js_path_from_dict(
+                max_dates_result, 'aggregations.MAX_CREATED_DATE.value'
+            )
+            max_updated_date = util.get_js_path_from_dict(
+                max_dates_result, 'aggregations.MAX_UPDATED_DATE.value'
+            )
+
+            max_created_date = datetime.datetime.fromtimestamp(max_created_date/1000.0)
+            max_updated_date = datetime.datetime.fromtimestamp(max_updated_date/1000.0)
+            max_date = max(max_created_date, max_updated_date)
+            update_date = max_date - timedelta(days=14)
+            print(
+                'MAX DATE: {0} --- {1}\nUPDATE FROM: {2} --- {3}'
+                .format(max_date, max_date.timestamp()*1000, update_date, update_date.timestamp()*1000)
+            )
+            scan_query = {
+                'query': {
+                    'query_string': {
+                        'query': 'sources.last_updated:>={0} OR sources.created_at:>={0}'
+                        .format(int(update_date.timestamp()*1000))
+                    }
+                }
+            }
         unichem_replicator = IndexReplicator(
             'unichem', es_util_origin, es_util_dest, delete_dest_idx=delete_dest_idx,
-            skip_update_mappings=skip_update_mappings
+            skip_update_mappings=skip_update_mappings, es_query=scan_query
         )
         unichem_replicator.start()
         replicators.append(unichem_replicator)
@@ -167,6 +201,7 @@ def main():
     delete_indexes = config.get('delete_indexes', False)
     skip_update_mappings = config.get('skip_update_mappings', False)
     unichem = config.get('unichem', False)
+    unichem_cron_update = config.get('unichem-cron-update', False)
     monitoring = config.get('monitoring', False)
 
     es_host_origin = util.get_js_path_from_dict(config, 'es_clusters.origin.host')
@@ -252,7 +287,7 @@ def main():
 
     replicate_clusters(
         es_util_origin, es_util_destination, resources_to_run=resources_to_run, delete_dest_idx=delete_indexes,
-        skip_update_mappings=skip_update_mappings, unichem=unichem
+        skip_update_mappings=skip_update_mappings, unichem=unichem, unichem_cron_update=unichem_cron_update
     )
 
     es_util_destination.bulk_submitter.finish_current_queues()

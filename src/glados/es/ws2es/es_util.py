@@ -393,6 +393,8 @@ class ESUtil(object):
             sys.exit(1)
         if query is None:
             query = {}
+        else:
+            query = copy.deepcopy(query)
         if self.es_major_version >= 7:
             query['track_total_hits'] = True
         search_res = self.es_conn.search(index=es_index, body=query)
@@ -400,9 +402,6 @@ class ESUtil(object):
         if self.es_major_version >= 7:
             total_docs = total_docs['value']
         update_every = min(math.ceil(total_docs*0.001), 1000)
-        scan_query = SummableDict()
-        if query:
-            scan_query += query
         scanner = self.es_helpers_module.scan(self.es_conn, index=es_index, scroll='10m', query=query, size=1000)
         count = 0
         p_bar = None
@@ -453,13 +452,14 @@ class ESUtil(object):
     def index_doc(self, idx_name, doc_id, dict_doc):
         self.es_conn.index(idx_name, dict_doc, doc_id)
 
-    def run_yaml_query(self, yaml_query_file, index, replacements_dict=None):
+    def run_yaml_query(self, yaml_query_file, index, replacements_dict=None, return_all=False):
         """
 
         :param yaml_query_file: WARNING: this file must use JSON format
         e.g. {a:0,b:"text"} will not work, but {"a":0,"b":"text"} will.
         :param index:
         :param replacements_dict:
+        :return_all:
         :return:
         """
         yaml_query_file = yaml_query_file
@@ -470,6 +470,9 @@ class ESUtil(object):
                     yaml_f_text = yaml_f_text.replace(key, val)
             query_body = yaml.safe_load(yaml_f_text)
             result = self.es_conn.search(index=index, body=json.dumps(query_body))
+
+            if return_all:
+                return result
 
             results = []
             for hits_idx, hit_i in enumerate(result['hits']['hits']):

@@ -1,0 +1,8 @@
+size: 0
+aggs:
+  MAX_UPDATED_DATE:
+    max:
+      field: "sources.last_updated"
+  MAX_CREATED_DATE:
+    max:
+      field: "sources.created_at"
