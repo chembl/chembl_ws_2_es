@@ -3,37 +3,72 @@ from progressbar import ProgressBar, Counter, Bar, Percentage, ETA
 import glados.es.ws2es.signal_handler as signal_handler
 import atexit
 from wrapt.decorators import synchronized
+import os.path
 
 PROGRESS_BAR_IDX = 0
 
-term = Terminal()
+TERM = None
 
 PROGRESS_BAR_REQUESTED = False
+
+PROGRESS_BAR_BASE_PATH = None
 
 
 @synchronized
 def get_new_progressbar(name, max_val=1) -> ProgressBar:
-    global PROGRESS_BAR_IDX, PROGRESS_BAR_REQUESTED
+    global PROGRESS_BAR_IDX, PROGRESS_BAR_REQUESTED, TERM, PROGRESS_BAR_BASE_PATH
     if PROGRESS_BAR_IDX == 0:
-        signal_handler.add_termination_handler(on_exit)
-        atexit.register(on_exit, *[None, None])
-    PROGRESS_BAR_REQUESTED = True
-    if PROGRESS_BAR_IDX == 0:
-        print(term.clear)
-    writer = Writer((0, PROGRESS_BAR_IDX))
-    p_bar = ProgressBar(widgets=[name + ': ', Counter(format='%(value)d out of %(max_value)d'), ' ', Percentage(), ' ', Bar(), ' ', ETA()],
+        if PROGRESS_BAR_BASE_PATH is not None and isinstance(PROGRESS_BAR_BASE_PATH, str):
+            testing_string = 'Oh yeah! Progress bar testing!'
+            test_file_path = os.path.join(PROGRESS_BAR_BASE_PATH, 'test.txt')
+            with open(test_file_path, 'w') as file:
+                file.write(testing_string)
+            with open(test_file_path, 'r') as file:
+                lines = file.readlines()
+                if lines[0] != testing_string:
+                    raise Exception('ERROR: Output path for progress bars does not write correctly')
+            os.remove(test_file_path)
+        else:
+            TERM = Terminal()
+            signal_handler.add_termination_handler(on_exit)
+            atexit.register(on_exit, *[None, None])
+            print(TERM.clear)
+        PROGRESS_BAR_REQUESTED = True
+    if PROGRESS_BAR_BASE_PATH is not None and isinstance(PROGRESS_BAR_BASE_PATH, str):
+        writer = FilePBWriter(os.path.join(PROGRESS_BAR_BASE_PATH, '{0}.pb'.format(PROGRESS_BAR_IDX)))
+    else:
+        writer = Writer((0, PROGRESS_BAR_IDX))
+    p_bar = ProgressBar(widgets=[name + ': ', Counter(format='%(value)d out of %(max_value)d'), ' ', Percentage(), ' ',
+                                 Bar(), ' ', ETA()],
                         fd=writer, max_value=max_val).start(max_value=max_val)
     PROGRESS_BAR_IDX += 1
 
     return p_bar
 
 
+def on_exit(signal, frame):
+    write_after_progress_bars()
+
+
 def write_after_progress_bars():
     if PROGRESS_BAR_REQUESTED:
-        print(term.move(PROGRESS_BAR_IDX, 0)+'\n')
+        print(TERM.move(PROGRESS_BAR_IDX, 0) + '\n')
 
 
 ########################################################################################################################
+
+class FilePBWriter(object):
+
+    file_path = None
+
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.write('--WAITING-FOR-PROGRESSBAR--')
+
+    def write(self, string):
+        with open(self.file_path, 'w') as file:
+            file.truncate()
+            file.write(string)
 
 
 class Writer(object):
@@ -49,9 +84,6 @@ class Writer(object):
         self.location = location
 
     def write(self, string):
-        with term.location(*self.location):
+        with TERM.location(*self.location):
             print(string)
 
-
-def on_exit(signal, frame):
-    write_after_progress_bars()
