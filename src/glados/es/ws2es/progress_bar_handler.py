@@ -4,6 +4,8 @@ import glados.es.ws2es.signal_handler as signal_handler
 import atexit
 from wrapt.decorators import synchronized
 import os.path
+import sys
+import traceback
 
 PROGRESS_BAR_IDX = 0
 
@@ -14,20 +16,41 @@ PROGRESS_BAR_REQUESTED = False
 PROGRESS_BAR_BASE_PATH = None
 
 
+def set_progressbar_out_path(progress_bar_out):
+    global PROGRESS_BAR_BASE_PATH
+    if progress_bar_out is not None:
+        if not os.path.exists(progress_bar_out):
+            try:
+                os.makedirs(progress_bar_out)
+            except:
+                traceback.print_exc()
+                print('ERROR: {0} is an invalid path for progress bar output.'.format(progress_bar_out), file=sys.stderr)
+                sys.exit(1)
+        if not os.path.isdir(progress_bar_out):
+            print('ERROR: {0} is not a directory.'.format(progress_bar_out), file=sys.stderr)
+            sys.exit(1)
+        PROGRESS_BAR_BASE_PATH = progress_bar_out
+
+        testing_string = 'Oh yeah! Progress bar testing!'
+        test_file_path = os.path.join(PROGRESS_BAR_BASE_PATH, 'test-progress-bar-writing.txt')
+        with open(test_file_path, 'w') as file:
+            file.write(testing_string)
+        with open(test_file_path, 'r') as file:
+            lines = file.readlines()
+            if lines[0] != testing_string:
+                raise Exception('ERROR: Output path for progress bars does not write correctly')
+        os.remove(test_file_path)
+    else:
+        print('WARNING: Attempt to set progress bar out directory with None value.', file=sys.stderr)
+
+
 @synchronized
 def get_new_progressbar(name, max_val=1) -> ProgressBar:
     global PROGRESS_BAR_IDX, PROGRESS_BAR_REQUESTED, TERM, PROGRESS_BAR_BASE_PATH
     if PROGRESS_BAR_IDX == 0:
         if PROGRESS_BAR_BASE_PATH is not None and isinstance(PROGRESS_BAR_BASE_PATH, str):
-            testing_string = 'Oh yeah! Progress bar testing!'
-            test_file_path = os.path.join(PROGRESS_BAR_BASE_PATH, 'test.txt')
-            with open(test_file_path, 'w') as file:
-                file.write(testing_string)
-            with open(test_file_path, 'r') as file:
-                lines = file.readlines()
-                if lines[0] != testing_string:
-                    raise Exception('ERROR: Output path for progress bars does not write correctly')
-            os.remove(test_file_path)
+            # validation made on the set progress bar
+            pass
         else:
             TERM = Terminal()
             signal_handler.add_termination_handler(on_exit)
