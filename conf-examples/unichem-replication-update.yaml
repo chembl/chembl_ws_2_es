@@ -1,0 +1,19 @@
+delete_indexes: false
+skip_update_mappings: false
+resources: null
+monitoring: false
+unichem: true
+unichem-cron-update: true
+progress_bar_out: ./pb-out
+es_clusters:
+  origin:
+    host: host-origin
+    port: 9200
+    user: elastic
+    password: LePassword
+    es_client_major_version: null
+  destination:
+    host: host-dest
+    port: 9200
+    user: elastic
+    password: LePassword
