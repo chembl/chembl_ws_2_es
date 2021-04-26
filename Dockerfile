@@ -33,6 +33,6 @@ ENV PATH /opt/conda/envs/chembl-webservices-py3/bin:$PATH
 
 # copy ws2es code
 COPY src src
-COPY cluster_replicator.py cluster_replicator.py
+COPY *.py ./
 
 ENTRYPOINT [ "/bin/bash" ]
